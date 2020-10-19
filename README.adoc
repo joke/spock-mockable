@@ -1,0 +1,61 @@
+= `spock-mockable`
+
+:icons: font
+
+image:https://img.shields.io/github/license/joke/spring-mockable[GitHub]
+image:https://github.com/joke/spock-mockable/workflows/build/badge.svg?branch=master[]
+image:https://img.shields.io/maven-central/v/io.github.joke/spock-mockable?label=latest%20version[link=https://search.maven.org/artifact/io.github.joke/spock-mockable]
+
+`spock-mockable` allows creation of mocks otherwise un-mockable by the http://spockframework.org/[Spock Framework].
+
+Spock is not capable of mocking `private` or `final` classes or methods
+because they are not accessible via inheritance. `spock-mockable` uses JVM instrumentation to
+modify these classes upon class loading and apply looser access restrictions.
+In consequence Spock then capable of mocking these classes.
+
+* Changes methode visibility `private` to `protected`
+* Removes `final` from classes and methods
+* Automatically attaches java agent
+* Redefines classes via https://bytebuddy.net/[Byte Buddy] transformation.
+* Working with Spock Framework 1.3 and 2.0
+
+== Gradle Dependency
+
+image:https://img.shields.io/maven-central/v/io.github.joke/spock-mockable?label=latest%20version[link=https://search.maven.org/artifact/io.github.joke/spock-mockable]
+
+.build.gradle
+[source,groovy]
+----
+dependencies {
+    testImplementation 'io.github.joke:spock-mockable:1.0.0'
+}
+----
+
+== Maven Dependency
+
+.pom.xml
+[source,xml]
+----
+<depenencies>
+  <dependency>
+    <groupId>io.github.joke</groupId>
+    <artifactId>spock-mockable</artifactId>
+    <version>1.0.0</version>
+    <scope>test</scope>
+  </dependency>
+</depenencies>
+----
+
+== Usage
+
+Add the `@Mockable` annotation to your spock specification.
+
+.Make Person mockable
+[source,groovy]
+----
+@Mockable(Person)
+class PersonSpec extends Specification {
+}
+----
+
+More examples can be found in link:example[].
