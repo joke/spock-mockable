@@ -12,7 +12,7 @@ dependencies {
 //    testImplementation 'net.bytebuddy:byte-buddy:1.10.17'
     testImplementation project(':spock-mockable')
 
-    testRuntime 'org.slf4j:slf4j-simple:1.7.25'
+    testRuntime 'org.slf4j:slf4j-simple:1.7.30'
 }
 
 test {
