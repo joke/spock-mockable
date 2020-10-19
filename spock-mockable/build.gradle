@@ -1,0 +1,32 @@
+plugins {
+    id 'java-library'
+    id 'groovy'
+}
+
+dependencies {
+    annotationProcessor 'com.google.auto.service:auto-service:1.0-rc7'
+
+    compileOnly 'com.google.auto.service:auto-service-annotations:1.0-rc7'
+    compileOnly platform('org.codehaus.groovy:groovy-bom:3.0.5')
+    compileOnly 'org.codehaus.groovy:groovy'
+
+
+    implementation platform('org.codehaus.groovy:groovy-bom:3.0.5')
+    implementation platform('org.spockframework:spock-bom:2.0-M3-groovy-3.0')
+
+    implementation 'org.spockframework:spock-core'
+
+    implementation 'org.avaje:avaje-agentloader:3.0.1'
+    implementation 'net.bytebuddy:byte-buddy'
+}
+
+jar {
+    manifest {
+        attributes([
+                'Agent-Class'            : 'io.github.joke.spockmockable.internal.MockableExtension',
+                'Can-Redefine-Classes'   : 'true',
+                'Can-Retransform-Classes': 'true'
+        ])
+    }
+}
+

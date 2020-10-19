@@ -1,0 +1,4 @@
+rootProject.name = 'spock-definalize'
+
+include 'example'
+include 'spock-mockable'
