@@ -7,7 +7,7 @@ dependencies {
     annotationProcessor 'com.google.auto.service:auto-service:1.0-rc7'
 
     compileOnly 'com.google.auto.service:auto-service-annotations:1.0-rc7'
-    compileOnly platform('org.codehaus.groovy:groovy-bom:3.0.5')
+    compileOnly platform('org.codehaus.groovy:groovy-bom:3.0.6')
     compileOnly 'org.codehaus.groovy:groovy'
 
 
