@@ -14,7 +14,7 @@ import static java.lang.annotation.RetentionPolicy.RUNTIME
 @Target(TYPE)
 @CompileStatic
 @Retention(RUNTIME)
-@ExtensionAnnotation(MockableExtension.class)
+@ExtensionAnnotation(MockableExtension)
 @GroovyASTTransformationClass('io.github.joke.spockmockable.internal.MockableTransformation')
 @interface Mockable {
 

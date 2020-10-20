@@ -1,6 +1,5 @@
 package io.github.joke.spockmockable.internal
 
-
 import groovy.transform.CompileStatic
 import io.github.joke.spockmockable.Mockable
 import org.codehaus.groovy.ast.ASTNode

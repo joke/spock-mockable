@@ -15,7 +15,7 @@ dependencies {
 
     implementation 'org.spockframework:spock-core'
 
-    implementation 'org.avaje:avaje-agentloader:4.3'
+    implementation 'org.avaje:avaje-agentloader:3.0.1'
     implementation 'net.bytebuddy:byte-buddy'
 }
 
