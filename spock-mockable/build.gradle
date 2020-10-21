@@ -1,22 +1,25 @@
 plugins {
     id 'java-library'
     id 'groovy'
+    id 'maven-publish'
+    id 'signing'
 }
 
 dependencies {
-    annotationProcessor 'com.google.auto.service:auto-service:1.0-rc7'
-
-    compileOnly 'com.google.auto.service:auto-service-annotations:1.0-rc7'
     compileOnly platform('org.codehaus.groovy:groovy-bom:3.0.5')
+    compileOnly platform('org.spockframework:spock-bom:2.0-M3-groovy-3.0')
+
     compileOnly 'org.codehaus.groovy:groovy'
 
-    implementation platform('org.codehaus.groovy:groovy-bom:3.0.5')
-    implementation platform('org.spockframework:spock-bom:2.0-M3-groovy-3.0')
-
+    implementation 'net.bytebuddy:byte-buddy'
+    implementation 'org.avaje:avaje-agentloader:4.3'
+    implementation 'org.slf4j:slf4j-api:1.7.30'
     implementation 'org.spockframework:spock-core'
 
-    implementation 'org.avaje:avaje-agentloader:3.0.1'
-    implementation 'net.bytebuddy:byte-buddy'
+    testImplementation platform('org.codehaus.groovy:groovy-bom:3.0.5')
+    testImplementation platform('org.spockframework:spock-bom:2.0-M3-groovy-3.0')
+
+    testImplementation 'net.bytebuddy:byte-buddy:1.10.17'
 }
 
 jar {
@@ -29,3 +32,10 @@ jar {
     }
 }
 
+publishing {
+    publications {
+        spockMockable(MavenPublication) {
+            from components.java
+        }
+    }
+}

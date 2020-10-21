@@ -1,20 +1,91 @@
 plugins {
-    id 'java'
-    id 'groovy'
+    id 'idea'
+    id 'io.freefair.git-version' version '5.2.1'
 }
 
-group 'org.example'
-version '1.0-SNAPSHOT'
-
 allprojects { project ->
+    group 'io.github.joke'
+    description 'make classess more mockable'
 
     repositories {
         mavenCentral()
     }
 
+    plugins.withType(JavaBasePlugin) {
+        sourceCompatibility = JavaVersion.VERSION_1_8
+        targetCompatibility = JavaVersion.VERSION_1_8
+    }
+
+    plugins.withType(MavenPublishPlugin) {
+        project.plugins.apply 'signing'
+
+        plugins.withType(JavaPlugin) {
+            java {
+                withJavadocJar()
+                withSourcesJar()
+            }
+        }
+
+        plugins.withType(SigningPlugin) {
+            afterEvaluate {
+                signing {
+                    required {
+                        gradle.taskGraph.hasTask('publish')
+                    }
+                    useGpgCmd()
+                    sign publishing.publications
+                }
+            }
+
+            tasks.withType(AbstractPublishToMaven)*.mustRunAfter('check')
+        }
+
+        publishing {
+            repositories {
+                maven {
+                    name = 'OSSRH'
+                    url = 'https://oss.sonatype.org/service/local/staging/deploy/maven2/'
+                    credentials(PasswordCredentials)
+                }
+                maven {
+                    name = 'GitHubPackages'
+                    url = uri("https://maven.pkg.github.com/joke/${project.name}")
+                    credentials(PasswordCredentials)
+                }
+            }
+            afterEvaluate {
+                tasks.withType(AbstractPublishToMaven)*.dependsOn(check)
+                publications.each { publication ->
+                    publication.pom {
+                        name = project.name
+                        description = project.description
+                        url = "https://github.com/joke/${project.name}"
+                        licenses {
+                            license {
+                                name = 'Apache License, Version 2.0'
+                                url = 'https://www.apache.org/licenses/LICENSE-2.0'
+                            }
+                        }
+                        developers {
+                            developer {
+                                id = 'joke'
+                                name = 'Joke de Buhr'
+                                email = 'joke@seiken.de'
+                            }
+                        }
+                        scm {
+                            connection = "scm:git:git://github.com/joke/${project.name}.git"
+                            developerConnection = "scm:git:git://github.com/joke/${project.name}.git"
+                            url = "http://github.com/joke/${project.name}/tree/master"
+                        }
+                    }
+                }
+            }
+        }
+    }
 }
 
 wrapper {
-    gradleVersion '6.6.1'
-    distributionType = 'ALL'
+    distributionType = Wrapper.DistributionType.ALL
+    gradleVersion = '6.7'
 }

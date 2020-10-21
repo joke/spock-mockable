@@ -2,6 +2,7 @@ package io.github.joke.spockmockable.internal
 
 import groovy.transform.CompileStatic
 import groovy.transform.TupleConstructor
+import groovy.util.logging.Slf4j
 import io.github.joke.spockmockable.Mockable
 import net.bytebuddy.agent.builder.AgentBuilder
 import net.bytebuddy.agent.builder.AgentBuilder.RedefinitionStrategy
@@ -11,6 +12,7 @@ import net.bytebuddy.description.modifier.MethodManifestation
 import net.bytebuddy.description.modifier.TypeManifestation
 import net.bytebuddy.description.type.TypeDescription
 import net.bytebuddy.matcher.ElementMatcher
+import net.bytebuddy.utility.JavaModule
 import org.spockframework.runtime.SpockExecutionException
 import org.spockframework.runtime.extension.AbstractAnnotationDrivenExtension
 import org.spockframework.runtime.model.SpecInfo
@@ -26,6 +28,7 @@ import static net.bytebuddy.matcher.ElementMatchers.isPrivate
 import static net.bytebuddy.matcher.ElementMatchers.none
 import static org.avaje.agentloader.AgentLoader.loadAgentByMainClass
 
+@Slf4j
 @CompileStatic
 class MockableExtension extends AbstractAnnotationDrivenExtension<Mockable> {
 
@@ -48,6 +51,7 @@ class MockableExtension extends AbstractAnnotationDrivenExtension<Mockable> {
     static installTransformation(List<String> unprocessedClasses) {
         new Default()
                 .ignore(none())
+                .with(Listener.instance)
                 .with(REDEFINITION)
                 .with(RedefinitionListener.instance)
                 .with(REDEFINE)
@@ -72,11 +76,6 @@ class MockableExtension extends AbstractAnnotationDrivenExtension<Mockable> {
 
     @Singleton
     private static class RedefinitionListener extends RedefinitionStrategy.Listener.Adapter {
-
-        Iterable<? extends List<Class<?>>> onError(int index, List<Class<?>> batch, Throwable throwable, List<Class<?>> types) {
-            return Collections.emptyList()
-        }
-
         @Override
         void onComplete(final int amount, final List<Class<?>> types, final Map<List<Class<?>>, Throwable> failures) {
             if (failures) {
@@ -89,15 +88,21 @@ class MockableExtension extends AbstractAnnotationDrivenExtension<Mockable> {
     private static class InstallationListener extends AgentBuilder.InstallationListener.Adapter {
         @Override
         Throwable onError(final Instrumentation instrumentation, final ResettableClassFileTransformer classFileTransformer, final Throwable throwable) {
-            throw new SpockExecutionException("Unable to redefined classes: ${(throwable as ClassRedefinitionException).classes}", throwable)
+            throw new SpockExecutionException("Unable to redefined classes: ${(throwable as ClassRedefinitionException).classes}.", throwable)
+        }
+    }
+
+    @Singleton
+    private static class Listener extends AgentBuilder.Listener.Adapter {
+        @Override
+        void onError(String typeName, ClassLoader classLoader, JavaModule module, boolean loaded, Throwable throwable) {
+            log.error('Unable to redefined classes.', throwable)
         }
     }
 
     @TupleConstructor
     private static class ClassRedefinitionException extends RuntimeException {
-
         Set<Class<?>> classes
-
     }
 
 }

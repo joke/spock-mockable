@@ -1,4 +1,5 @@
 rootProject.name = 'spock-mockable'
 
-include 'example'
+include 'examples:spock13'
+include 'examples:spock20'
 include 'spock-mockable'

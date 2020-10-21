@@ -58,4 +58,4 @@ class PersonSpec extends Specification {
 }
 ----
 
-More examples can be found in link:example[].
+More examples can be found in link:examples[].

@@ -6,14 +6,13 @@ plugins {
 dependencies {
     testImplementation platform('org.codehaus.groovy:groovy-bom:3.0.5')
     testImplementation platform('org.spockframework:spock-bom:2.0-M3-groovy-3.0')
+
     testImplementation 'org.spockframework:spock-core'
     testImplementation project(':spock-mockable')
 
-    testRuntime 'org.slf4j:slf4j-simple:1.7.25'
+    testRuntime 'org.slf4j:slf4j-simple:1.7.30'
 }
 
 test {
-    dependsOn ':spock-mockable:jar'
-
     useJUnitPlatform()
 }
