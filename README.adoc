@@ -2,7 +2,7 @@
 
 :icons: font
 
-image:https://img.shields.io/github/license/joke/spring-mockable[GitHub]
+image:https://img.shields.io/github/license/joke/spock-mockable[GitHub]
 image:https://github.com/joke/spock-mockable/workflows/build/badge.svg?branch=main[]
 image:https://img.shields.io/maven-central/v/io.github.joke/spock-mockable?label=latest%20version[link=https://search.maven.org/artifact/io.github.joke/spock-mockable]
 
