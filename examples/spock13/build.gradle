@@ -12,7 +12,7 @@ dependencies {
     testImplementation 'org.objenesis:objenesis:3.1'
 
     testRuntime 'org.slf4j:slf4j-simple:1.7.30'
-    testRuntime 'net.bytebuddy:byte-buddy:1.10.18'
+    testRuntime 'net.bytebuddy:byte-buddy:1.10.19'
 }
 
 test {
