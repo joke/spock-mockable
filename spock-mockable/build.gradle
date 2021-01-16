@@ -2,24 +2,17 @@ plugins {
     id 'java-library'
     id 'groovy'
     id 'maven-publish'
-    id 'signing'
 }
 
 dependencies {
-    compileOnly platform('org.codehaus.groovy:groovy-bom:3.0.5')
-    compileOnly platform('org.spockframework:spock-bom:2.0-M3-groovy-3.0')
+    api platform('org.codehaus.groovy:groovy-bom:3.0.7')
+    api platform('org.spockframework:spock-bom:2.0-M4-groovy-3.0')
 
-    compileOnly 'org.codehaus.groovy:groovy'
-
-    implementation 'net.bytebuddy:byte-buddy'
-    implementation 'org.avaje:avaje-agentloader:4.3'
-    implementation 'org.slf4j:slf4j-api:1.7.30'
+    implementation 'org.codehaus.groovy:groovy'
     implementation 'org.spockframework:spock-core'
 
-    testImplementation platform('org.codehaus.groovy:groovy-bom:3.0.5')
-    testImplementation platform('org.spockframework:spock-bom:2.0-M3-groovy-3.0')
-
-    testImplementation 'net.bytebuddy:byte-buddy:1.10.19'
+    implementation 'org.avaje:avaje-agentloader:4.3'
+    implementation 'org.slf4j:slf4j-api:1.7.30'
 }
 
 jar {
