@@ -11,11 +11,11 @@ import net.bytebuddy.asm.ModifierAdjustment
 import net.bytebuddy.description.modifier.MethodManifestation
 import net.bytebuddy.description.modifier.TypeManifestation
 import net.bytebuddy.description.type.TypeDescription
+import net.bytebuddy.dynamic.DynamicType
 import net.bytebuddy.matcher.ElementMatcher
 import net.bytebuddy.utility.JavaModule
 import org.spockframework.runtime.SpockExecutionException
-import org.spockframework.runtime.extension.AbstractAnnotationDrivenExtension
-import org.spockframework.runtime.model.SpecInfo
+import org.spockframework.runtime.extension.AbstractGlobalExtension
 
 import java.lang.instrument.Instrumentation
 
@@ -23,32 +23,24 @@ import static net.bytebuddy.agent.builder.AgentBuilder.Default
 import static net.bytebuddy.agent.builder.AgentBuilder.RedefinitionStrategy.REDEFINITION
 import static net.bytebuddy.agent.builder.AgentBuilder.TypeStrategy.Default.REDEFINE
 import static net.bytebuddy.description.modifier.Visibility.PROTECTED
-import static net.bytebuddy.matcher.ElementMatchers.isFinal
-import static net.bytebuddy.matcher.ElementMatchers.isPrivate
-import static net.bytebuddy.matcher.ElementMatchers.none
+import static net.bytebuddy.matcher.ElementMatchers.*
 import static org.avaje.agentloader.AgentLoader.loadAgentByMainClass
 
 @Slf4j
 @CompileStatic
-class MockableExtension extends AbstractAnnotationDrivenExtension<Mockable> {
+class MockableExtension extends AbstractGlobalExtension {
 
     static Instrumentation instrumentation
 
-    static List<String> registeredTransformersForClasses = []
+    static Set<String> discoveredClasses = []
+    static Set<String> processedClasses = []
 
-    @Override
-    void visitSpecAnnotation(Mockable annotation, SpecInfo spec) {
-        def canonicalClassNames = annotation.canonicalClassNames() as List ?: []
-        def unprocessedClasses = canonicalClassNames - registeredTransformersForClasses as List<String>
-        if (!unprocessedClasses)
-            return
-
+    void start() {
         attachAgent()
-        registeredTransformersForClasses += unprocessedClasses
-        installTransformation(unprocessedClasses)
+        installTransformation()
     }
 
-    static installTransformation(List<String> unprocessedClasses) {
+    static installTransformation() {
         new Default()
                 .ignore(none())
                 .with(Listener.instance)
@@ -56,12 +48,8 @@ class MockableExtension extends AbstractAnnotationDrivenExtension<Mockable> {
                 .with(RedefinitionListener.instance)
                 .with(REDEFINE)
                 .with(InstallationListener.instance)
-                .type({ TypeDescription t -> t.name in unprocessedClasses } as ElementMatcher)
-                .transform { builder, typeDescription, classLoader, module ->
-                    builder.visit(new ModifierAdjustment().withMethodModifiers(isPrivate(), PROTECTED))
-                            .visit(new ModifierAdjustment().withMethodModifiers(isFinal(), MethodManifestation.PLAIN))
-                            .visit(new ModifierAdjustment().withTypeModifiers(isFinal(), TypeManifestation.PLAIN))
-                }
+                .type(MockableAnnotationMatcher.instance)
+                .transform(Transformer.instance)
                 .installOn(instrumentation)
     }
 
@@ -75,12 +63,43 @@ class MockableExtension extends AbstractAnnotationDrivenExtension<Mockable> {
     }
 
     @Singleton
+    private static class MockableAnnotationMatcher implements ElementMatcher<TypeDescription> {
+        @Override
+        boolean matches(TypeDescription typeDescription) {
+            def mockableAnnotation = typeDescription?.getDeclaredAnnotations()?.ofType(Mockable.class)?.load()
+            if (mockableAnnotation != null) {
+                discoveredClasses.addAll(mockableAnnotation.canonicalClassNames().flatten())
+                return
+            }
+            if (typeDescription.name in processedClasses) {
+                return false
+            }
+            if (typeDescription.name in discoveredClasses) {
+                discoveredClasses - typeDescription.name
+                processedClasses + typeDescription.name
+                return true
+            }
+            return false
+        }
+    }
+
+    @Singleton
     private static class RedefinitionListener extends RedefinitionStrategy.Listener.Adapter {
         @Override
         void onComplete(final int amount, final List<Class<?>> types, final Map<List<Class<?>>, Throwable> failures) {
             if (failures) {
                 throw new ClassRedefinitionException(failures.keySet().flatten() as Set<Class<?>>)
             }
+        }
+    }
+
+    @Singleton
+    private static class Transformer implements AgentBuilder.Transformer {
+        @Override
+        DynamicType.Builder<?> transform(DynamicType.Builder<?> builder, TypeDescription typeDescription, ClassLoader classLoader, JavaModule module) {
+            builder.visit(new ModifierAdjustment().withMethodModifiers(isPrivate(), PROTECTED))
+                    .visit(new ModifierAdjustment().withMethodModifiers(isFinal(), MethodManifestation.PLAIN))
+                    .visit(new ModifierAdjustment().withTypeModifiers(isFinal(), TypeManifestation.PLAIN))
         }
     }
 

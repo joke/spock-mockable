@@ -5,6 +5,7 @@ import groovy.transform.CompileStatic
 import io.github.joke.spockmockable.internal.MockableASTTransformation
 import io.github.joke.spockmockable.internal.MockableExtension
 import org.codehaus.groovy.transform.GroovyASTTransformationClass
+import org.spockframework.runtime.extension.AbstractGlobalExtension
 import org.spockframework.runtime.extension.ExtensionAnnotation
 
 import java.lang.annotation.Retention
@@ -25,7 +26,6 @@ import static java.lang.annotation.RetentionPolicy.RUNTIME
  */
 @Target(TYPE)
 @Retention(RUNTIME)
-@ExtensionAnnotation(MockableExtension.class)
 @GroovyASTTransformationClass(classes = MockableASTTransformation.class)
 @interface Mockable {
 

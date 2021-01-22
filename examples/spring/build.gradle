@@ -1,0 +1,22 @@
+plugins {
+    id 'java'
+    id 'groovy'
+}
+
+dependencies {
+    implementation platform('org.springframework.boot:spring-boot-dependencies:2.4.2')
+    implementation 'org.springframework.boot:spring-boot-starter-web'
+
+    testImplementation platform('org.codehaus.groovy:groovy-bom:3.0.5')
+    testImplementation platform('org.spockframework:spock-bom:2.0-M3-groovy-3.0')
+
+
+    testImplementation 'org.spockframework:spock-core'
+    testImplementation 'org.spockframework:spock-spring'
+    testImplementation 'org.springframework.boot:spring-boot-starter-test'
+    testImplementation project(':spock-mockable')
+}
+
+test {
+    useJUnitPlatform()
+}
