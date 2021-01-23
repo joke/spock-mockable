@@ -11,18 +11,8 @@ dependencies {
     implementation 'org.codehaus.groovy:groovy'
     implementation 'org.spockframework:spock-core'
 
-    implementation 'org.avaje:avaje-agentloader:4.3'
+    implementation 'net.bytebuddy:byte-buddy-agent:1.10.19'
     implementation 'org.slf4j:slf4j-api:1.7.30'
-}
-
-jar {
-    manifest {
-        attributes([
-                'Agent-Class'            : 'io.github.joke.spockmockable.internal.MockableExtension',
-                'Can-Redefine-Classes'   : 'true',
-                'Can-Retransform-Classes': 'true'
-        ])
-    }
 }
 
 publishing {

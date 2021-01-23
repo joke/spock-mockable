@@ -4,6 +4,7 @@ import groovy.transform.CompileStatic
 import groovy.transform.TupleConstructor
 import groovy.util.logging.Slf4j
 import io.github.joke.spockmockable.Mockable
+import net.bytebuddy.agent.ByteBuddyAgent
 import net.bytebuddy.agent.builder.AgentBuilder
 import net.bytebuddy.agent.builder.AgentBuilder.RedefinitionStrategy
 import net.bytebuddy.agent.builder.ResettableClassFileTransformer
@@ -23,22 +24,18 @@ import static net.bytebuddy.agent.builder.AgentBuilder.Default
 import static net.bytebuddy.agent.builder.AgentBuilder.RedefinitionStrategy.REDEFINITION
 import static net.bytebuddy.agent.builder.AgentBuilder.TypeStrategy.Default.REDEFINE
 import static net.bytebuddy.description.modifier.Visibility.PROTECTED
-import static net.bytebuddy.matcher.ElementMatchers.*
-import static org.avaje.agentloader.AgentLoader.loadAgentByMainClass
+import static net.bytebuddy.matcher.ElementMatchers.isFinal
+import static net.bytebuddy.matcher.ElementMatchers.isPrivate
+import static net.bytebuddy.matcher.ElementMatchers.none
 
 @Slf4j
 @CompileStatic
 class MockableExtension extends AbstractGlobalExtension {
 
-    static Instrumentation instrumentation
-
     static Set<String> discoveredClasses = []
     static Set<String> processedClasses = []
-
-    void start() {
-        attachAgent()
-        installTransformation()
-    }
+    static Instrumentation instrumentation = ByteBuddyAgent.install()
+    static ResettableClassFileTransformer = installTransformation()
 
     static installTransformation() {
         new Default()
@@ -53,15 +50,6 @@ class MockableExtension extends AbstractGlobalExtension {
                 .installOn(instrumentation)
     }
 
-    private void attachAgent() {
-        if (!loadAgentByMainClass(this.class.canonicalName, 'debug=0'))
-            throw new SpockExecutionException('Could not attach agent for byte code modification')
-    }
-
-    static void agentmain(String arguments, Instrumentation instrumentation) {
-        MockableExtension.instrumentation = instrumentation
-    }
-
     @Singleton
     private static class MockableAnnotationMatcher implements ElementMatcher<TypeDescription> {
         @Override
@@ -69,7 +57,7 @@ class MockableExtension extends AbstractGlobalExtension {
             def mockableAnnotation = typeDescription?.getDeclaredAnnotations()?.ofType(Mockable.class)?.load()
             if (mockableAnnotation != null) {
                 discoveredClasses.addAll(mockableAnnotation.canonicalClassNames().flatten())
-                return
+                return false
             }
             if (typeDescription.name in processedClasses) {
                 return false
