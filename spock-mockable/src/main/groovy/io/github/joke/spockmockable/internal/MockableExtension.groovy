@@ -3,7 +3,6 @@ package io.github.joke.spockmockable.internal
 import groovy.transform.CompileStatic
 import groovy.transform.TupleConstructor
 import groovy.util.logging.Slf4j
-import io.github.joke.spockmockable.Mockable
 import net.bytebuddy.agent.ByteBuddyAgent
 import net.bytebuddy.agent.builder.AgentBuilder
 import net.bytebuddy.agent.builder.AgentBuilder.RedefinitionStrategy
@@ -54,9 +53,9 @@ class MockableExtension extends AbstractGlobalExtension {
     private static class MockableAnnotationMatcher implements ElementMatcher<TypeDescription> {
         @Override
         boolean matches(TypeDescription typeDescription) {
-            def mockableAnnotation = typeDescription?.getDeclaredAnnotations()?.ofType(Mockable.class)?.load()
+            def mockableAnnotation = typeDescription?.declaredAnnotations?.ofType(Mockable.class)?.load()
             if (mockableAnnotation != null) {
-                discoveredClasses.addAll(mockableAnnotation.canonicalClassNames().flatten())
+                discoveredClasses.addAll(mockableAnnotation.value().flatten())
                 return false
             }
             if (typeDescription.name in processedClasses) {

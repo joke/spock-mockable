@@ -1,20 +1,14 @@
 package io.github.joke.spockmockable
 
-import groovy.transform.Canonical
-import groovy.transform.CompileStatic
+
 import io.github.joke.spockmockable.internal.MockableASTTransformation
-import io.github.joke.spockmockable.internal.MockableExtension
 import org.codehaus.groovy.transform.GroovyASTTransformationClass
-import org.spockframework.runtime.extension.AbstractGlobalExtension
-import org.spockframework.runtime.extension.ExtensionAnnotation
 
 import java.lang.annotation.Retention
 import java.lang.annotation.Target
-import java.lang.reflect.Array
 
 import static java.lang.annotation.ElementType.TYPE
 import static java.lang.annotation.RetentionPolicy.RUNTIME
-
 /**
  * Increase mockability of classes by replacing private and final via byte code modification.
  *
@@ -34,8 +28,4 @@ import static java.lang.annotation.RetentionPolicy.RUNTIME
      */
     Class<?>[] value();
 
-    /**
-     * Used internally by {@link MockableASTTransformation}
-     */
-    String[] canonicalClassNames() default [];
 }
