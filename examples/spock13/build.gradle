@@ -11,3 +11,7 @@ dependencies {
     testImplementation 'org.spockframework:spock-core'
     testImplementation 'org.objenesis:objenesis:3.1'
 }
+
+test {
+    forkEvery 1
+}
