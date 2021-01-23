@@ -1,6 +1,5 @@
 package io.github.joke.spockmockable
 
-
 import org.springframework.boot.test.autoconfigure.web.servlet.WebMvcTest
 import spock.lang.Specification
 
