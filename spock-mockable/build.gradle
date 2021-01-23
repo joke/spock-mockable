@@ -5,13 +5,14 @@ plugins {
 }
 
 dependencies {
-    api platform('org.codehaus.groovy:groovy-bom:3.0.7')
-    api platform('org.spockframework:spock-bom:2.0-M4-groovy-3.0')
+    compileOnly platform('org.codehaus.groovy:groovy-bom:3.0.7')
+    compileOnly platform('org.spockframework:spock-bom:2.0-M4-groovy-3.0')
 
-    implementation 'org.codehaus.groovy:groovy'
-    implementation 'org.spockframework:spock-core'
+    compileOnly 'org.codehaus.groovy:groovy'
+    compileOnly 'org.spockframework:spock-core'
 
     implementation 'net.bytebuddy:byte-buddy-agent:1.10.19'
+    implementation 'net.bytebuddy:byte-buddy:1.10.19'
     implementation 'org.slf4j:slf4j-api:1.7.30'
 }
 
