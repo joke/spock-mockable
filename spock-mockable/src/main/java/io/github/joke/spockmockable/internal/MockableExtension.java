@@ -23,6 +23,7 @@ import java.util.stream.Stream;
 
 import static java.lang.Boolean.parseBoolean;
 import static java.lang.System.getProperty;
+import static java.util.Collections.emptySet;
 import static java.util.stream.Collectors.toSet;
 import static net.bytebuddy.agent.builder.AgentBuilder.RedefinitionStrategy.RETRANSFORMATION;
 import static net.bytebuddy.agent.builder.AgentBuilder.TypeStrategy.Default.REDEFINE;
@@ -56,6 +57,11 @@ public class MockableExtension extends AbstractGlobalExtension {
 
     private static Set<String> extractClassesFromPropertyResource() {
         try (final InputStream stream = MockableExtension.class.getResourceAsStream(PROPERTIES_FILE)) {
+            if (stream == null) {
+                log.warn("@Mockable did not find the generated properties file '{}'. Either you did not annotate any tests or the build setup is broken.", PROPERTIES_FILE);
+                return emptySet();
+            }
+
             return readClassesFromProperties(stream);
         } catch (final IOException e) {
             throw new ExtensionException("Unable to read properties file '%s' containing mockable class information", e)
