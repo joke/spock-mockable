@@ -18,7 +18,7 @@ jobs:
       - name: Import GPG
         if: ${{ contains(github.ref, 'refs/tags/') }}
         id: import_gpg
-        uses: crazy-max/ghaction-import-gpg@v3.1.0
+        uses: crazy-max/ghaction-import-gpg@v3.2.0
         with:
           gpg-private-key: ${{ secrets.GPG_PRIVATE_KEY }}
       - uses: actions/setup-java@v2
