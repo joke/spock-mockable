@@ -13,7 +13,7 @@ dependencies {
 
     implementation 'net.bytebuddy:byte-buddy-agent:1.11.13'
     implementation 'net.bytebuddy:byte-buddy:1.11.13'
-    implementation 'org.slf4j:slf4j-api:1.7.31'
+    implementation 'org.slf4j:slf4j-api:1.7.32'
 }
 
 publishing {
