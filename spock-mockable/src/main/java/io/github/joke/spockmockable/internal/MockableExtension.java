@@ -1,5 +1,6 @@
 package io.github.joke.spockmockable.internal;
 
+import net.bytebuddy.ByteBuddy;
 import net.bytebuddy.agent.ByteBuddyAgent;
 import net.bytebuddy.agent.builder.AgentBuilder;
 import net.bytebuddy.agent.builder.AgentBuilder.InitializationStrategy;
@@ -9,6 +10,7 @@ import net.bytebuddy.description.modifier.MethodManifestation;
 import net.bytebuddy.description.modifier.TypeManifestation;
 import net.bytebuddy.description.type.TypeDescription;
 import net.bytebuddy.dynamic.DynamicType;
+import net.bytebuddy.dynamic.scaffold.TypeValidation;
 import net.bytebuddy.utility.JavaModule;
 import org.slf4j.Logger;
 import org.spockframework.runtime.extension.AbstractGlobalExtension;
@@ -74,12 +76,12 @@ public class MockableExtension extends AbstractGlobalExtension {
         properties.load(stream);
 
         return Stream.of(properties.getProperty("classes", "")
-                .split(","))
+                        .split(","))
                 .collect(toSet());
     }
 
     private static void buildAndInstallTransformer(final Set<String> classes) {
-        new AgentBuilder.Default()
+        new AgentBuilder.Default(new ByteBuddy().with(TypeValidation.DISABLED))
                 .ignore(none())
                 .with(new InstallationListener())
                 .with(new DiscoveryListener())
