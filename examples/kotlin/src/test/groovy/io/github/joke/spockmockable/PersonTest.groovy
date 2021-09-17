@@ -52,7 +52,7 @@ class PersonTest extends Specification {
         def res = person.address.street
 
         then:
-        1 * person.address >> new Address('Yellow Brick Road')
+        1 * person.address >> new Address('Yellow Brick Road', 'Blue City')
 
         expect:
         res == 'Yellow Brick Road'
