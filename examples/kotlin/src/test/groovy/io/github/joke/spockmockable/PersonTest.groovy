@@ -30,7 +30,7 @@ class PersonTest extends Specification {
         res == 'Dorothy'
     }
 
-    def 'privat on method is now protected'() {
+    def 'private on method is now protected'() {
         setup:
         Person person = Mock()
 
@@ -44,7 +44,7 @@ class PersonTest extends Specification {
         res == 'Gale'
     }
 
-    def 'final is removed and privat on method is now protected'() {
+    def 'final is removed and private on method is now protected'() {
         setup:
         Person person = Mock()
 
