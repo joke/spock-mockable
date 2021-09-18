@@ -4,7 +4,7 @@
 
 image:https://badgen.net/github/license/joke/spock-mockable[]
 image:https://github.com/joke/spock-mockable/workflows/build/badge.svg?branch=main[]
-image:https://badgen.net/maven/v/maven-central/io.github.joke/spock-mockable[link=https://search.maven.org/search?q=g:io.github.joke.spring-factory]
+image:https://badgen.net/maven/v/maven-central/io.github.joke/spock-mockable[link=https://search.maven.org/artifact/io.github.joke/spock-mockable]
 image:https://badgen.net/github/release/joke/spock-mockable/stable[]
 image:https://badgen.net/github/dependabot/joke/spock-mockable[]
 
