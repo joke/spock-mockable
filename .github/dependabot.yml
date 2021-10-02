@@ -3,8 +3,14 @@ updates:
   - package-ecosystem: github-actions
     directory: /
     schedule:
-      interval: daily
+      interval: weekly
+    commit-message:
+      prefix: chore
+      include: scope
   - package-ecosystem: gradle
     directory: /
     schedule:
-      interval: daily
+      interval: weekly
+    commit-message:
+      prefix: chore
+      include: scope
