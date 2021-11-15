@@ -1,6 +1,6 @@
 plugins {
     id 'idea'
-    id 'io.freefair.git-version' version '6.2.0'
+    id 'io.freefair.git-version' version '6.3.0'
 }
 
 allprojects { project ->
