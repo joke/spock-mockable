@@ -1,7 +1,8 @@
 rootProject.name = 'spock-mockable'
 
 include 'examples:kotlin'
-include 'examples:spock13'
+include 'examples:spock13-groovy24'
+include 'examples:spock13-groovy25'
 include 'examples:spock20'
 include 'examples:spring'
 include 'spock-mockable'

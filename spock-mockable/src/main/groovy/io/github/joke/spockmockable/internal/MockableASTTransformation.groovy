@@ -14,7 +14,6 @@ import static org.codehaus.groovy.control.CompilationUnit.SourceUnitOperation
 import static org.codehaus.groovy.control.CompilePhase.CANONICALIZATION
 import static org.codehaus.groovy.control.CompilePhase.OUTPUT
 
-@CompileStatic
 @GroovyASTTransformation(phase = CANONICALIZATION)
 class MockableASTTransformation extends AbstractASTTransformation implements CompilationUnitAware {
 
@@ -24,7 +23,7 @@ class MockableASTTransformation extends AbstractASTTransformation implements Com
     @Override
     void visit(ASTNode[] nodes, SourceUnit source) {
         def annotation = nodes[0] as AnnotationNode
-        detectedClasses.addAll(getMemberClassList(annotation, 'value')*.name as List)
+        detectedClasses.addAll(getClassList(annotation, 'value')*.name as List)
         annotation.members.clear()
     }
 
