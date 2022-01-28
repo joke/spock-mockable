@@ -21,4 +21,5 @@ public @interface Mockable {
      */
     Class<?>[] value() default {};
 
+    String[] packages() default {};
 }

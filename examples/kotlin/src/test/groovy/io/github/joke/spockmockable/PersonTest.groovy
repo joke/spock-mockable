@@ -3,7 +3,7 @@ package io.github.joke.spockmockable
 import org.spockframework.mock.MockUtil
 import spock.lang.Specification
 
-@Mockable([Person, Address])
+@Mockable(packages = "io.github.joke.spockmockable")
 class PersonTest extends Specification {
 
     def mockUtil = new MockUtil()
