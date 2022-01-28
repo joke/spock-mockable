@@ -1,5 +1,6 @@
 package io.github.joke.spockmockable.internal;
 
+import java.util.Optional;
 import net.bytebuddy.ByteBuddy;
 import net.bytebuddy.agent.ByteBuddyAgent;
 import net.bytebuddy.agent.builder.AgentBuilder;
@@ -22,6 +23,7 @@ import java.lang.instrument.Instrumentation;
 import java.util.Properties;
 import java.util.Set;
 import java.util.stream.Stream;
+import spock.lang.Specification;
 
 import static java.lang.Boolean.parseBoolean;
 import static java.lang.System.getProperty;
@@ -54,7 +56,7 @@ public class MockableExtension extends AbstractGlobalExtension {
     }
 
     private static void installTransformer() {
-        buildAndInstallTransformer(extractClassesFromPropertyResource());
+        buildAndInstallTransformer(extractClassesFromPropertyResource(), extractPackagesFromPropertyResource());
     }
 
     private static Set<String> extractClassesFromPropertyResource() {
@@ -64,23 +66,37 @@ public class MockableExtension extends AbstractGlobalExtension {
                 return emptySet();
             }
 
-            return readClassesFromProperties(stream);
+            return readPropertyFromProperties(stream, "classes");
         } catch (final IOException e) {
             throw new ExtensionException("Unable to read properties file '%s' containing mockable class information", e)
                     .withArgs(PROPERTIES_FILE);
         }
     }
 
-    private static Set<String> readClassesFromProperties(final InputStream stream) throws IOException {
+    private static Set<String> extractPackagesFromPropertyResource() {
+        try (final InputStream stream = MockableExtension.class.getResourceAsStream(PROPERTIES_FILE)) {
+            if (stream == null) {
+                log.warn("@Mockable did not find the generated properties file '{}'. Either you did not annotate any tests or the build setup is broken.", PROPERTIES_FILE);
+                return emptySet();
+            }
+
+            return readPropertyFromProperties(stream, "packages");
+        } catch (final IOException e) {
+            throw new ExtensionException("Unable to read properties file '%s' containing mockable package information", e)
+              .withArgs(PROPERTIES_FILE);
+        }
+    }
+
+    private static Set<String> readPropertyFromProperties(final InputStream stream, String key) throws IOException {
         final Properties properties = new Properties();
         properties.load(stream);
 
-        return Stream.of(properties.getProperty("classes", "")
-                        .split(","))
-                .collect(toSet());
+        return Stream.of(properties.getProperty(key, "")
+            .split(","))
+          .collect(toSet());
     }
 
-    private static void buildAndInstallTransformer(final Set<String> classes) {
+    private static void buildAndInstallTransformer(final Set<String> classes, Set<String> packages) {
         new AgentBuilder.Default(new ByteBuddy().with(TypeValidation.DISABLED))
                 .ignore(none())
                 .with(new InstallationListener())
@@ -88,9 +104,25 @@ public class MockableExtension extends AbstractGlobalExtension {
                 .with(InitializationStrategy.NoOp.INSTANCE)
                 .with(RETRANSFORMATION)
                 .with(REDEFINE)
-                .type(typeDescription -> classes.contains(typeDescription.getName()))
+                .type(typeDescription -> isNotATest(typeDescription) && (isInClasses(classes, typeDescription) || isInPackages(packages, typeDescription)))
                 .transform(MockableExtension::transform)
                 .installOn(instrumentation);
+    }
+
+    private static boolean isNotATest(TypeDescription typeDescription) {
+        return !typeDescription.isAssignableTo(Specification.class);
+    }
+
+    private static boolean isInClasses(Set<String> classes, TypeDescription typeDescription) {
+        return classes.contains(typeDescription.getName());
+    }
+
+    private static boolean isInPackages(Set<String> packages, TypeDescription typeDescription) {
+        return packages
+          .stream()
+          .anyMatch(packageName -> Optional.ofNullable(typeDescription.getCanonicalName())
+            .map(canonicalName -> canonicalName.startsWith(packageName + "."))
+            .orElse(false));
     }
 
     private static DynamicType.Builder<?> transform(final DynamicType.Builder<?> builder, final TypeDescription typeDescription, final ClassLoader classLoader, final JavaModule module) {
