@@ -60,6 +60,14 @@ class PersonSpec extends Specification {
 }
 ----
 
+.Make complete package `io.github.joke` mockable
+[source,groovy]
+----
+@Mockable(packages = "io.github.joke")
+class PersonSpec extends Specification {
+}
+----
+
 More examples can be found in link:examples[].
 
 == How does it work
