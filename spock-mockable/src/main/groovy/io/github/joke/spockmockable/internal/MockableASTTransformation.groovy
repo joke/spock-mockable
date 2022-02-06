@@ -25,7 +25,7 @@ class MockableASTTransformation extends AbstractASTTransformation implements Com
     void visit(ASTNode[] nodes, SourceUnit source) {
         def annotation = nodes[0] as AnnotationNode
         detectedClasses.addAll(getClassList(annotation, 'value')*.name as List)
-        detectedPackages.addAll(getMemberStringList(annotation, 'packages')?:[])
+        detectedPackages.addAll(getMemberList(annotation, 'packages')?:[])
         annotation.members.clear()
     }
 
