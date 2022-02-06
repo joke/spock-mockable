@@ -104,9 +104,14 @@ public class MockableExtension extends AbstractGlobalExtension {
                 .with(InitializationStrategy.NoOp.INSTANCE)
                 .with(RETRANSFORMATION)
                 .with(REDEFINE)
-                .type(typeDescription -> isNotATest(typeDescription) && (isInClasses(classes, typeDescription) || isInPackages(packages, typeDescription)))
+                .type(typeDescription -> isTransformable(classes, packages, typeDescription))
                 .transform(MockableExtension::transform)
                 .installOn(instrumentation);
+    }
+
+    private static boolean isTransformable(Set<String> classes, Set<String> packages, TypeDescription typeDescription) {
+        return isNotATest(typeDescription)
+                && (isInClasses(classes, typeDescription) || isInPackages(packages, typeDescription));
     }
 
     private static boolean isNotATest(TypeDescription typeDescription) {
@@ -118,7 +123,10 @@ public class MockableExtension extends AbstractGlobalExtension {
     }
 
     private static boolean isInPackages(Set<String> packages, TypeDescription typeDescription) {
-        return packages.stream().anyMatch(packageName -> Optional.ofNullable(typeDescription.getCanonicalName()).map(canonicalName -> canonicalName.startsWith(packageName + ".")).orElse(false));
+        return packages.stream()
+                .anyMatch(packageName -> Optional.ofNullable(typeDescription.getCanonicalName())
+                        .map(canonicalName -> canonicalName.startsWith(packageName + "."))
+                        .orElse(false));
     }
 
     private static DynamicType.Builder<?> transform(final DynamicType.Builder<?> builder, final TypeDescription typeDescription, final ClassLoader classLoader, final JavaModule module) {
