@@ -1,5 +1,12 @@
 # Changelog
 
+## [1.5.0](https://github.com/joke/spock-mockable/compare/v1.4.4...v1.5.0) (2022-02-07)
+
+
+### Features
+
+* Make complete packages mockable ([0c17d8d](https://github.com/joke/spock-mockable/commit/0c17d8d8c9f27378b2d2ec98f9f8f4bc8f717f98))
+
 ### [1.4.4](https://www.github.com/joke/spock-mockable/compare/v1.4.3...v1.4.4) (2021-11-26)
 
 
