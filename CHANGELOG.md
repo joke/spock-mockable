@@ -1,5 +1,12 @@
 # Changelog
 
+### [1.5.1](https://github.com/joke/spock-mockable/compare/v1.5.0...v1.5.1) (2022-02-08)
+
+
+### Bug Fixes
+
+* **build:** fix version numbering ([881431d](https://github.com/joke/spock-mockable/commit/881431d052ae529de9f3adbbc7d76ad3e1bff9bc))
+
 ## [1.5.0](https://github.com/joke/spock-mockable/compare/v1.4.4...v1.5.0) (2022-02-07)
 
 
