@@ -1,12 +1,12 @@
 plugins {
     id 'idea'
-    id 'com.github.gradle-git-version-calculator' version '1.1.0'
+    id 'com.github.jmongard.git-semver-plugin' version '0.4.2'
 }
 
 allprojects { project ->
     group 'io.github.joke'
     description 'make classess more mockable'
-    version gitVersionCalculator.calculateVersion('v', true)
+    version = semver.version
 
     println("Building version: ${project.version}")
 
