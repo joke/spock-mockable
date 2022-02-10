@@ -12,3 +12,4 @@ jobs:
     - uses: GoogleCloudPlatform/release-please-action@v3.1
       with:
         release-type: simple
+        token: ${{ secrets.RELEASE_PLEASE }}

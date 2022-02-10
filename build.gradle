@@ -1,11 +1,14 @@
 plugins {
     id 'idea'
-    id 'io.freefair.git-version' version '6.3.0'
+    id 'com.github.gradle-git-version-calculator' version '1.1.0'
 }
 
 allprojects { project ->
     group 'io.github.joke'
     description 'make classess more mockable'
+    version gitVersionCalculator.calculateVersion('v', true)
+
+    println("Building version: ${project.version}")
 
     repositories {
         mavenCentral()
