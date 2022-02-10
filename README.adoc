@@ -29,7 +29,7 @@ image:https://img.shields.io/maven-central/v/io.github.joke/spock-mockable?label
 [source,groovy]
 ----
 dependencies {
-    testImplementation 'io.github.joke:spock-mockable:1.4.0'
+    testImplementation 'io.github.joke:spock-mockable:1.5.1'
 }
 ----
 
@@ -42,7 +42,7 @@ dependencies {
   <dependency>
     <groupId>io.github.joke</groupId>
     <artifactId>spock-mockable</artifactId>
-    <version>1.4.0</version>
+    <version>1.5.1</version>
     <scope>test</scope>
   </dependency>
 </depenencies>
