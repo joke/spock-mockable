@@ -17,10 +17,8 @@ jobs:
         if: ${{ steps.release.outputs.release_created }}
         with:
           ref: ${{ steps.release.outputs.tag_name }}
-      - name: Import GPG
-        id: import_gpg
+      - uses: crazy-max/ghaction-import-gpg@v4
         if: ${{ steps.release.outputs.release_created }}
-        uses: crazy-max/ghaction-import-gpg@v4
         with:
           gpg_private_key: ${{ secrets.GPG_PRIVATE_KEY }}
       - uses: actions/setup-java@v2
@@ -28,7 +26,7 @@ jobs:
         with:
           java-version: 8
           distribution: zulu
-      - name: publish
+      - name: build
         if: ${{ steps.release.outputs.release_created }}
         run: ./gradlew check
       - name: publish
