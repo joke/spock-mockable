@@ -1,14 +1,11 @@
 plugins {
     id 'idea'
-    id 'com.github.jmongard.git-semver-plugin' version '0.4.2'
+    id 'com.github.arcticlampyrid.gradle-git-version' version '1.0.4'
 }
 
 allprojects { project ->
     group 'io.github.joke'
     description 'make classess more mockable'
-    version = semver.version
-
-    println("Building version: ${project.version}")
 
     repositories {
         mavenCentral()
