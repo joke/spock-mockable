@@ -1,15 +1,41 @@
-name: Release
+name: release
 
 on:
   push:
     branches:
-    - main
+      - main
 
 jobs:
   release-please:
     runs-on: ubuntu-latest
     steps:
-    - uses: GoogleCloudPlatform/release-please-action@v3.1
-      with:
-        release-type: simple
-        token: ${{ secrets.RELEASE_PLEASE }}
+      - uses: GoogleCloudPlatform/release-please-action@v3.1
+        id: release
+        with:
+          release-type: simple
+      - uses: actions/checkout@v2.4.0
+        if: ${{ steps.release.outputs.release_created }}
+        with:
+          ref: ${{ steps.release.outputs.tag_name }}
+      - name: Import GPG
+        id: import_gpg
+        if: ${{ steps.release.outputs.release_created }}
+        uses: crazy-max/ghaction-import-gpg@v4
+        with:
+          gpg_private_key: ${{ secrets.GPG_PRIVATE_KEY }}
+      - uses: actions/setup-java@v2
+        if: ${{ steps.release.outputs.release_created }}
+        with:
+          java-version: 8
+          distribution: zulu
+      - name: publish
+        if: ${{ steps.release.outputs.release_created }}
+        run: ./gradlew check
+      - name: publish
+        if: ${{ steps.release.outputs.release_created }}
+        run: ./gradlew publish
+        env:
+          ORG_GRADLE_PROJECT_OSSRHUsername: ${{ secrets.OSSRH_USERNAME }}
+          ORG_GRADLE_PROJECT_OSSRHPassword: ${{ secrets.OSSRH_TOKEN }}
+          ORG_GRADLE_PROJECT_GitHubPackagesUsername: ${{ secrets.GITHUB_ACTOR }}
+          ORG_GRADLE_PROJECT_GitHubPackagesPassword: ${{ secrets.GITHUB_TOKEN }}
