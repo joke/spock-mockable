@@ -29,7 +29,6 @@ import static java.lang.Boolean.parseBoolean;
 import static java.lang.System.getProperty;
 import static java.util.Collections.emptySet;
 import static java.util.stream.Collectors.toSet;
-import static net.bytebuddy.agent.builder.AgentBuilder.RedefinitionStrategy.RETRANSFORMATION;
 import static net.bytebuddy.agent.builder.AgentBuilder.TypeStrategy.Default.REDEFINE;
 import static net.bytebuddy.description.modifier.Visibility.PROTECTED;
 import static net.bytebuddy.matcher.ElementMatchers.isFinal;
@@ -102,7 +101,6 @@ public class MockableExtension extends AbstractGlobalExtension {
                 .with(new InstallationListener())
                 .with(new DiscoveryListener())
                 .with(InitializationStrategy.NoOp.INSTANCE)
-                .with(RETRANSFORMATION)
                 .with(REDEFINE)
                 .type(typeDescription -> isNotATest(typeDescription) && (isInClasses(classes, typeDescription) || isInPackages(packages, typeDescription)))
                 .transform(MockableExtension::transform)
