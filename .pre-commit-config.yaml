@@ -4,5 +4,22 @@ repos:
 - repo: https://github.com/pre-commit/pre-commit-hooks
   rev: v4.1.0
   hooks:
+  - id: check-yaml
   - id: end-of-file-fixer
   - id: trailing-whitespace
+- repo: https://github.com/macisamuele/language-formatters-pre-commit-hooks
+  rev: v2.3.0
+  hooks:
+  - id: pretty-format-yaml
+    args:
+    - --autofix
+    - --indent
+    - '2'
+- repo: https://github.com/compilerla/conventional-pre-commit
+  rev: v1.2.0
+  hooks:
+  - id: conventional-pre-commit
+    stages: [commit-msg]
+ci:
+  autofix_commit_msg: 'chore: pre-commit auto fixes'
+  autoupdate_commit_msg: 'chore: pre-commit autoupdate'
