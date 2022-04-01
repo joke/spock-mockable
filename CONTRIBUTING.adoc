@@ -1,0 +1,9 @@
+= Contributing Guidelines
+
+This project accepts contributions via GitHub pull requests.
+This document outlines the process to help get your contribution accepted.
+
+== Pull Request Checklist
+
+* Write commit messages in the style of https://www.conventionalcommits.org/en/v1.0.0/[Conventional Commits].
+* Accept the https://developercertificate.org/[Developer Certificate of Origin (DCO)] by https://git-scm.com/docs/git-commit#Documentation/git-commit.txt---signoff[signing off] your commits.
