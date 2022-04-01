@@ -38,4 +38,4 @@ branches:
         app_id: 1861
     enforce_admins: false
     required_linear_history: true
-    restrictions: null
+    restrictions:
