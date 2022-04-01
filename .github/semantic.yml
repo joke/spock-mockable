@@ -1,0 +1,6 @@
+titleOnly: false
+commitsOnly: false
+titleAndCommits: true
+anyCommit: false
+allowMergeCommits: false
+allowRevertCommits: true
