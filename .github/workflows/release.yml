@@ -8,29 +8,32 @@ on:
 jobs:
   release-please:
     runs-on: ubuntu-latest
+    outputs:
+      release_created: ${{ steps.release.outputs.release_created }}
     steps:
     - uses: GoogleCloudPlatform/release-please-action@v3.1
       id: release
       with:
         release-type: simple
+
+  publish:
+    needs: release-please
+    runs-on: ubuntu-latest
+    if: ${{ needs.release-please.outputs.release_created }}
+    steps:
     - uses: actions/checkout@v3
-      if: ${{ steps.release.outputs.release_created }}
       with:
-        ref: ${{ steps.release.outputs.tag_name }}
+        ref: ${{ needs.jobs.release-please.steps.release.outputs.tag_name }}
     - uses: crazy-max/ghaction-import-gpg@v4
-      if: ${{ steps.release.outputs.release_created }}
       with:
         gpg_private_key: ${{ secrets.GPG_PRIVATE_KEY }}
     - uses: actions/setup-java@v2
-      if: ${{ steps.release.outputs.release_created }}
       with:
         java-version: 8
         distribution: zulu
     - name: build
-      if: ${{ steps.release.outputs.release_created }}
       run: ./gradlew check
     - name: publish
-      if: ${{ steps.release.outputs.release_created }}
       run: ./gradlew publish
       env:
         ORG_GRADLE_PROJECT_OSSRHUsername: ${{ secrets.OSSRH_USERNAME }}
