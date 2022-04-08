@@ -1,4 +1,4 @@
-``= `spock-mockable`
+= `spock-mockable`
 
 :icons: font
 
