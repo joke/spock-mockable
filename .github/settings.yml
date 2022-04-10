@@ -18,6 +18,9 @@ repository:
   enable_automated_security_fixes: true
   enable_vulnerability_alerts: true
 
+labels:
+- name: waiting for feedback
+
 branches:
 - name: main
   protection:
