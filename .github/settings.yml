@@ -20,6 +20,7 @@ repository:
 
 labels:
 - name: waiting for feedback
+  color: '#D4C5F9'
 
 branches:
 - name: main
