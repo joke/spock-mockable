@@ -21,6 +21,13 @@ repository:
 labels:
 - name: waiting for feedback
   color: '#D4C5F9'
+  description: Waiting for feedback issue/pr author
+- name: dependencies
+  color: '#0366d6'
+  description: Pull requests that update a dependency file
+- name: java
+  color: '#ffa221'
+  description: Pull requests that update Java code
 
 branches:
 - name: main
