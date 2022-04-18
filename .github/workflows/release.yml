@@ -11,7 +11,7 @@ jobs:
     outputs:
       release_created: ${{ steps.release.outputs.release_created }}
     steps:
-    - uses: GoogleCloudPlatform/release-please-action@v3.1
+    - uses: GoogleCloudPlatform/release-please-action@v3.2
       id: release
       with:
         release-type: simple
