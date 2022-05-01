@@ -1,5 +1,12 @@
 # Changelog
 
+### [1.5.2](https://github.com/joke/spock-mockable/compare/v1.5.1...v1.5.2) (2022-05-01)
+
+
+### Bug Fixes
+
+* exception during processing of classes with unknown type ([f9c5d64](https://github.com/joke/spock-mockable/commit/f9c5d64e17d4a008c02cd14c9335526c204b032c))
+
 ### [1.5.1](https://github.com/joke/spock-mockable/compare/v1.5.0...v1.5.1) (2022-02-10)
 
 
