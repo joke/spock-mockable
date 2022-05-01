@@ -9,10 +9,14 @@ import org.codehaus.groovy.control.SourceUnit
 import org.codehaus.groovy.transform.AbstractASTTransformation
 import org.codehaus.groovy.transform.GroovyASTTransformation
 
+import java.lang.annotation.Annotation
+
+import static groovy.lang.GroovySystem.getVersion
 import static java.nio.charset.StandardCharsets.UTF_8
 import static org.codehaus.groovy.control.CompilationUnit.SourceUnitOperation
 import static org.codehaus.groovy.control.CompilePhase.CANONICALIZATION
 import static org.codehaus.groovy.control.CompilePhase.OUTPUT
+import static org.codehaus.groovy.transform.AbstractASTTransformation.*
 
 @GroovyASTTransformation(phase = CANONICALIZATION)
 class MockableASTTransformation extends AbstractASTTransformation implements CompilationUnitAware {
@@ -24,9 +28,23 @@ class MockableASTTransformation extends AbstractASTTransformation implements Com
     @Override
     void visit(ASTNode[] nodes, SourceUnit source) {
         def annotation = nodes[0] as AnnotationNode
-        detectedClasses.addAll(getClassList(annotation, 'value')*.name as List)
-        detectedPackages.addAll(getMemberList(annotation, 'packages')?:[])
+        detectedClasses.addAll(getClassNames(annotation) as List)
+        detectedPackages.addAll(getMemberNames(annotation) as List)
         annotation.members.clear()
+    }
+
+    private List<String> getClassNames(AnnotationNode annotation) {
+        if (version.startsWith('2.')) {
+            return getClassList(annotation, 'value')*.name ?: []
+        }
+        getMemberClassList(annotation, 'value')*.name ?: []
+    }
+
+    private List<String> getMemberNames(AnnotationNode annotation) {
+        if (version.startsWith('2.')) {
+            return getMemberList(annotation, 'packages') ?: []
+        }
+        getMemberStringList(annotation, 'packages') ?: []
     }
 
     @Override
