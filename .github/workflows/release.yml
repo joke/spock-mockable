@@ -10,6 +10,7 @@ jobs:
     runs-on: ubuntu-latest
     outputs:
       release_created: ${{ steps.release.outputs.release_created }}
+      tag_name: ${{ steps.release.outputs.tag_name }}
     steps:
     - uses: GoogleCloudPlatform/release-please-action@v3.2
       id: release
@@ -23,7 +24,7 @@ jobs:
     steps:
     - uses: actions/checkout@v3
       with:
-        ref: ${{ needs.jobs.release-please.steps.release.outputs.tag_name }}
+        ref: ${{ needs.release-please.outputs.tag_name }}
     - uses: crazy-max/ghaction-import-gpg@v4
       with:
         gpg_private_key: ${{ secrets.GPG_PRIVATE_KEY }}
