@@ -8,6 +8,8 @@ allprojects { project ->
     description 'make classess more mockable'
     version rootProject.version
 
+    println("@@@@@@@@@@@@@@@@@@@@ ${rootProject.version}")
+
     repositories {
         mavenCentral()
     }
