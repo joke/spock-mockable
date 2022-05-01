@@ -1,6 +1,5 @@
 package io.github.joke.spockmockable.internal;
 
-import java.util.Optional;
 import net.bytebuddy.ByteBuddy;
 import net.bytebuddy.agent.ByteBuddyAgent;
 import net.bytebuddy.agent.builder.AgentBuilder;
@@ -91,9 +90,13 @@ public class MockableExtension extends AbstractGlobalExtension {
         final Properties properties = new Properties();
         properties.load(stream);
 
-        return Stream.of(properties.getProperty(key, "")
-            .split(","))
-          .collect(toSet());
+        final String property = properties.getProperty(key);
+        if ("".equals(property)) {
+            return emptySet();
+        }
+
+        return Stream.of(property.split(","))
+                .collect(toSet());
     }
 
     private static void buildAndInstallTransformer(final Set<String> classes, Set<String> packages) {
@@ -104,9 +107,21 @@ public class MockableExtension extends AbstractGlobalExtension {
                 .with(InitializationStrategy.NoOp.INSTANCE)
                 .with(RETRANSFORMATION)
                 .with(REDEFINE)
-                .type(typeDescription -> isNotATest(typeDescription) && (isInClasses(classes, typeDescription) || isInPackages(packages, typeDescription)))
+                .type(typeDescription -> isTransformable(classes, packages, typeDescription))
                 .transform(MockableExtension::transform)
                 .installOn(instrumentation);
+    }
+
+    private static boolean isTransformable(final Set<String> classes, final Set<String> packages, final TypeDescription typeDescription) {
+        return isInClasses(classes, typeDescription) || isTransformableFromPackage(packages, typeDescription);
+    }
+
+    private static boolean isTransformableFromPackage(final Set<String> packages, final TypeDescription typeDescription) {
+        return isInPackages(packages, typeDescription) && isNotATest(typeDescription) && isNotASpockMock(typeDescription);
+    }
+
+    private static boolean isNotASpockMock(final TypeDescription typeDescription) {
+        return !typeDescription.getName().contains("$SpockMock$");
     }
 
     private static boolean isNotATest(TypeDescription typeDescription) {
@@ -120,9 +135,7 @@ public class MockableExtension extends AbstractGlobalExtension {
     private static boolean isInPackages(Set<String> packages, TypeDescription typeDescription) {
         return packages
           .stream()
-          .anyMatch(packageName -> Optional.ofNullable(typeDescription.getCanonicalName())
-            .map(canonicalName -> canonicalName.startsWith(packageName + "."))
-            .orElse(false));
+          .anyMatch(packageName -> typeDescription.getName().startsWith(packageName + "."));
     }
 
     private static DynamicType.Builder<?> transform(final DynamicType.Builder<?> builder, final TypeDescription typeDescription, final ClassLoader classLoader, final JavaModule module) {
