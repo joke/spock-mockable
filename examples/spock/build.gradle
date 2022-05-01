@@ -84,6 +84,39 @@ testing {
                 implementation 'org.spockframework:spock-core'
             }
         }
+        spock22groovy25(JvmTestSuite) {
+            sources.groovy.srcDirs = project.sourceSets.test.groovy.srcDirs
+            dependencies {
+                implementation project
+                implementation project(':spock-mockable')
+                implementation(project.dependencies.platform('org.codehaus.groovy:groovy-bom:2.5.16'))
+                implementation(project.dependencies.platform('org.spockframework:spock-bom:2.2-M1-groovy-2.5'))
+                implementation 'org.slf4j:slf4j-simple:1.7.36'
+                implementation 'org.spockframework:spock-core'
+            }
+        }
+        spock22groovy30(JvmTestSuite) {
+            sources.groovy.srcDirs = project.sourceSets.test.groovy.srcDirs
+            dependencies {
+                implementation project
+                implementation project(':spock-mockable')
+                implementation(project.dependencies.platform('org.codehaus.groovy:groovy-bom:3.0.9'))
+                implementation(project.dependencies.platform('org.spockframework:spock-bom:2.2-M1-groovy-3.0'))
+                implementation 'org.slf4j:slf4j-simple:1.7.36'
+                implementation 'org.spockframework:spock-core'
+            }
+        }
+        spock22groovy40(JvmTestSuite) {
+            sources.groovy.srcDirs = project.sourceSets.test.groovy.srcDirs
+            dependencies {
+                implementation project
+                implementation project(':spock-mockable')
+                implementation(project.dependencies.platform('org.apache.groovy:groovy-bom:4.0.2'))
+                implementation(project.dependencies.platform('org.spockframework:spock-bom:2.2-M1-groovy-4.0'))
+                implementation 'org.slf4j:slf4j-simple:1.7.36'
+                implementation 'org.spockframework:spock-core'
+            }
+        }
     }
 }
 
