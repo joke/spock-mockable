@@ -80,4 +80,3 @@ regardless of the actual test class the annotation has been placed on. This migh
 === Conditionally disable transformation
 
 You can disable `spock-mockable` by setting the JVM system property `spock-mockable.disabled=true`.
-``
