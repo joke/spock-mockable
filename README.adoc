@@ -4,7 +4,6 @@
 
 image:https://github.com/joke/spock-mockable/workflows/build/badge.svg?branch=main[]
 image:https://badgen.net/github/license/joke/spock-mockable[]
-image:https://badgen.net/maven/v/maven-central/io.github.joke/spock-mockable[link=https://search.maven.org/artifact/io.github.joke/spock-mockable]
 image:https://badgen.net/github/release/joke/spock-mockable/stable[]
 image:https://badgen.net/github/dependabot/joke/spock-mockable[]
 image:https://img.shields.io/badge/Conventional%20Commits-1.0.0-yellow.svg[link=https://conventionalcommits.org]
@@ -25,13 +24,13 @@ In consequence Spock then capable of mocking these classes.
 
 == Gradle Dependency
 
-image:https://img.shields.io/maven-central/v/io.github.joke/spock-mockable?label=latest%20version[link=https://search.maven.org/artifact/io.github.joke/spock-mockable]
+image:https://badgen.net/github/release/joke/spock-mockable/stable[]
 
 .build.gradle
 [source,groovy]
 ----
 dependencies {
-    testImplementation 'io.github.joke:spock-mockable:1.5.1'
+    testImplementation 'io.github.joke:spock-mockable:1.5.3'
 }
 ----
 
@@ -44,7 +43,7 @@ dependencies {
   <dependency>
     <groupId>io.github.joke</groupId>
     <artifactId>spock-mockable</artifactId>
-    <version>1.5.1</version>
+    <version>1.5.3</version>
     <scope>test</scope>
   </dependency>
 </depenencies>
