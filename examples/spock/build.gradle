@@ -6,7 +6,7 @@ plugins {
 
 dependencies {
     testImplementation project(':spock-mockable')
-    testImplementation platform('org.codehaus.groovy:groovy-bom:3.0.9')
+    testImplementation platform('org.codehaus.groovy:groovy-bom:3.0.10')
     testImplementation platform('org.spockframework:spock-bom:2.1-groovy-3.0')
     testImplementation 'org.slf4j:slf4j-simple:1.7.36'
     testImplementation 'org.spockframework:spock-core'
@@ -23,7 +23,7 @@ testing {
             dependencies {
                 implementation project
                 implementation project(':spock-mockable')
-                implementation(project.dependencies.platform('org.codehaus.groovy:groovy-bom:2.4.21'))
+                implementation(project.dependencies.platform('org.codehaus.groovy:groovy-bom:3.0.10'))
                 implementation(project.dependencies.platform('org.spockframework:spock-bom:1.3-groovy-2.4'))
                 implementation 'org.slf4j:slf4j-simple:1.7.36'
                 implementation 'org.spockframework:spock-core'
@@ -34,7 +34,7 @@ testing {
             dependencies {
                 implementation project
                 implementation project(':spock-mockable')
-                implementation(project.dependencies.platform('org.codehaus.groovy:groovy-bom:2.5.16'))
+                implementation(project.dependencies.platform('org.codehaus.groovy:groovy-bom:3.0.10'))
                 implementation(project.dependencies.platform('org.spockframework:spock-bom:1.3-groovy-2.5'))
                 implementation 'org.slf4j:slf4j-simple:1.7.36'
                 implementation 'org.spockframework:spock-core'
@@ -45,7 +45,7 @@ testing {
             dependencies {
                 implementation project
                 implementation project(':spock-mockable')
-                implementation(project.dependencies.platform('org.codehaus.groovy:groovy-bom:2.5.16'))
+                implementation(project.dependencies.platform('org.codehaus.groovy:groovy-bom:3.0.10'))
                 implementation(project.dependencies.platform('org.spockframework:spock-bom:2.0-groovy-2.5'))
                 implementation 'org.slf4j:slf4j-simple:1.7.36'
                 implementation 'org.spockframework:spock-core'
@@ -67,7 +67,7 @@ testing {
             dependencies {
                 implementation project
                 implementation project(':spock-mockable')
-                implementation(project.dependencies.platform('org.codehaus.groovy:groovy-bom:2.5.16'))
+                implementation(project.dependencies.platform('org.codehaus.groovy:groovy-bom:3.0.10'))
                 implementation(project.dependencies.platform('org.spockframework:spock-bom:2.1-groovy-2.5'))
                 implementation 'org.slf4j:slf4j-simple:1.7.36'
                 implementation 'org.spockframework:spock-core'
@@ -89,7 +89,7 @@ testing {
             dependencies {
                 implementation project
                 implementation project(':spock-mockable')
-                implementation(project.dependencies.platform('org.codehaus.groovy:groovy-bom:2.5.16'))
+                implementation(project.dependencies.platform('org.codehaus.groovy:groovy-bom:3.0.10'))
                 implementation(project.dependencies.platform('org.spockframework:spock-bom:2.2-M1-groovy-2.5'))
                 implementation 'org.slf4j:slf4j-simple:1.7.36'
                 implementation 'org.spockframework:spock-core'

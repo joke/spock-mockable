@@ -5,7 +5,7 @@ plugins {
 }
 
 dependencies {
-    testImplementation platform('org.codehaus.groovy:groovy-bom:3.0.9')
+    testImplementation platform('org.codehaus.groovy:groovy-bom:3.0.10')
     testImplementation platform('org.spockframework:spock-bom:2.0-groovy-3.0')
 
     testImplementation 'org.spockframework:spock-core'
