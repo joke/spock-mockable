@@ -43,8 +43,8 @@ branches:
         app_id: 15368
       - context: pre-commit.ci - pr
         app_id: 68672
-      - context: Semantic Pull Request
-        app_id: 9517
+      - context: Semantic PR
+        app_id: 198092
       - context: DCO
         app_id: 1861
     enforce_admins: false
