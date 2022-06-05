@@ -154,12 +154,27 @@ public class MockableExtension extends AbstractGlobalExtension {
     private static class DiscoveryListener extends AgentBuilder.Listener.Adapter {
         @Override
         public void onError(final String typeName, final ClassLoader classLoader, final JavaModule module, final boolean loaded, final Throwable throwable) {
-            log.warn("Could not transform class '{}'", typeName, throwable);
+            log.warn("Could not transform class '{}', loaded: {}", typeName, loaded, throwable);
         }
 
         @Override
         public void onComplete(final String typeName, final ClassLoader classLoader, final JavaModule module, final boolean loaded) {
-            log.trace("Transformed class {}'", typeName);
+            log.trace("Processed class '{}', loaded: {}", typeName, loaded);
+        }
+
+        @Override
+        public void onDiscovery(final String typeName, final ClassLoader classLoader, final JavaModule module, final boolean loaded) {
+            log.trace("Processing class '{}', loaded: {}", typeName, loaded);
+        }
+
+        @Override
+        public void onTransformation(final TypeDescription typeDescription, final ClassLoader classLoader, final JavaModule module, final boolean loaded, final DynamicType dynamicType) {
+            log.debug("Transforming class '{}', loaded: {}", typeDescription, loaded);
+        }
+
+        @Override
+        public void onIgnored(final TypeDescription typeDescription, final ClassLoader classLoader, final JavaModule module, final boolean loaded) {
+            log.trace("Ignoring class '{}', loaded: {}", typeDescription, loaded);
         }
     }
 
