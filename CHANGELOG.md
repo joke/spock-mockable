@@ -1,5 +1,12 @@
 # Changelog
 
+## [1.5.5](https://github.com/joke/spock-mockable/compare/v1.5.4...v1.5.5) (2022-06-06)
+
+
+### Bug Fixes
+
+* earlier junit startup if possible ([7e8d519](https://github.com/joke/spock-mockable/commit/7e8d5197c1d7c8942792bae466d87cd967896184))
+
 ## [1.5.4](https://github.com/joke/spock-mockable/compare/v1.5.3...v1.5.4) (2022-06-05)
 
 
