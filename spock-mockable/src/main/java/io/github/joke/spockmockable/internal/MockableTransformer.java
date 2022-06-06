@@ -36,15 +36,24 @@ import static net.bytebuddy.matcher.ElementMatchers.isPrivate;
 import static net.bytebuddy.matcher.ElementMatchers.none;
 import static org.slf4j.LoggerFactory.getLogger;
 
-public class MockableExtension extends AbstractGlobalExtension {
+public class MockableTransformer {
 
-    private static final Logger log = getLogger(MockableExtension.class);
+    private static final Logger log = getLogger(MockableTransformer.class);
 
     private static final String PROPERTIES_FILE = "/META-INF/spock-mockable.properties";
 
     private static Instrumentation instrumentation;
 
-    static {
+    private static MockableTransformer instance;
+
+    public static synchronized MockableTransformer getInstance() {
+        if (instance == null) {
+            instance = new MockableTransformer();
+        }
+        return instance;
+    }
+
+    private MockableTransformer() {
         if (parseBoolean(getProperty("spock-mockable.disabled", "false"))) {
             log.info("@Mockable transformation is disabled by system property 'spock-mockable.disabled=true'");
         } else {
@@ -59,7 +68,7 @@ public class MockableExtension extends AbstractGlobalExtension {
     }
 
     private static Set<String> extractClassesFromPropertyResource() {
-        try (final InputStream stream = MockableExtension.class.getResourceAsStream(PROPERTIES_FILE)) {
+        try (final InputStream stream = MockableTransformer.class.getResourceAsStream(PROPERTIES_FILE)) {
             if (stream == null) {
                 log.warn("@Mockable did not find the generated properties file '{}'. Either you did not annotate any tests or the build setup is broken.", PROPERTIES_FILE);
                 return emptySet();
@@ -73,7 +82,7 @@ public class MockableExtension extends AbstractGlobalExtension {
     }
 
     private static Set<String> extractPackagesFromPropertyResource() {
-        try (final InputStream stream = MockableExtension.class.getResourceAsStream(PROPERTIES_FILE)) {
+        try (final InputStream stream = MockableTransformer.class.getResourceAsStream(PROPERTIES_FILE)) {
             if (stream == null) {
                 log.warn("@Mockable did not find the generated properties file '{}'. Either you did not annotate any tests or the build setup is broken.", PROPERTIES_FILE);
                 return emptySet();
@@ -108,7 +117,7 @@ public class MockableExtension extends AbstractGlobalExtension {
                 .with(RETRANSFORMATION)
                 .with(REDEFINE)
                 .type(typeDescription -> isTransformable(classes, packages, typeDescription))
-                .transform(MockableExtension::transform)
+                .transform(MockableTransformer::transform)
                 .installOn(instrumentation);
     }
 
