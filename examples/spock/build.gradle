@@ -25,7 +25,7 @@ dependencies {
     spock13groovy24Implementation project(':spock-mockable')
     spock13groovy24Implementation 'org.slf4j:slf4j-simple:1.7.36'
     spock13groovy24Implementation 'org.spockframework:spock-core'
-    spock13groovy24Implementation 'org.objenesis:objenesis:2.6'
+    spock13groovy24Implementation 'org.objenesis:objenesis:3.2'
 
     spock13groovy25Implementation platform('org.codehaus.groovy:groovy-bom:2.5.16')
     spock13groovy25Implementation platform('org.spockframework:spock-bom:1.3-groovy-2.5')
