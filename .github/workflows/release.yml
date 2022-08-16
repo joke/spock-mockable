@@ -33,7 +33,7 @@ jobs:
         java-version: 8
         distribution: zulu
     - name: build
-      run: ./gradlew check
+      run: ./gradlew build -x test
     - name: publish
       run: ./gradlew publish
       env:
