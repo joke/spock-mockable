@@ -19,6 +19,7 @@ import org.spockframework.runtime.extension.ExtensionException;
 import java.io.IOException;
 import java.io.InputStream;
 import java.lang.instrument.Instrumentation;
+import java.security.ProtectionDomain;
 import java.util.Properties;
 import java.util.Set;
 import java.util.stream.Stream;
@@ -147,7 +148,7 @@ public class MockableTransformer {
           .anyMatch(packageName -> typeDescription.getName().startsWith(packageName + "."));
     }
 
-    private static DynamicType.Builder<?> transform(final DynamicType.Builder<?> builder, final TypeDescription typeDescription, final ClassLoader classLoader, final JavaModule module) {
+    private static DynamicType.Builder<?> transform(final DynamicType.Builder<?> builder, final TypeDescription typeDefinitions, final ClassLoader classLoader, final JavaModule javaModule, final ProtectionDomain protectionDomain) {
         return builder.visit(new ModifierAdjustment().withMethodModifiers(isPrivate(), PROTECTED))
                 .visit(new ModifierAdjustment().withMethodModifiers(isFinal(), MethodManifestation.PLAIN))
                 .visit(new ModifierAdjustment().withTypeModifiers(isFinal(), TypeManifestation.PLAIN));
