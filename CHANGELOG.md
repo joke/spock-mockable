@@ -1,5 +1,12 @@
 # Changelog
 
+## [1.5.6](https://github.com/joke/spock-mockable/compare/v1.5.5...v1.5.6) (2022-08-16)
+
+
+### Bug Fixes
+
+* compatibility with Byte-Buddy 1.12.13+. closes [#208](https://github.com/joke/spock-mockable/issues/208) ([5590b59](https://github.com/joke/spock-mockable/commit/5590b5993bcc30ef20b7d64b9573527d10b15a31))
+
 ## [1.5.5](https://github.com/joke/spock-mockable/compare/v1.5.4...v1.5.5) (2022-06-06)
 
 
