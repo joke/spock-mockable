@@ -17,7 +17,7 @@ dependencies {
     testImplementation platform('org.codehaus.groovy:groovy-bom:3.0.9')
     testImplementation platform('org.spockframework:spock-bom:2.1-groovy-3.0')
     testImplementation project(':spock-mockable')
-    testImplementation 'org.slf4j:slf4j-simple:1.7.36'
+    testImplementation 'org.slf4j:slf4j-simple:2.0.0'
     testImplementation 'org.spockframework:spock-core'
 
     spock13groovy24Implementation platform('org.codehaus.groovy:groovy-bom:2.4.21')
