@@ -10,7 +10,7 @@ dependencies {
 
     testImplementation 'org.spockframework:spock-core'
     testImplementation project(':spock-mockable')
-    testImplementation 'org.slf4j:slf4j-simple:1.7.36'
+    testImplementation 'org.slf4j:slf4j-simple:2.0.0'
 }
 
 test {
