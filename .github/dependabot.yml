@@ -14,3 +14,12 @@ updates:
   commit-message:
     prefix: chore
     include: scope
+  ignore:
+  - dependency-name: org.codehaus.groovy:groovy-bom
+    update-types:
+    - version-update:semver-major
+    - version-update:semver-minor
+  - dependency-name: org.spockframework:spock-bom
+    update-types:
+    - version-update:semver-major
+    - version-update:semver-minor
