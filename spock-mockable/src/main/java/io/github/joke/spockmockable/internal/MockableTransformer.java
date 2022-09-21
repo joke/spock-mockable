@@ -90,7 +90,7 @@ public class MockableTransformer {
             }
 
             return readPropertyFromProperties(stream, "packages");
-        } catch (final IOException e) {
+        } catch (final IOException|NullPointerException e) {
             throw new ExtensionException("Unable to read properties file '%s' containing mockable package information", e)
               .withArgs(PROPERTIES_FILE);
         }
