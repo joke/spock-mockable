@@ -17,7 +17,7 @@ dependencies {
 
     implementation 'net.bytebuddy:byte-buddy-agent:1.12.17'
     implementation 'net.bytebuddy:byte-buddy:1.12.17'
-    implementation 'org.slf4j:slf4j-api:2.0.1'
+    implementation 'org.slf4j:slf4j-api:2.0.2'
 }
 
 publishing {
