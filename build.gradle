@@ -1,6 +1,6 @@
 plugins {
     id 'idea'
-    id 'org.shipkit.shipkit-auto-version' version '1.2.1'
+    id 'org.shipkit.shipkit-auto-version' version '1.2.2'
 }
 
 allprojects { project ->
