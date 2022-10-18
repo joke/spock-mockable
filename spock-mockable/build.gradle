@@ -7,7 +7,7 @@ plugins {
 dependencies {
     annotationProcessor 'com.google.auto.service:auto-service:1.0.1'
 
-    compileOnly platform('org.apache.groovy:groovy-bom:4.0.5')
+    compileOnly platform('org.apache.groovy:groovy-bom:4.0.6')
     compileOnly platform('org.spockframework:spock-bom:2.2-groovy-4.0')
     compileOnly 'com.google.auto.service:auto-service-annotations:1.0.1'
     compileOnly 'org.junit.platform:junit-platform-launcher'
