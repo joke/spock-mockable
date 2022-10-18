@@ -14,7 +14,7 @@ def spock2x = ['spock20groovy25', 'spock20groovy30', 'spock21groovy25', 'spock21
 }
 
 dependencies {
-    testImplementation platform('org.apache.groovy:groovy-bom:4.0.5')
+    testImplementation platform('org.apache.groovy:groovy-bom:4.0.6')
     testImplementation platform('org.spockframework:spock-bom:2.2-groovy-4.0')
     testImplementation project(':spock-mockable')
     testImplementation 'org.slf4j:slf4j-simple:2.0.3'
