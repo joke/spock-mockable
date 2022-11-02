@@ -25,9 +25,9 @@ labels:
 - name: dependencies
   color: '#0366d6'
   description: Pull requests that update a dependency file
-- name: java
+- name: feature request
   color: '#ffa221'
-  description: Pull requests that update Java code
+  description: Issues requesting a new feature
 
 branches:
 - name: main
