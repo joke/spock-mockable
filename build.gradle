@@ -24,6 +24,16 @@ allprojects { project ->
         }
     }
 
+    pluginManager.withPlugin('jacoco') {
+        test.finalizedBy jacocoTestReport
+        jacocoTestReport {
+            dependsOn test
+            reports {
+                xml.required = true
+            }
+        }
+    }
+
     pluginManager.withPlugin('maven-publish') {
         project.plugins.apply 'signing'
 
