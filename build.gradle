@@ -17,17 +17,24 @@ allprojects { project ->
         targetCompatibility = JavaVersion.VERSION_1_8
     }
 
-    plugins.withType(MavenPublishPlugin) {
+    pluginManager.withPlugin('base') {
+        tasks.withType(JavaCompile) {
+            options.release = 8
+            options.compilerArgs << '-parameters' << '-Werror'
+        }
+    }
+
+    pluginManager.withPlugin('maven-publish') {
         project.plugins.apply 'signing'
 
-        plugins.withType(JavaPlugin) {
+        pluginManager.withPlugin('java') {
             java {
                 withJavadocJar()
                 withSourcesJar()
             }
         }
 
-        plugins.withType(SigningPlugin) {
+        pluginManager.withPlugin('signing') {
             afterEvaluate {
                 signing {
                     required {
