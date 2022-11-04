@@ -19,3 +19,7 @@ jobs:
         distribution: zulu
     - name: build
       run: ./gradlew check
+    - uses: codecov/codecov-action@v3
+      with:
+        files: spock-mockable/build/reports/jacoco/test/jacocoTestReport.xml
+        flags: unittests
