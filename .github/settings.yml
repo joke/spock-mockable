@@ -47,6 +47,8 @@ branches:
         app_id: 198092
       - context: DCO
         app_id: 1861
+      - context: CodeQL
+        app_id: 57789
     enforce_admins: false
     required_linear_history: true
     required_conversation_resolution: true
