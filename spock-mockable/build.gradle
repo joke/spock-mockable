@@ -34,6 +34,21 @@ dependencies {
     shadow 'net.bytebuddy:byte-buddy-agent:1.12.18'
     shadow 'net.bytebuddy:byte-buddy:1.12.18'
     shadow 'org.slf4j:slf4j-api:2.0.3'
+
+    testImplementation enforcedPlatform(project(':dependencies'))
+    testImplementation 'io.github.joke:spock-outputcapture'
+    testImplementation 'net.bytebuddy:byte-buddy-agent'
+    testImplementation 'net.bytebuddy:byte-buddy'
+    testImplementation 'org.slf4j:slf4j-simple'
+    testImplementation 'org.spockframework:spock-core'
+}
+
+test {
+    useJUnitPlatform()
+    jvmArgs = [
+            '-Dorg.slf4j.simpleLogger.defaultLogLevel=TRACE',
+            '-Dspock-mockable.disabled=true'
+    ]
 }
 
 shadowJar {

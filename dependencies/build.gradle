@@ -18,9 +18,13 @@ dependencies {
         api 'com.google.dagger:dagger:2.44'
         api 'com.google.errorprone:error_prone_core:2.13.1'
         api 'com.uber.nullaway:nullaway:0.9.6'
+        api 'io.github.joke:spock-outputcapture:3.0.1'
         api 'javax.inject:javax.inject:1'
+        api 'net.bytebuddy:byte-buddy-agent:1.12.18'
+        api 'net.bytebuddy:byte-buddy:1.12.18'
         api 'org.jetbrains:annotations:23.0.0'
         api 'org.projectlombok:lombok:1.18.24'
+        api 'org.slf4j:slf4j-simple:2.0.3'
     }
 
 }
