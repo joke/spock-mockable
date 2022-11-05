@@ -1,30 +1,51 @@
 plugins {
     id 'java-library'
-    id 'groovy'
     id 'jacoco'
+    id 'groovy'
+    id 'io.freefair.lombok'
+    id 'net.ltgt.errorprone'
+    id 'com.github.johnrengelman.shadow'
     id 'maven-publish'
 }
 
 dependencies {
-    annotationProcessor 'com.google.auto.service:auto-service:1.0.1'
+    errorprone enforcedPlatform(project(':dependencies'))
+    errorprone 'com.google.errorprone:error_prone_core'
+    errorprone 'com.uber.nullaway:nullaway'
 
-    compileOnly platform('org.apache.groovy:groovy-bom:4.0.6')
-    compileOnly platform('org.spockframework:spock-bom:2.3-groovy-4.0')
-    compileOnly 'com.google.auto.service:auto-service-annotations:1.0.1'
-    compileOnly 'org.junit.platform:junit-platform-launcher'
-    compileOnly 'org.junit.platform:junit-platform-engine'
+    annotationProcessor enforcedPlatform(project(':dependencies'))
+    annotationProcessor 'org.projectlombok:lombok'
+    annotationProcessor 'org.jetbrains:annotations'
+    annotationProcessor 'com.google.auto.service:auto-service'
+    annotationProcessor 'com.google.dagger:dagger-compiler'
+
+    compileOnly enforcedPlatform(project(':dependencies'))
+    compileOnly 'com.google.auto.service:auto-service-annotations'
+    compileOnly 'com.google.dagger:dagger'
     compileOnly 'org.apache.groovy:groovy'
+    compileOnly 'org.jetbrains:annotations'
+    compileOnly 'org.junit.platform:junit-platform-engine'
+    compileOnly 'org.junit.platform:junit-platform-launcher'
+    compileOnly 'org.projectlombok:lombok'
     compileOnly 'org.spockframework:spock-core'
 
-    implementation 'net.bytebuddy:byte-buddy-agent:1.12.18'
-    implementation 'net.bytebuddy:byte-buddy:1.12.18'
-    implementation 'org.slf4j:slf4j-api:2.0.3'
+    api 'com.google.dagger:dagger:2.44'
+
+    shadow 'net.bytebuddy:byte-buddy-agent:1.12.18'
+    shadow 'net.bytebuddy:byte-buddy:1.12.18'
+    shadow 'org.slf4j:slf4j-api:2.0.3'
+}
+
+shadowJar {
+    relocate 'dagger', 'io.github.joke.spockmockable.shadow.dagger'
+    relocate 'javax', 'io.github.joke.spockmockable.shadow.javax'
+    minimize()
 }
 
 publishing {
     publications {
-        spockMockable(MavenPublication) {
-            from components.java
+        spockMockable(MavenPublication) { publication ->
+            project.shadow.component publication
         }
     }
 }

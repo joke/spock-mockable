@@ -1,7 +1,7 @@
-package io.github.joke.spockmockable.internal.hooks;
+package io.github.joke.spockmockable.hooks;
 
 import com.google.auto.service.AutoService;
-import io.github.joke.spockmockable.internal.MockableTransformer;
+import io.github.joke.spockmockable.agent.AgentInstaller;
 import org.junit.platform.engine.EngineDiscoveryRequest;
 import org.junit.platform.engine.ExecutionRequest;
 import org.junit.platform.engine.TestDescriptor;
@@ -9,12 +9,12 @@ import org.junit.platform.engine.TestEngine;
 import org.junit.platform.engine.UniqueId;
 import org.junit.platform.engine.support.descriptor.EngineDescriptor;
 
-import static io.github.joke.spockmockable.internal.MockableTransformer.getInstance;
-
 @AutoService(TestEngine.class)
 public class Engine implements TestEngine {
 
-    private static final MockableTransformer mockableTransformer = getInstance();
+    static {
+        AgentInstaller.install();
+    }
 
     @Override
     public String getId() {
@@ -29,4 +29,5 @@ public class Engine implements TestEngine {
     @Override
     public void execute(final ExecutionRequest request) {
     }
+
 }

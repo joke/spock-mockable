@@ -1,11 +1,13 @@
 package io.github.joke.spockmockable.tests
 
 import io.github.joke.spockmockable.Mockable
+import io.github.joke.spockmockable.tests.Person
 import org.spockframework.mock.MockUtil
 import spock.lang.Specification
 
-@Mockable(packageName = 'io.github.joke.spockmockable.tests')
-class PersonTestWithMockablePackage extends Specification {
+@Mockable(className = 'io.github.joke.spockmockable.tests.Person')
+@Mockable(className = 'io.github.joke.spockmockable.tests.Address')
+class MockableClassTest extends Specification {
 
     def mockUtil = new MockUtil()
 
@@ -15,6 +17,14 @@ class PersonTestWithMockablePackage extends Specification {
 
         expect:
         mockUtil.isMock person
+    }
+
+    def 'final from subclass is removed'() {
+        setup:
+        Person.Address address = Mock()
+
+        expect:
+        mockUtil.isMock address
     }
 
     def 'final from method is removed'() {
@@ -53,7 +63,7 @@ class PersonTestWithMockablePackage extends Specification {
         def res = person.address.street
 
         then:
-        1 * person.address >> new Address('Yellow Brick Road', 'Blue City')
+        1 * person.address >> new Person.Address('Yellow Brick Road')
 
         expect:
         res == 'Yellow Brick Road'

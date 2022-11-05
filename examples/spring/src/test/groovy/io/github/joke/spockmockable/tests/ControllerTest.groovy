@@ -1,6 +1,5 @@
 package io.github.joke.spockmockable.tests
 
-import io.github.joke.spockmockable.Mockable
 import org.spockframework.spring.SpringBean
 import org.springframework.beans.factory.annotation.Autowired
 import org.springframework.boot.test.autoconfigure.web.servlet.WebMvcTest
@@ -9,7 +8,6 @@ import spock.lang.Specification
 
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get
 
-@Mockable(SimpleService)
 @WebMvcTest(controllers = SimpleController)
 class ControllerTest extends Specification {
 

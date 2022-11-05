@@ -9,7 +9,7 @@ public class SimpleController {
 
     private final SimpleService simpleService;
 
-    public SimpleController(SimpleService simpleService) {
+    public SimpleController(final SimpleService simpleService) {
         this.simpleService = simpleService;
     }
 

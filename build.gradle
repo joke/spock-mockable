@@ -1,6 +1,9 @@
 plugins {
+    id 'com.github.johnrengelman.shadow' version '7.1.2' apply false
     id 'idea'
+    id 'net.ltgt.errorprone' version '2.0.2' apply false
     id 'org.shipkit.shipkit-auto-version' version '1.2.2'
+    id 'io.freefair.lombok' version '6.5.1'
 }
 
 allprojects { project ->
@@ -32,6 +35,27 @@ allprojects { project ->
                 xml.required = true
             }
         }
+    }
+
+    pluginManager.withPlugin('lombok') {
+        lombok {
+            version = '1.18.24'
+        }
+    }
+
+    pluginManager.withPlugin('net.ltgt.errorprone') {
+        tasks.withType(JavaCompile) {
+            options.errorprone {
+                disableWarningsInGeneratedCode = true
+                error('NullAway')
+                option('NullAway:AnnotatedPackages', project.group)
+            }
+        }
+    }
+
+    tasks.withType(AbstractArchiveTask) {
+        preserveFileTimestamps = false
+        reproducibleFileOrder = true
     }
 
     pluginManager.withPlugin('maven-publish') {
