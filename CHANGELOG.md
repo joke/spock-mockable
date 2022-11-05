@@ -1,5 +1,22 @@
 # Changelog
 
+## [2.0.0](https://github.com/joke/spock-mockable/compare/v1.5.7...v2.0.0) (2022-11-05)
+
+
+### ⚠ BREAKING CHANGES
+
+* `@Mockable` changed in favor of automatic detection.
+* drop support for spock 1.3
+
+### Features
+
+* automatic detected of mockable classes ([fb03556](https://github.com/joke/spock-mockable/commit/fb03556e3960ba307ee54261c8eb02f00c2df381))
+
+
+### Code Refactoring
+
+* drop support for spock 1.3 ([96753f6](https://github.com/joke/spock-mockable/commit/96753f695ff8d2630aac02cd130cc0c6165e38b0))
+
 ## [1.5.7](https://github.com/joke/spock-mockable/compare/v1.5.6...v1.5.7) (2022-09-24)
 
 
