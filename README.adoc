@@ -14,9 +14,9 @@ image:https://img.shields.io/badge/pre--commit-enabled-brightgreen?logo=pre-comm
 Spock is not capable of mocking `private` or `final` classes or methods
 because they are not accessible via inheritance. `spock-mockable` uses JVM instrumentation to
 modify these classes upon class loading and apply looser access restrictions.
-In consequence Spock then capable of mocking these classes.
+In consequence Spock is capable of mocking these classes.
 
-* Changes methode visibility `private` to `protected`
+* Changes method visibility `private` to `protected`
 * Removes `final` from classes and methods
 * Automatically attaches java agent
 * Redefines classes via https://bytebuddy.net/[Byte Buddy] transformation.
@@ -51,20 +51,58 @@ dependencies {
 
 == Usage
 
-Add the `@Mockable` annotation to your spock specification.
+Under normal circumstances classes needing to undergo transformation are detected automatically.
 
-.Make Person mockable
+.Mock definition
 [source,groovy]
 ----
-@Mockable(Person)
-class PersonSpec extends Specification {
+class MySpec extends Specification {
+    // either
+    Person person = Mock() // detected class based on type of variable
+    // or
+    def person = Mock(Person) // detected class based on Mock parameter
 }
 ----
 
-.Make complete package `io.github.joke` mockable
+.Stub definition
 [source,groovy]
 ----
-@Mockable(packages = "io.github.joke")
+class MySpec extends Specification {
+    // either
+    Person person = Stub() // detected class based on type of variable
+    // or
+    def person = Stub(Person) // detected class based on Mock parameter
+}
+----
+
+.Spy definition
+[source,groovy]
+----
+class MySpec extends Specification {
+    // either
+    def person = new Person()
+    Person personSpy = Spy(person) // detected class based on type of variable
+
+    // or
+    Person person = new Person()
+    def personSpy = Spy(personInstance) // detected class based on Mock parameter
+
+
+    // WARNING!
+    def person = new Person()
+    def person2 = personInstance // person2 is dynamic typed and ...
+    def personSpy = Spy(person2) // ... class type information is lost in this case!
+}
+----
+
+In special cases you might want to manually specify additional classes or packages to undergo transformation. This need might arise if the exact class type can not be referenced in the specification. In this case you can specify arbitrary class or package names manually.
+
+.Mockable annotation
+[source,groovy]
+----
+@Mockable(className = 'some.package.MyFirstClass')
+@Mockable(className = 'some.package.MySecondClass')
+@Mockable(packageName = 'some.package')
 class PersonSpec extends Specification {
 }
 ----

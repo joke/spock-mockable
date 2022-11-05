@@ -20,79 +20,79 @@ def spock2x = [
 dependencies {
     testImplementation enforcedPlatform('org.apache.groovy:groovy-bom:4.0.6')
     testImplementation enforcedPlatform('org.spockframework:spock-bom:2.2-groovy-4.0')
-    testImplementation project(':spock-mockable')
+    testImplementation project(path: ':spock-mockable', configuration: 'shadow')
     testImplementation 'org.slf4j:slf4j-simple:2.0.3'
     testImplementation 'org.spockframework:spock-core'
 
     spock20groovy25Implementation enforcedPlatform('org.codehaus.groovy:groovy-bom:2.5.18')
     spock20groovy25Implementation enforcedPlatform('org.spockframework:spock-bom:2.0-groovy-2.5')
-    spock20groovy25Implementation project(':spock-mockable')
-    spock20groovy25Implementation 'org.spockframework:spock-core'
-    spock20groovy25Implementation 'org.slf4j:slf4j-simple:2.0.2'
+    spock20groovy25Implementation project(path: ':spock-mockable', configuration: 'shadow')
     spock20groovy25Implementation 'org.objenesis:objenesis:3.3'
+    spock20groovy25Implementation 'org.slf4j:slf4j-simple:2.0.2'
+    spock20groovy25Implementation 'org.spockframework:spock-core'
 
-    spock20groovy30Implementation enforcedPlatform('org.codehaus.groovy:groovy-bom:3.0.9')
+    spock20groovy30Implementation enforcedPlatform('org.codehaus.groovy:groovy-bom:3.0.13')
     spock20groovy30Implementation enforcedPlatform('org.spockframework:spock-bom:2.0-groovy-3.0')
-    spock20groovy30Implementation project(':spock-mockable')
-    spock20groovy30Implementation 'org.spockframework:spock-core'
-    spock20groovy30Implementation 'org.slf4j:slf4j-simple:2.0.2'
+    spock20groovy30Implementation project(path: ':spock-mockable', configuration: 'shadow')
     spock20groovy30Implementation 'org.objenesis:objenesis:3.3'
+    spock20groovy30Implementation 'org.slf4j:slf4j-simple:2.0.2'
+    spock20groovy30Implementation 'org.spockframework:spock-core'
 
     spock21groovy25Implementation enforcedPlatform('org.codehaus.groovy:groovy-bom:2.5.18')
     spock21groovy25Implementation enforcedPlatform('org.spockframework:spock-bom:2.1-groovy-2.5')
-    spock21groovy25Implementation project(':spock-mockable')
-    spock21groovy25Implementation 'org.spockframework:spock-core'
-    spock21groovy25Implementation 'org.slf4j:slf4j-simple:2.0.2'
+    spock21groovy25Implementation project(path: ':spock-mockable', configuration: 'shadow')
     spock21groovy25Implementation 'org.objenesis:objenesis:3.3'
+    spock21groovy25Implementation 'org.slf4j:slf4j-simple:2.0.2'
+    spock21groovy25Implementation 'org.spockframework:spock-core'
 
-    spock21groovy30Implementation enforcedPlatform('org.codehaus.groovy:groovy-bom:3.0.9')
+    spock21groovy30Implementation enforcedPlatform('org.codehaus.groovy:groovy-bom:3.0.13')
     spock21groovy30Implementation enforcedPlatform('org.spockframework:spock-bom:2.1-groovy-3.0')
-    spock21groovy30Implementation project(':spock-mockable')
-    spock21groovy30Implementation 'org.spockframework:spock-core'
-    spock21groovy30Implementation 'org.slf4j:slf4j-simple:2.0.2'
+    spock21groovy30Implementation project(path: ':spock-mockable', configuration: 'shadow')
     spock21groovy30Implementation 'org.objenesis:objenesis:3.3'
+    spock21groovy30Implementation 'org.slf4j:slf4j-simple:2.0.2'
+    spock21groovy30Implementation 'org.spockframework:spock-core'
 
     spock22groovy25Implementation enforcedPlatform('org.codehaus.groovy:groovy-bom:2.5.18')
     spock22groovy25Implementation enforcedPlatform('org.spockframework:spock-bom:2.2-groovy-2.5')
-    spock22groovy25Implementation project(':spock-mockable')
-    spock22groovy25Implementation 'org.spockframework:spock-core'
-    spock22groovy25Implementation 'org.slf4j:slf4j-simple:2.0.2'
+    spock22groovy25Implementation project(path: ':spock-mockable', configuration: 'shadow')
     spock22groovy25Implementation 'org.objenesis:objenesis:3.3'
+    spock22groovy25Implementation 'org.slf4j:slf4j-simple:2.0.2'
+    spock22groovy25Implementation 'org.spockframework:spock-core'
 
-    spock22groovy30Implementation enforcedPlatform('org.codehaus.groovy:groovy-bom:3.0.9')
+    spock22groovy30Implementation enforcedPlatform('org.codehaus.groovy:groovy-bom:3.0.13')
     spock22groovy30Implementation enforcedPlatform('org.spockframework:spock-bom:2.2-groovy-3.0')
-    spock22groovy30Implementation project(':spock-mockable')
+    spock22groovy30Implementation project(path: ':spock-mockable', configuration: 'shadow')
+    spock22groovy30Implementation 'org.objenesis:objenesis:3.3'
     spock22groovy30Implementation 'org.slf4j:slf4j-simple:2.0.2'
     spock22groovy30Implementation 'org.spockframework:spock-core'
-    spock22groovy30Implementation 'org.objenesis:objenesis:3.3'
 
-    spock22groovy40Implementation enforcedPlatform('org.apache.groovy:groovy-bom:4.0.5')
+    spock22groovy40Implementation enforcedPlatform('org.apache.groovy:groovy-bom:4.0.6')
     spock22groovy40Implementation enforcedPlatform('org.spockframework:spock-bom:2.2-groovy-4.0')
-    spock22groovy40Implementation project(':spock-mockable')
-    spock22groovy40Implementation 'org.spockframework:spock-core'
-    spock22groovy40Implementation 'org.slf4j:slf4j-simple:2.0.2'
+    spock22groovy40Implementation project(path: ':spock-mockable', configuration: 'shadow')
     spock22groovy40Implementation 'org.objenesis:objenesis:3.3'
+    spock22groovy40Implementation 'org.slf4j:slf4j-simple:2.0.2'
+    spock22groovy40Implementation 'org.spockframework:spock-core'
 
     spock23groovy25Implementation enforcedPlatform('org.codehaus.groovy:groovy-bom:2.5.18')
     spock23groovy25Implementation enforcedPlatform('org.spockframework:spock-bom:2.3-groovy-2.5')
-    spock23groovy25Implementation project(':spock-mockable')
-    spock23groovy25Implementation 'org.spockframework:spock-core'
-    spock23groovy25Implementation 'org.slf4j:slf4j-simple:2.0.2'
+    spock23groovy25Implementation project(path: ':spock-mockable', configuration: 'shadow')
     spock23groovy25Implementation 'org.objenesis:objenesis:3.3'
+    spock23groovy25Implementation 'org.slf4j:slf4j-simple:2.0.2'
+    spock23groovy25Implementation 'org.spockframework:spock-core'
 
-    spock23groovy30Implementation enforcedPlatform('org.codehaus.groovy:groovy-bom:3.0.9')
+    spock23groovy30Implementation enforcedPlatform('org.codehaus.groovy:groovy-bom:3.0.13')
     spock23groovy30Implementation enforcedPlatform('org.spockframework:spock-bom:2.3-groovy-3.0')
-    spock23groovy30Implementation project(':spock-mockable')
+    spock23groovy30Implementation project(path: ':spock-mockable', configuration: 'shadow')
+    spock23groovy30Implementation 'org.objenesis:objenesis:3.3'
     spock23groovy30Implementation 'org.slf4j:slf4j-simple:2.0.2'
     spock23groovy30Implementation 'org.spockframework:spock-core'
-    spock23groovy30Implementation 'org.objenesis:objenesis:3.3'
 
-    spock23groovy40Implementation enforcedPlatform('org.apache.groovy:groovy-bom:4.0.5')
+    spock23groovy40Implementation enforcedPlatform('org.apache.groovy:groovy-bom:4.0.6')
     spock23groovy40Implementation enforcedPlatform('org.spockframework:spock-bom:2.3-groovy-4.0')
-    spock23groovy40Implementation project(':spock-mockable')
-    spock23groovy40Implementation 'org.spockframework:spock-core'
-    spock23groovy40Implementation 'org.slf4j:slf4j-simple:2.0.2'
+    spock23groovy40Implementation project(path: ':spock-mockable', configuration: 'shadow')
     spock23groovy40Implementation 'org.objenesis:objenesis:3.3'
+    spock23groovy40Implementation 'org.slf4j:slf4j-simple:2.0.2'
+    spock23groovy40Implementation 'org.spockframework:spock-core'
 }
 
 spock2x.forEach { source ->
@@ -111,6 +111,12 @@ test {
     enabled = false
 }
 
+tasks.withType(GroovyCompile) {
+//    groovyOptions.fork = true
+//    groovyOptions.forkOptions.jvmArgs = ['-agentlib:jdwp=transport=dt_socket,server=n,address=5005,suspend=y']
+}
+
 tasks.withType(Test) {
     forkEvery 1
+//    jvmArgs = ['-agentlib:jdwp=transport=dt_socket,server=n,address=localhost:5006,suspend=y']
 }

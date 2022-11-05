@@ -1,8 +1,7 @@
 package io.github.joke.spockmockable;
 
-import org.codehaus.groovy.transform.GroovyASTTransformationClass;
-
 import java.lang.annotation.Documented;
+import java.lang.annotation.Repeatable;
 import java.lang.annotation.Retention;
 import java.lang.annotation.Target;
 
@@ -12,13 +11,26 @@ import static java.lang.annotation.RetentionPolicy.RUNTIME;
 @Documented
 @Target(TYPE)
 @Retention(RUNTIME)
-@GroovyASTTransformationClass("io.github.joke.spockmockable.internal.MockableASTTransformation")
+@Repeatable(Mockables.class)
 public @interface Mockable {
 
     /**
-     * Classes that should be made mockable
+     * Addition a class name {@link java.lang.Class#getName()} to be made mockable.
+     * Normally spock-mockable will automatically detect which classes need to be made mockable.
+     * Under special circumstances however the type can not be detected automatically. In this particular cases you
+     * can specify a class name manually.
+     * This is especially useful if the class is generated at runtime.
      */
-    Class<?>[] value() default {};
+    String className();
 
-    String[] packages() default {};
+    /**
+     * Addition a class name {@link java.lang.Package#getName()} to be made mockable.
+     * Normally spock-mockable will automatically detect which classes need to be made mockable.
+     * Under special circumstances however the type can not be detected automatically. In this particular cases you
+     * can specify a class name manually.
+     * This is especially useful if the class is generated at runtime.
+     */
+
+    String packageName();
+
 }

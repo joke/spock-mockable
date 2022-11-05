@@ -4,16 +4,16 @@ plugins {
 }
 
 dependencies {
-    implementation platform('org.springframework.boot:spring-boot-dependencies:2.7.5')
+    implementation enforcedPlatform('org.springframework.boot:spring-boot-dependencies:2.7.5')
     implementation 'org.springframework.boot:spring-boot-starter-web'
 
-    testImplementation platform('org.apache.groovy:groovy-bom:4.0.6')
-    testImplementation platform('org.spockframework:spock-bom:2.3-groovy-4.0')
+    testImplementation enforcedPlatform('org.apache.groovy:groovy-bom:4.0.6')
+    testImplementation enforcedPlatform('org.spockframework:spock-bom:2.3-groovy-4.0')
 
+    testImplementation project(path: ':spock-mockable', configuration: 'shadow')
     testImplementation 'org.spockframework:spock-core'
     testImplementation 'org.spockframework:spock-spring'
     testImplementation 'org.springframework.boot:spring-boot-starter-test'
-    testImplementation project(':spock-mockable')
 }
 
 test {
