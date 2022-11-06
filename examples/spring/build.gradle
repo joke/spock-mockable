@@ -7,6 +7,7 @@ dependencies {
     implementation enforcedPlatform('org.springframework.boot:spring-boot-dependencies:2.7.5')
     implementation 'org.springframework.boot:spring-boot-starter-web'
 
+    testImplementation enforcedPlatform(project(':dependencies'))
     testImplementation enforcedPlatform('org.apache.groovy:groovy-bom:4.0.6')
     testImplementation enforcedPlatform('org.spockframework:spock-bom:2.3-groovy-4.0')
 
