@@ -46,6 +46,7 @@ public abstract class AgentInstaller {
     protected AgentInstaller init() {
         if (parseBoolean(getProperty("spock-mockable.disabled", "false"))) {
             log.info("@Mockable transformation is disabled by system property 'spock-mockable.disabled=true'");
+            return this;
         }
 
         if (referenceLoader().hasClasses()) {
