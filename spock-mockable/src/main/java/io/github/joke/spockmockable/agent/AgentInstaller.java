@@ -10,6 +10,7 @@ import org.jetbrains.annotations.Nullable;
 
 import javax.inject.Singleton;
 import java.lang.instrument.Instrumentation;
+import java.util.Optional;
 
 import static java.lang.Boolean.parseBoolean;
 import static java.lang.System.getProperty;
@@ -20,9 +21,18 @@ import static lombok.AccessLevel.PRIVATE;
 @Component(modules = AgentInstaller.Module.class)
 public abstract class AgentInstaller {
 
+    @Nullable
+    private static Instrumentation instrumentation;
+
     @SuppressWarnings("SameNameButDifferent")
     @Getter(value = PRIVATE, lazy = true, onMethod_ = @Nullable)
     private static final AgentInstaller agentInstaller = DaggerAgentInstaller.create().init();
+
+    @SuppressWarnings("DoNotCallSuggester")
+    public static void premain(String agentArgs, Instrumentation instrumentation) {
+        AgentInstaller.instrumentation = instrumentation;
+        install();
+    }
 
     @Synchronized
     public static void install() {
@@ -57,7 +67,8 @@ public abstract class AgentInstaller {
         @Provides
         @Singleton
         static Instrumentation getInstrumentation() {
-            return ByteBuddyAgent.install();
+            return Optional.ofNullable(AgentInstaller.instrumentation)
+                    .orElseGet(ByteBuddyAgent::install);
         }
 
     }

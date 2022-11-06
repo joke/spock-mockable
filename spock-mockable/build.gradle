@@ -42,6 +42,16 @@ shadowJar {
     minimize()
 }
 
+jar {
+    manifest {
+        attributes(
+                'Can-Redefine-Classes': 'true',
+                'Can-Retransform-Classes': 'true',
+                'Premain-Class': 'io.github.joke.spockmockable.agent.AgentInstaller',
+        )
+    }
+}
+
 publishing {
     publications {
         spockMockable(MavenPublication) { publication ->

@@ -35,6 +35,11 @@ image:https://badgen.net/github/release/joke/spock-mockable/stable[]
 dependencies {
     testImplementation 'io.github.joke:spock-mockable:x.y.z'
 }
+
+// to load the agent even earlier add it as a JVM argument
+tasks.withType(Test) {
+    jvmArgs += ["-javaagent:${classpath.find { it.name.contains('spock-mockable') }.absolutePath}"]
+}
 ----
 
 === Maven
@@ -118,6 +123,8 @@ During groovy's compilation phase each specification is analyzed and mock invoca
 At the start of a test JVM these detected classes are transformed by the JVM instrumentation
 regardless of the actual specification there the mock invocation has been detected.
 This might lead to unexpected behaviour between different specifications.
+
+For the earliest possible transformation of classes start the agent by using the JVM argument (`-javaagent`).
 
 IMPORTANT: For agent instrumentation to work the JVM must support this feature. A JRE is most likely not sufficient.
 
