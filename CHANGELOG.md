@@ -1,5 +1,12 @@
 # Changelog
 
+## [2.1.0](https://github.com/joke/spock-mockable/compare/v2.0.0...v2.1.0) (2022-11-06)
+
+
+### Features
+
+* support earlier transformation as -javaagent ([84b4fd5](https://github.com/joke/spock-mockable/commit/84b4fd5655fec27a90fda21a9709659054958abe))
+
 ## [2.0.0](https://github.com/joke/spock-mockable/compare/v1.5.7...v2.0.0) (2022-11-05)
 
 
