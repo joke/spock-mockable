@@ -1,5 +1,4 @@
 = `spock-mockable`
-:toc:
 :icons: font
 
 image:https://github.com/joke/spock-mockable/workflows/build/badge.svg?branch=main[]
