@@ -129,5 +129,6 @@ tasks.withType(GroovyCompile) {
 
 tasks.withType(Test) {
     forkEvery 1
-//    jvmArgs = ['-agentlib:jdwp=transport=dt_socket,server=n,address=localhost:5006,suspend=y']
+    jvmArgs += "-javaagent:${classpath.find { it.name.contains('spock-mockable') }.absolutePath}"
+//    jvmArgs += '-agentlib:jdwp=transport=dt_socket,server=n,address=localhost:5006,suspend=y'
 }

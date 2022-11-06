@@ -18,4 +18,5 @@ dependencies {
 test {
     forkEvery 1
     useJUnitPlatform()
+    jvmArgs += "-javaagent:${classpath.find { it.name.contains('spock-mockable') }.absolutePath}"
 }
