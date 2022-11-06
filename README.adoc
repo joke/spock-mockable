@@ -23,7 +23,9 @@ In consequence Spock is capable of mocking these classes. Refer to <<How does it
 
 == Setup
 
-Just add the artifact as an additional dependency to your spock setup.
+Add the artifact as an additional dependency to your spock setup.
+
+TIP: Even though not strictly necessary it is recommended to register the dependency as a java agent with the JVM. This way more classes can be transformed.
 
 === Gradle
 
