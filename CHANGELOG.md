@@ -1,5 +1,13 @@
 # Changelog
 
+## [2.1.1](https://github.com/joke/spock-mockable/compare/v2.1.0...v2.1.1) (2022-11-07)
+
+
+### Bug Fixes
+
+* agent deactivation via system property ([db901d5](https://github.com/joke/spock-mockable/commit/db901d543a76ed97eba44838496418afdcab80af))
+* publishing shadow artifact closes [#269](https://github.com/joke/spock-mockable/issues/269) ([25eb3b1](https://github.com/joke/spock-mockable/commit/25eb3b14457255fcbfb9bf2042b15a2ca16afd8a))
+
 ## [2.1.0](https://github.com/joke/spock-mockable/compare/v2.0.0...v2.1.0) (2022-11-06)
 
 
