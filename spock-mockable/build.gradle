@@ -51,9 +51,14 @@ test {
     ]
 }
 
+jar {
+    classifier 'plain'
+}
+
 shadowJar {
     relocate 'dagger', 'io.github.joke.spockmockable.shadow.dagger'
     relocate 'javax', 'io.github.joke.spockmockable.shadow.javax'
+    classifier null
     minimize()
 }
 
@@ -71,6 +76,8 @@ publishing {
     publications {
         spockMockable(MavenPublication) { publication ->
             project.shadow.component publication
+            artifact sourcesJar
+            artifact javadocJar
         }
     }
 }
