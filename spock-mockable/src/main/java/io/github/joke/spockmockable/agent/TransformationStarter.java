@@ -5,7 +5,6 @@ import lombok.extern.slf4j.Slf4j;
 
 import javax.inject.Inject;
 import javax.inject.Singleton;
-
 import java.util.concurrent.atomic.AtomicBoolean;
 
 import static java.lang.Boolean.parseBoolean;
@@ -16,11 +15,11 @@ import static java.lang.System.getProperty;
 @RequiredArgsConstructor(onConstructor_ = @Inject)
 public class TransformationStarter {
 
-    final ReferenceLoader referenceLoader;
+    private final ReferenceLoader referenceLoader;
 
-    final ClassTransformer classTransformer;
+    private final ClassTransformer classTransformer;
 
-    AtomicBoolean started = new AtomicBoolean(false);
+    private final AtomicBoolean started = new AtomicBoolean(false);
 
     public void start() {
         if (started.getAndSet(true)) {
