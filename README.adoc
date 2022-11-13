@@ -64,6 +64,8 @@ tasks.withType(Test) {
 
 Under normal circumstances classes needing to undergo transformation are detected automatically.
 
+=== Mocks & Stubs
+
 .Mock definition
 [source,groovy]
 ----
@@ -86,6 +88,8 @@ class MySpec extends Specification {
 }
 ----
 
+=== Spies
+
 .Spy definition
 [source,groovy]
 ----
@@ -106,17 +110,7 @@ class MySpec extends Specification {
 }
 ----
 
-In special cases you might want to manually specify additional classes or packages to undergo transformation. This need might arise if the exact class type can not be referenced in the specification. In this case you can specify arbitrary class or package names manually.
-
-.Mockable annotation
-[source,groovy]
-----
-@Mockable(className = 'some.package.MyFirstClass')
-@Mockable(className = 'some.package.MySecondClass')
-@Mockable(packageName = 'some.package')
-class PersonSpec extends Specification {
-}
-----
+=== Static methods
 
 Static methods can be mocked in a similar fashion like https://spockframework.org/spock/docs/2.3/interaction_based_testing.html#_mocking_static_methods[mocking static methods using `GroovySpy`]. All classes which have undergone transformation are
 already prepared for mocking there static methods. The original method is called by default similar to a spy.
@@ -150,6 +144,20 @@ class UtilitySpec extends Specification {
 ----
 
 More examples can be found in link:examples[].
+
+=== Transform special cases
+
+In special cases you might want to manually specify additional classes or packages to undergo transformation. This need might arise if the exact class type can not be referenced in the specification. In this case you can specify arbitrary class or package names manually.
+
+.Mockable annotation
+[source,groovy]
+----
+@Mockable(className = 'some.package.MyFirstClass')
+@Mockable(className = 'some.package.MySecondClass')
+@Mockable(packageName = 'some.package')
+class PersonSpec extends Specification {
+}
+----
 
 == How does it work
 
