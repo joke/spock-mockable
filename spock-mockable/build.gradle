@@ -37,8 +37,9 @@ dependencies {
 
     testImplementation enforcedPlatform(project(':dependencies'))
     testImplementation 'io.github.joke:spock-outputcapture'
-    testImplementation 'net.bytebuddy:byte-buddy-agent'
     testImplementation 'net.bytebuddy:byte-buddy'
+    testImplementation 'net.bytebuddy:byte-buddy-agent'
+    testImplementation 'org.objenesis:objenesis'
     testImplementation 'org.slf4j:slf4j-simple'
     testImplementation 'org.spockframework:spock-core'
 }

@@ -16,9 +16,8 @@ import static java.lang.String.join;
 @RequiredArgsConstructor(onConstructor_ = @Inject)
 class MetaInfWriter {
 
-    private final CompilationUnit compilationUnit;
-
     private final ClassCollector classCollector;
+    private final CompilationUnit compilationUnit;
 
     void write() {
         final String classes = join(",", classCollector.getClassNames());

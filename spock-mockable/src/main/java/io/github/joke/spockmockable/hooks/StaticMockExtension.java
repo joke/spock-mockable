@@ -21,7 +21,7 @@ public class StaticMockExtension implements IGlobalExtension {
         spec.addSetupSpecInterceptor(extractor);
     }
 
-    public static class Extractor extends AbstractMethodInterceptor {
+    private static class Extractor extends AbstractMethodInterceptor {
 
         @Override
         public void interceptSetupMethod(final IMethodInvocation invocation) throws Throwable {

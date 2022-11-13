@@ -11,5 +11,4 @@ public class GlobalExtension implements IGlobalExtension {
     static {
         MockableController.init();
     }
-
 }
