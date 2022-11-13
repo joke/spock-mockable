@@ -21,8 +21,7 @@ public class RedefinitionListener extends AgentBuilder.RedefinitionStrategy.List
 
     @Override
     public Iterable<? extends List<Class<?>>> onError(final int index, final List<Class<?>> batch, final Throwable throwable, final List<Class<?>> types) {
-        log.warn("Could not transform classes: '{}'", types);
+        log.warn("Could not transform classes: '{}'", types, throwable);
         return super.onError(index, batch, throwable, types);
     }
-
 }

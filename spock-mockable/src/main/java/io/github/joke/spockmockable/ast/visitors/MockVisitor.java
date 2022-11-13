@@ -1,5 +1,7 @@
-package io.github.joke.spockmockable.ast;
+package io.github.joke.spockmockable.ast.visitors;
 
+import io.github.joke.spockmockable.ast.ClassCollector;
+import io.github.joke.spockmockable.ast.scopes.ClassNodeScope;
 import lombok.RequiredArgsConstructor;
 import org.codehaus.groovy.ast.ClassNode;
 import org.codehaus.groovy.ast.CodeVisitorSupport;
@@ -21,8 +23,9 @@ import static java.util.stream.Collectors.collectingAndThen;
 import static java.util.stream.Collectors.toCollection;
 import static org.spockframework.util.Identifiers.BUILT_IN_METHODS;
 
+@ClassNodeScope
 @RequiredArgsConstructor(onConstructor_ = @Inject)
-class MockVisitor {
+public class MockVisitor {
 
     private final static SortedSet<String> METHOD_IDENTIFIER = BUILT_IN_METHODS.stream()
             .map(builtIn -> builtIn + "Impl")
@@ -96,5 +99,4 @@ class MockVisitor {
             }
         }
     }
-
 }

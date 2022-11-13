@@ -33,5 +33,4 @@ public class PropertyReader {
                     .withArgs(METHODS_FILE);
         }
     }
-
 }

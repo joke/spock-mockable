@@ -2,40 +2,35 @@ package io.github.joke.spockmockable.ast;
 
 import dagger.BindsInstance;
 import dagger.Subcomponent;
+import io.github.joke.spockmockable.ast.scopes.SourceUnitScope;
 import org.codehaus.groovy.ast.ClassNode;
 import org.codehaus.groovy.control.SourceUnit;
 import spock.lang.Specification;
 
-import javax.inject.Inject;
-
 import static org.codehaus.groovy.ast.ClassHelper.makeWithoutCaching;
 
-@Subcomponent(modules = SpecificationSelector.Module.class)
-abstract class SpecificationSelector {
+@SourceUnitScope
+@Subcomponent(modules = SourceUnitProcessor.Module.class)
+abstract class SourceUnitProcessor {
 
     private static final ClassNode SPECIFICATION = makeWithoutCaching(Specification.class);
 
-    @Inject
-    SourceUnit sourceUnit;
-
-    protected abstract SpecificationVisitor getSpecificationVisitor();
-
-    protected abstract SourceUnit getSourceUnit();
-
     public void process() {
-        final SpecificationVisitor specificationVisitor = getSpecificationVisitor();
+        final SpecificationProcessor.Factory specificationProcessorFactory = specificationProcessorFactory();
         getSourceUnit().getAST().getClasses().stream()
                 .filter(clazz -> clazz.isDerivedFrom(SPECIFICATION))
-                .forEach(specificationVisitor::visit);
+                .forEach(classNode -> specificationProcessorFactory.create(classNode).process());
     }
+
+    protected abstract SourceUnit getSourceUnit();
+    protected abstract SpecificationProcessor.Factory specificationProcessorFactory();
 
     @Subcomponent.Factory
     interface Factory {
-        SpecificationSelector create(@BindsInstance SourceUnit sourceUnit);
+        SourceUnitProcessor create(@BindsInstance SourceUnit sourceUnit);
     }
 
     @dagger.Module
     interface Module {
     }
-
 }

@@ -13,5 +13,4 @@ import static java.lang.annotation.RetentionPolicy.RUNTIME;
 @interface Mockables {
 
     Mockable[] value() default {};
-
 }

@@ -32,5 +32,4 @@ public @interface Mockable {
      */
 
     String packageName();
-
 }
