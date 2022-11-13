@@ -40,7 +40,6 @@ class InstallationListener extends AgentBuilder.InstallationListener.Adapter {
     @Override
     public void onBeforeWarmUp(final Set<Class<?>> types, final ResettableClassFileTransformer classFileTransformer) {
         log.trace("onBeforeWarmUp");
-
         super.onBeforeWarmUp(types, classFileTransformer);
     }
 

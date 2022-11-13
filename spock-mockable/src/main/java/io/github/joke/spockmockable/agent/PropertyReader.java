@@ -1,7 +1,9 @@
 package io.github.joke.spockmockable.agent;
 
+import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
+import org.jetbrains.annotations.NotNull;
 import org.spockframework.runtime.extension.ExtensionException;
 
 import javax.inject.Inject;
@@ -17,8 +19,10 @@ public class PropertyReader {
 
     private static final String METHODS_FILE = "/META-INF/spock-mockable.properties";
 
-    @SuppressWarnings("OrphanedFormatString")
-    protected Properties load() {
+    @Getter(lazy = true, onMethod_ = {@NotNull, @SuppressWarnings("NullAway")})
+    private final Properties properties = load();
+
+    private Properties load() {
         final Properties properties = new Properties();
         try (final InputStream stream = getClass().getResourceAsStream(METHODS_FILE)) {
             if (stream == null) {
@@ -29,8 +33,13 @@ public class PropertyReader {
             properties.load(stream);
             return properties;
         } catch (final IOException e) {
-            throw new ExtensionException("Unable to read properties file '%s' containing mockable class information", e)
-                    .withArgs(METHODS_FILE);
+            throw createExtensionException(e);
         }
+    }
+
+    @SuppressWarnings("OrphanedFormatString")
+    private ExtensionException createExtensionException(final IOException e) {
+        return new ExtensionException("Unable to read properties file '%s' containing mockable class information", e)
+                .withArgs(METHODS_FILE);
     }
 }
