@@ -8,7 +8,10 @@ import net.bytebuddy.agent.builder.AgentBuilder.InitializationStrategy;
 import net.bytebuddy.agent.builder.AgentBuilder.RedefinitionStrategy;
 import net.bytebuddy.agent.builder.AgentBuilder.RedefinitionStrategy.DiscoveryStrategy;
 import net.bytebuddy.agent.builder.AgentBuilder.TypeStrategy;
+import net.bytebuddy.asm.Advice;
+import net.bytebuddy.asm.AsmVisitorWrapper;
 import net.bytebuddy.asm.ModifierAdjustment;
+import net.bytebuddy.description.modifier.FieldManifestation;
 import net.bytebuddy.description.modifier.MethodManifestation;
 import net.bytebuddy.description.modifier.TypeManifestation;
 import net.bytebuddy.description.modifier.Visibility;
@@ -40,15 +43,15 @@ public class ClassTransformer {
     private final InstallationListener installationListener;
     private final RedefinitionListener redefinitionListener;
 
-    public void start() {
+    public void applyTransformation() {
         log.info("Activating spock-mockable transformation");
         new AgentBuilder.Default(
                 new ByteBuddy()
-                        .with(TypeValidation.ENABLED))
+                        .with(TypeValidation.DISABLED))
                 .ignore(none())
                 .with(discoveryListener)
                 .with(installationListener)
-                .with(InitializationStrategy.NoOp.INSTANCE)
+                .with(InitializationStrategy.Minimal.INSTANCE)
                 .with(RedefinitionStrategy.RETRANSFORMATION)
                 .with(DiscoveryStrategy.Reiterating.INSTANCE)
                 .with(redefinitionListener)
@@ -69,7 +72,9 @@ public class ClassTransformer {
                 .visit(new ModifierAdjustment().withTypeModifiers(ElementMatchers.isFinal(), TypeManifestation.PLAIN))
                 .visit(new ModifierAdjustment().withMethodModifiers(ElementMatchers.isPrivate(), Visibility.PROTECTED))
                 .visit(new ModifierAdjustment().withMethodModifiers(ElementMatchers.isFinal(), MethodManifestation.PLAIN))
-                ;
+                .visit(new ModifierAdjustment().withFieldModifiers(ElementMatchers.isPrivate(), FieldManifestation.PLAIN))
+                .visit(new AsmVisitorWrapper.ForDeclaredMethods().method(ElementMatchers.isStatic(), Advice.withCustomMapping()
+                        .to(StaticMockHandler.class)));
     }
 
     protected boolean needsTransformation(final TypeDescription typeDescription) {
@@ -93,5 +98,4 @@ public class ClassTransformer {
                 || typeDescription.isAssignableTo(ByteBuddyInvoker.class)
                 || typeDescription.isAssignableTo(Specification.class);
     }
-
 }

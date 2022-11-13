@@ -67,7 +67,7 @@ jar {
         attributes(
                 'Can-Redefine-Classes': 'true',
                 'Can-Retransform-Classes': 'true',
-                'Premain-Class': 'io.github.joke.spockmockable.agent.AgentInstaller',
+                'Premain-Class': 'io.github.joke.spockmockable.agent.InstrumentationInstaller',
         )
     }
 }

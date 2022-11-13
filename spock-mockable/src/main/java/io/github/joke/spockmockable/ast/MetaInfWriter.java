@@ -4,6 +4,7 @@ import lombok.RequiredArgsConstructor;
 import org.codehaus.groovy.control.CompilationUnit;
 
 import javax.inject.Inject;
+import javax.inject.Singleton;
 import java.io.File;
 import java.io.FileOutputStream;
 import java.io.IOException;
@@ -11,6 +12,7 @@ import java.util.Properties;
 
 import static java.lang.String.join;
 
+@Singleton
 @RequiredArgsConstructor(onConstructor_ = @Inject)
 class MetaInfWriter {
 
@@ -35,5 +37,4 @@ class MetaInfWriter {
             throw new RuntimeException(e);
         }
     }
-
 }

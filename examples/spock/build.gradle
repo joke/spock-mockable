@@ -100,10 +100,13 @@ dependencies {
     spock23groovy40Implementation enforcedPlatform(project(':dependencies'))
     spock23groovy40Implementation enforcedPlatform('org.apache.groovy:groovy-bom:4.0.6')
     spock23groovy40Implementation enforcedPlatform('org.spockframework:spock-bom:2.3-groovy-4.0')
-    spock23groovy40Implementation project(path: ':spock-mockable', configuration: 'shadow')
+    spock23groovy40Implementation project(path: ':spock-mockable')
     spock23groovy40Implementation 'org.objenesis:objenesis'
     spock23groovy40Implementation 'org.slf4j:slf4j-simple'
     spock23groovy40Implementation 'org.spockframework:spock-core'
+    spock23groovy40Implementation 'com.google.dagger:dagger-compiler:2.44'
+    spock23groovy40Implementation 'net.bytebuddy:byte-buddy-agent:1.12.18'
+    spock23groovy40Implementation 'net.bytebuddy:byte-buddy:1.12.18'
 }
 
 spock2x.forEach { source ->
@@ -129,6 +132,8 @@ tasks.withType(GroovyCompile) {
 
 tasks.withType(Test) {
     forkEvery 1
-    jvmArgs += "-javaagent:${classpath.find { it.name.contains('spock-mockable') }.absolutePath}"
-//    jvmArgs += '-agentlib:jdwp=transport=dt_socket,server=n,address=localhost:5006,suspend=y'
+    jvmArgs([
+//            '-agentlib:jdwp=transport=dt_socket,server=n,address=localhost:5006,suspend=y',
+            "-javaagent:${classpath.find { it.name.contains('spock-mockable') }.absolutePath}",
+    ])
 }

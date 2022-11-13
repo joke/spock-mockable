@@ -15,8 +15,6 @@ abstract class Processor {
         return DaggerProcessor.factory().create(unit);
     }
 
-    protected abstract SpecificationSelector.Factory specificationSelectorFactory();
-
     protected abstract MetaInfWriter metaIntWriter();
 
     protected void analyze(final SourceUnit sourceUnit) {
@@ -27,12 +25,14 @@ abstract class Processor {
         metaIntWriter().write();
     }
 
+    protected abstract SourceUnitProcessor.Factory specificationSelectorFactory();
+
     @Component.Factory
     interface Factory {
         Processor create(@BindsInstance CompilationUnit compilationUnit);
     }
 
-    @dagger.Module(subcomponents = SpecificationSelector.class)
+    @dagger.Module
     interface Module {
     }
 }

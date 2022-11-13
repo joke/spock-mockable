@@ -17,6 +17,7 @@ In consequence Spock is capable of mocking these classes. Refer to <<How does it
 
 * Changes method visibility `private` to `protected`
 * Removes `final` from classes and methods
+* Supports mocking `static` methods
 * Automatically attaches java agent
 * Re-defines classes via https://bytebuddy.net/[Byte Buddy] transformation.
 * Working with Spock Framework 2.0, 2.1, 2.2 and 2.3
@@ -114,6 +115,37 @@ In special cases you might want to manually specify additional classes or packag
 @Mockable(className = 'some.package.MySecondClass')
 @Mockable(packageName = 'some.package')
 class PersonSpec extends Specification {
+}
+----
+
+Static methods can be mocked in a similar fashion like https://spockframework.org/spock/docs/2.3/interaction_based_testing.html#_mocking_static_methods[mocking static methods using `GroovySpy`]. All classes which have undergone transformation are
+already prepared for mocking there static methods. The original method is called by default similar to a spy.
+
+If an interaction has been registered within a feature method the real method is skipped and the interaction is executed.
+
+A call of the method can also be forced by using
+https://spockframework.org/spock/docs/2.3/interaction_based_testing.html#Spies[`{ callRealMethod*() }`].
+
+NOTE: Specifications defining interactions with static mocks are automatically annotated with
+https://spockframework.org/spock/docs/2.3/parallel_execution.html#_isolated_execution[`@Isolated`].
+
+.Mock static methods
+[source,groovy]
+----
+class UtilitySpec extends Specification {
+    def 'mock static method'() {
+        setup:
+        Spy(UtilityClass) // needed if class has not been mocked/spied/stubbed prior
+
+        when:
+        def res = UtilityClass.someStaticMethod('hello')
+
+        then:
+        1 * UtilityClass.someStaticMethod('hello') >> 'mock value'
+
+        expect:
+        res == 'mock value'
+    }
 }
 ----
 

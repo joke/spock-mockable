@@ -59,5 +59,4 @@ public class MockableASTTransformation extends AbstractASTTransformation impleme
             }
         }
     }
-
 }
