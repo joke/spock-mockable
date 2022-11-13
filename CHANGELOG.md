@@ -1,5 +1,13 @@
 # Changelog
 
+## [2.2.0](https://github.com/joke/spock-mockable/compare/v2.1.1...v2.2.0) (2022-11-13)
+
+
+### Features
+
+* improve lazy startup ([e77be55](https://github.com/joke/spock-mockable/commit/e77be55c78706ab5425b048277594d865c702c23))
+* support mocking static methods ([52f76ac](https://github.com/joke/spock-mockable/commit/52f76ac409a5d25b268c8a8e653567db62020ed8))
+
 ## [2.1.1](https://github.com/joke/spock-mockable/compare/v2.1.0...v2.1.1) (2022-11-07)
 
 
