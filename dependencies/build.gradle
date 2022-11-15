@@ -14,8 +14,8 @@ dependencies {
     constraints {
         api 'com.google.auto.service:auto-service-annotations:1.0.1'
         api 'com.google.auto.service:auto-service:1.0.1'
-        api 'com.google.dagger:dagger-compiler:2.44.1'
-        api 'com.google.dagger:dagger:2.44'
+        api 'com.google.dagger:dagger-compiler:2.44.2'
+        api 'com.google.dagger:dagger:2.44.2'
         api 'com.google.errorprone:error_prone_core:2.16'
         api 'com.uber.nullaway:nullaway:0.10.4'
         api 'io.github.joke:spock-deepmock:3.0.0'
