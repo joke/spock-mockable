@@ -17,12 +17,12 @@ abstract class SourceUnitProcessor {
 
     public void process() {
         final SpecificationProcessor.Factory specificationProcessorFactory = specificationProcessorFactory();
-        getSourceUnit().getAST().getClasses().stream()
+        sourceUnit().getAST().getClasses().stream()
                 .filter(clazz -> clazz.isDerivedFrom(SPECIFICATION))
                 .forEach(classNode -> specificationProcessorFactory.create(classNode).process());
     }
 
-    protected abstract SourceUnit getSourceUnit();
+    protected abstract SourceUnit sourceUnit();
     protected abstract SpecificationProcessor.Factory specificationProcessorFactory();
 
     @Subcomponent.Factory
