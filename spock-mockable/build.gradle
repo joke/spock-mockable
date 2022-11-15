@@ -36,6 +36,7 @@ dependencies {
     shadow 'org.slf4j:slf4j-api:2.0.3'
 
     testImplementation enforcedPlatform(project(':dependencies'))
+    testImplementation 'io.github.joke:spock-deepmock'
     testImplementation 'io.github.joke:spock-outputcapture'
     testImplementation 'net.bytebuddy:byte-buddy'
     testImplementation 'net.bytebuddy:byte-buddy-agent'
