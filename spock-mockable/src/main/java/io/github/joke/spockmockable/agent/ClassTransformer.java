@@ -21,6 +21,7 @@ import net.bytebuddy.dynamic.DynamicType;
 import net.bytebuddy.dynamic.scaffold.TypeValidation;
 import net.bytebuddy.matcher.ElementMatchers;
 import net.bytebuddy.utility.JavaModule;
+import org.jetbrains.annotations.NotNull;
 import org.spockframework.mock.ISpockMockObject;
 import org.spockframework.mock.runtime.ByteBuddyInvoker;
 import spock.lang.Specification;
@@ -61,6 +62,7 @@ public class ClassTransformer {
                 .installOn(instrumentation);
     }
 
+    @NotNull
     protected DynamicType.Builder<?> transform(
             final DynamicType.Builder<?> builder,
             final TypeDescription typeDescription,
@@ -69,16 +71,41 @@ public class ClassTransformer {
             final ProtectionDomain protectionDomain
     ) {
         return builder
-                .visit(new ModifierAdjustment().withTypeModifiers(ElementMatchers.isFinal(), TypeManifestation.PLAIN))
-                .visit(new ModifierAdjustment().withMethodModifiers(ElementMatchers.isPrivate(), Visibility.PROTECTED))
-                .visit(new ModifierAdjustment().withMethodModifiers(ElementMatchers.isFinal(), MethodManifestation.PLAIN))
-                .visit(new ModifierAdjustment().withFieldModifiers(ElementMatchers.isPrivate(), FieldManifestation.PLAIN))
-                .visit(new AsmVisitorWrapper.ForDeclaredMethods().method(ElementMatchers.isStatic(), Advice.withCustomMapping()
-                        .to(StaticMockHandler.class)));
+                .visit(privateClassAdjustment())
+                .visit(protectedMethodAdjustment())
+                .visit(finalMethodAdjustment())
+                .visit(privateFieldAdjustment())
+                .visit(staticMethodAdvice());
+    }
+
+    @NotNull
+    protected AsmVisitorWrapper.ForDeclaredMethods staticMethodAdvice() {
+        return new AsmVisitorWrapper.ForDeclaredMethods().method(ElementMatchers.isStatic(), Advice.withCustomMapping()
+                .to(StaticMockHandler.class));
+    }
+
+    @NotNull
+    protected ModifierAdjustment privateFieldAdjustment() {
+        return new ModifierAdjustment().withFieldModifiers(ElementMatchers.isPrivate(), FieldManifestation.PLAIN);
+    }
+
+    @NotNull
+    protected ModifierAdjustment finalMethodAdjustment() {
+        return new ModifierAdjustment().withMethodModifiers(ElementMatchers.isFinal(), MethodManifestation.PLAIN);
+    }
+
+    @NotNull
+    protected ModifierAdjustment protectedMethodAdjustment() {
+        return new ModifierAdjustment().withMethodModifiers(ElementMatchers.isPrivate(), Visibility.PROTECTED);
+    }
+
+    @NotNull
+    protected ModifierAdjustment privateClassAdjustment() {
+        return new ModifierAdjustment().withTypeModifiers(ElementMatchers.isFinal(), TypeManifestation.PLAIN);
     }
 
     protected boolean needsTransformation(final TypeDescription typeDescription) {
-        return (classMatches(typeDescription) || packageMatches(typeDescription)) && !isInternal(typeDescription);
+        return !isInternal(typeDescription) && (classMatches(typeDescription) || packageMatches(typeDescription));
     }
 
     protected boolean classMatches(final TypeDescription typeDescription) {
@@ -86,11 +113,8 @@ public class ClassTransformer {
     }
 
     protected boolean packageMatches(final TypeDescription typeDescription) {
-        final PackageDescription aPackage = typeDescription.getPackage();
-        if (aPackage == null) {
-            return false;
-        }
-        return referenceLoader.getPackages().contains(aPackage.getName());
+        final PackageDescription packageDescription = typeDescription.getPackage();
+        return packageDescription != null && referenceLoader.getPackages().contains(packageDescription.getName());
     }
 
     protected boolean isInternal(TypeDescription typeDescription) {
