@@ -16,12 +16,12 @@ public class RedefinitionListener extends AgentBuilder.RedefinitionStrategy.List
 
     @Override
     public void onComplete(final int amount, final List<Class<?>> types, final Map<List<Class<?>>, Throwable> failures) {
-        log.debug("Successfully transformed classes: '{}'", types);
+        log.debug("Successfully transformed classes: {}", types);
     }
 
     @Override
     public Iterable<? extends List<Class<?>>> onError(final int index, final List<Class<?>> batch, final Throwable throwable, final List<Class<?>> types) {
-        log.warn("Could not transform classes: '{}'", types, throwable);
+        log.warn("Could not transform classes. {}: {}", throwable.getMessage(), types);
         return super.onError(index, batch, throwable, types);
     }
 }
