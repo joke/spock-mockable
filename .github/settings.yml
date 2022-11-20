@@ -1,8 +1,8 @@
 # These settings are synced to GitHub by https://probot.github.io/apps/settings/
 repository:
-  name: spock-outputcapture
-  description: OutputCapture for the Spock Framework
-  topics: spock-extension, spock-framework, output-checking
+  name: spock-mockable
+  description: Mock the un-mockable
+  topics: spock-extension, spock-framework, mocking
   private: false
   has_issues: true
   has_projects: false
