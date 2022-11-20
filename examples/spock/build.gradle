@@ -110,14 +110,18 @@ dependencies {
 }
 
 spock2x.forEach { source ->
-    tasks.register("test$source", Test) {
+    tasks.create("test$source", Test) {
         group = 'verification'
+        check.dependsOn it
 
-        testClassesDirs = sourceSets.findByName(source).output.classesDirs
-        classpath = sourceSets.findByName(source).runtimeClasspath
-
+        forkEvery 1
         useJUnitPlatform()
-        tasks.findByName('check').dependsOn it
+        classpath = sourceSets.findByName(source).runtimeClasspath
+        testClassesDirs = sourceSets.findByName(source).output.classesDirs
+        jvmArgs([
+            "-javaagent:${classpath.find { it.name.contains('spock-mockable') }.absolutePath}",
+//            '-agentlib:jdwp=transport=dt_socket,server=n,address=localhost:5006,suspend=y',
+        ])
     }
 }
 
@@ -128,12 +132,4 @@ test {
 tasks.withType(GroovyCompile) {
 //    groovyOptions.fork = true
 //    groovyOptions.forkOptions.jvmArgs = ['-agentlib:jdwp=transport=dt_socket,server=n,address=5005,suspend=y']
-}
-
-tasks.withType(Test) {
-    forkEvery 1
-    jvmArgs([
-//            '-agentlib:jdwp=transport=dt_socket,server=n,address=localhost:5006,suspend=y',
-            "-javaagent:${classpath.find { it.name.contains('spock-mockable') }.absolutePath}",
-    ])
 }
