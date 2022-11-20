@@ -40,6 +40,10 @@ allprojects { project ->
         }
     }
 
+    pluginManager.withPlugin('jacoco') {
+        jacoco
+    }
+
     pluginManager.withPlugin('net.ltgt.errorprone') {
         tasks.withType(JavaCompile) {
             options.errorprone {

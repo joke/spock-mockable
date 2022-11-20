@@ -16,7 +16,7 @@ public class StaticMockExtension implements IGlobalExtension {
 
     @Override
     public void visitSpec(final SpecInfo spec) {
-        Extractor extractor = new Extractor();
+        final Extractor extractor = new Extractor();
         spec.addSetupInterceptor(extractor);
         spec.addSetupSpecInterceptor(extractor);
     }

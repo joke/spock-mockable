@@ -50,13 +50,13 @@ public class StaticMockHandler {
     @Nullable
     @SuppressWarnings("unused")
     @OnMethodEnter(skipOn = OnNonDefaultValue.class)
-    public static Callable<?> onMethodEnter(@Origin Class<?> type, @Origin Method origin, @AllArguments Object... arguments) throws Throwable {
+    public static Callable<?> onMethodEnter(@Origin final Class<?> type, @Origin final Method origin, @AllArguments final Object... arguments) throws Throwable {
         return determineMockValue(type, origin, arguments);
     }
 
     @OnMethodExit
     @SuppressWarnings({"ReassignedVariable", "unused"})
-    public static void onMethodExit(@Return(readOnly = false, typing = DYNAMIC) Object returned, @Enter Callable<?> interactionResult) throws Throwable {
+    public static void onMethodExit(@Return(readOnly = false, typing = DYNAMIC) Object returned, @Enter final Callable<?> interactionResult) throws Throwable {
         returned = determineReturnValue(returned, interactionResult);
     }
 
@@ -65,7 +65,7 @@ public class StaticMockHandler {
         final MockInvocation mockInvocation = buildMockInvocation(type, origin, arguments);
         try {
             return getInteractionValue(mockInvocation);
-        } catch (CannotInvokeRealMethodException e) {
+        } catch (final CannotInvokeRealMethodException e) {
             return null;
         }
     }
@@ -86,7 +86,7 @@ public class StaticMockHandler {
         return new MockInvocation(mockObject, staticMockMethod, asList(arguments), new FailingRealMethodInvoker(""));
     }
 
-    public static Object determineReturnValue(Object returned, final Callable<?> mocked) throws Exception {
+    public static Object determineReturnValue(final Object returned, final Callable<?> mocked) throws Exception {
         return mocked != null ? mocked.call() : returned;
     }
 
