@@ -15,12 +15,9 @@ allprojects { project ->
         mavenCentral()
     }
 
-    plugins.withType(JavaBasePlugin) {
+    pluginManager.withPlugin('java-base') {
         sourceCompatibility = JavaVersion.VERSION_1_8
         targetCompatibility = JavaVersion.VERSION_1_8
-    }
-
-    pluginManager.withPlugin('base') {
         tasks.withType(JavaCompile) {
             options.release = 8
             options.compilerArgs << '-parameters' << '-Werror'
@@ -112,7 +109,7 @@ allprojects { project ->
                             developer {
                                 id = 'joke'
                                 name = 'Joke de Buhr'
-                                email = 'joke@seiken.de'
+                                email = 'joke@xckk.de'
                             }
                         }
                         scm {
