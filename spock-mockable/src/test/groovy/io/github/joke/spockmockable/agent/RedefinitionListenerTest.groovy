@@ -17,7 +17,7 @@ class RedefinitionListenerTest extends Specification {
         redifinitionListener.onComplete(123, [String], [([String]): new RuntimeException('something bad')])
 
         expect:
-        logs ==~ /(?sm)^.*DEBUG.*Successfully transformed classes: '\[class java\.lang\.String\]'.*$/
+        logs ==~ /(?sm)^.*DEBUG.*Successfully transformed classes: \[class java\.lang\.String\].*$/
     }
 
     def 'on error'() {
@@ -25,6 +25,6 @@ class RedefinitionListenerTest extends Specification {
         redifinitionListener.onError(123, [String], new RuntimeException('something bad'), [String])
 
         expect:
-        logs ==~ /(?sm)^.*WARN.*Could not transform classes: '\[class java\.lang\.String\]'.*$/
+        logs ==~ /(?sm)^.*WARN.*Could not transform classes. something bad: \[class java\.lang\.String\].*$/
     }
 }
