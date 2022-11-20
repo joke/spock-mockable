@@ -45,18 +45,6 @@ dependencies {
     testImplementation 'org.spockframework:spock-core'
 }
 
-test {
-    useJUnitPlatform()
-    jvmArgs = [
-            '-Dorg.slf4j.simpleLogger.defaultLogLevel=TRACE',
-            '-Dspock-mockable.disabled=true'
-    ]
-}
-
-jar {
-    classifier 'plain'
-}
-
 shadowJar {
     relocate 'dagger', 'io.github.joke.spockmockable.shadow.dagger'
     relocate 'javax', 'io.github.joke.spockmockable.shadow.javax'
@@ -65,6 +53,7 @@ shadowJar {
 }
 
 jar {
+    enabled false
     manifest {
         attributes(
                 'Can-Redefine-Classes': 'true',
@@ -72,6 +61,28 @@ jar {
                 'Premain-Class': 'io.github.joke.spockmockable.agent.InstrumentationInstaller',
         )
     }
+}
+
+task manifestJar(type: Jar) {
+    baseName 'manifest-only'
+    manifest {
+        attributes(
+                'Can-Redefine-Classes': 'true',
+                'Can-Retransform-Classes': 'true',
+                'Premain-Class': 'io.github.joke.spockmockable.agent.InstrumentationInstaller',
+        )
+    }
+}
+
+test {
+    dependsOn manifestJar
+
+//    debug true
+    useJUnitPlatform()
+    jvmArgs += [
+            '-Dorg.slf4j.simpleLogger.defaultLogLevel=debug',
+            '-Dspock-mockable.disabled=true'
+    ]
 }
 
 publishing {

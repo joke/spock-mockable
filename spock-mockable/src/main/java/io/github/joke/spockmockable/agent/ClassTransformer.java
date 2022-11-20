@@ -117,7 +117,7 @@ public class ClassTransformer {
         return packageDescription != null && referenceLoader.getPackages().contains(packageDescription.getName());
     }
 
-    protected boolean isInternal(TypeDescription typeDescription) {
+    protected boolean isInternal(final TypeDescription typeDescription) {
         return typeDescription.isAssignableTo(ISpockMockObject.class)
                 || typeDescription.isAssignableTo(ByteBuddyInvoker.class)
                 || typeDescription.isAssignableTo(Specification.class);
