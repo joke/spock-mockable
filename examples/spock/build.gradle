@@ -105,7 +105,7 @@ dependencies {
     spock23groovy40Implementation 'org.slf4j:slf4j-simple'
     spock23groovy40Implementation 'org.spockframework:spock-core'
     spock23groovy40Implementation 'com.google.dagger:dagger-compiler:2.44.1'
-    spock23groovy40Implementation 'net.bytebuddy:byte-buddy-agent:1.12.18'
+    spock23groovy40Implementation 'net.bytebuddy:byte-buddy-agent:1.12.19'
     spock23groovy40Implementation 'net.bytebuddy:byte-buddy:1.12.18'
 }
 
