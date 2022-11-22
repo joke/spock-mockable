@@ -22,7 +22,7 @@ public class PropertyReader {
     @Getter(lazy = true, onMethod_ = {@NotNull, @SuppressWarnings("NullAway")})
     private final Properties properties = load();
 
-    private Properties load() {
+    protected Properties load() {
         final Properties properties = new Properties();
         try (final InputStream stream = getClass().getResourceAsStream(METHODS_FILE)) {
             if (stream == null) {

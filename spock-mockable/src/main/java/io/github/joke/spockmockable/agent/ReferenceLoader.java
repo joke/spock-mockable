@@ -37,7 +37,7 @@ public class ReferenceLoader {
     }
 
     @Unmodifiable
-    private SortedSet<String> extractProperty(final String propertyName) {
+    protected SortedSet<String> extractProperty(final String propertyName) {
         return ofNullable(propertyReader)
                 .map(PropertyReader::getProperties)
                 .map(properties -> properties.getProperty(propertyName))
