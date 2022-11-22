@@ -1,5 +1,12 @@
 # Changelog
 
+## [2.2.1](https://github.com/joke/spock-mockable/compare/v2.2.0...v2.2.1) (2022-11-22)
+
+
+### Bug Fixes
+
+* no stacktrace on redefinition error ([a57195c](https://github.com/joke/spock-mockable/commit/a57195c1a18fb67864b6bc6e57092aca62e3bffb))
+
 ## [2.2.0](https://github.com/joke/spock-mockable/compare/v2.1.1...v2.2.0) (2022-11-13)
 
 
