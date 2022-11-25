@@ -1,4 +1,4 @@
-package io.github.joke.spockmockable.tests
+package io.github.joke.examples
 
 import org.spockframework.mock.MockUtil
 import spock.lang.Specification

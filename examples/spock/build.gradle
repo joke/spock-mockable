@@ -1,6 +1,7 @@
 plugins {
     id 'java'
     id 'groovy'
+    id 'jacoco'
 }
 
 def spock2x = [
@@ -22,13 +23,17 @@ dependencies {
     testImplementation enforcedPlatform('org.apache.groovy:groovy-bom:4.0.6')
     testImplementation enforcedPlatform('org.spockframework:spock-bom:2.3-groovy-4.0')
     testImplementation project(path: ':spock-mockable', configuration: 'shadow')
+    testImplementation 'net.bytebuddy:byte-buddy'
+    testImplementation 'org.objenesis:objenesis'
     testImplementation 'org.slf4j:slf4j-simple'
     testImplementation 'org.spockframework:spock-core'
+//    testImplementation 'org.jacoco:org.jacoco.agent:0.8.8:runtime'
 
     spock20groovy25Implementation enforcedPlatform(project(':dependencies'))
     spock20groovy25Implementation enforcedPlatform('org.codehaus.groovy:groovy-bom:2.5.18')
     spock20groovy25Implementation enforcedPlatform('org.spockframework:spock-bom:2.0-groovy-2.5')
     spock20groovy25Implementation project(path: ':spock-mockable', configuration: 'shadow')
+    spock20groovy25Implementation 'net.bytebuddy:byte-buddy'
     spock20groovy25Implementation 'org.objenesis:objenesis'
     spock20groovy25Implementation 'org.slf4j:slf4j-simple'
     spock20groovy25Implementation 'org.spockframework:spock-core'
@@ -37,6 +42,7 @@ dependencies {
     spock20groovy30Implementation enforcedPlatform('org.codehaus.groovy:groovy-bom:3.0.13')
     spock20groovy30Implementation enforcedPlatform('org.spockframework:spock-bom:2.0-groovy-3.0')
     spock20groovy30Implementation project(path: ':spock-mockable', configuration: 'shadow')
+    spock20groovy30Implementation 'net.bytebuddy:byte-buddy'
     spock20groovy30Implementation 'org.objenesis:objenesis'
     spock20groovy30Implementation 'org.slf4j:slf4j-simple'
     spock20groovy30Implementation 'org.spockframework:spock-core'
@@ -45,6 +51,7 @@ dependencies {
     spock21groovy25Implementation enforcedPlatform('org.codehaus.groovy:groovy-bom:2.5.18')
     spock21groovy25Implementation enforcedPlatform('org.spockframework:spock-bom:2.1-groovy-2.5')
     spock21groovy25Implementation project(path: ':spock-mockable', configuration: 'shadow')
+    spock21groovy25Implementation 'net.bytebuddy:byte-buddy'
     spock21groovy25Implementation 'org.objenesis:objenesis'
     spock21groovy25Implementation 'org.slf4j:slf4j-simple'
     spock21groovy25Implementation 'org.spockframework:spock-core'
@@ -53,6 +60,7 @@ dependencies {
     spock21groovy30Implementation enforcedPlatform('org.codehaus.groovy:groovy-bom:3.0.13')
     spock21groovy30Implementation enforcedPlatform('org.spockframework:spock-bom:2.1-groovy-3.0')
     spock21groovy30Implementation project(path: ':spock-mockable', configuration: 'shadow')
+    spock21groovy30Implementation 'net.bytebuddy:byte-buddy'
     spock21groovy30Implementation 'org.objenesis:objenesis'
     spock21groovy30Implementation 'org.slf4j:slf4j-simple'
     spock21groovy30Implementation 'org.spockframework:spock-core'
@@ -61,6 +69,7 @@ dependencies {
     spock22groovy25Implementation enforcedPlatform('org.codehaus.groovy:groovy-bom:2.5.18')
     spock22groovy25Implementation enforcedPlatform('org.spockframework:spock-bom:2.2-groovy-2.5')
     spock22groovy25Implementation project(path: ':spock-mockable', configuration: 'shadow')
+    spock22groovy25Implementation 'net.bytebuddy:byte-buddy'
     spock22groovy25Implementation 'org.objenesis:objenesis'
     spock22groovy25Implementation 'org.slf4j:slf4j-simple'
     spock22groovy25Implementation 'org.spockframework:spock-core'
@@ -69,6 +78,7 @@ dependencies {
     spock22groovy30Implementation enforcedPlatform('org.codehaus.groovy:groovy-bom:3.0.13')
     spock22groovy30Implementation enforcedPlatform('org.spockframework:spock-bom:2.2-groovy-3.0')
     spock22groovy30Implementation project(path: ':spock-mockable', configuration: 'shadow')
+    spock22groovy30Implementation 'net.bytebuddy:byte-buddy'
     spock22groovy30Implementation 'org.objenesis:objenesis'
     spock22groovy30Implementation 'org.slf4j:slf4j-simple'
     spock22groovy30Implementation 'org.spockframework:spock-core'
@@ -77,6 +87,7 @@ dependencies {
     spock22groovy40Implementation enforcedPlatform('org.apache.groovy:groovy-bom:4.0.6')
     spock22groovy40Implementation enforcedPlatform('org.spockframework:spock-bom:2.2-groovy-4.0')
     spock22groovy40Implementation project(path: ':spock-mockable', configuration: 'shadow')
+    spock22groovy40Implementation 'net.bytebuddy:byte-buddy'
     spock22groovy40Implementation 'org.objenesis:objenesis'
     spock22groovy40Implementation 'org.slf4j:slf4j-simple'
     spock22groovy40Implementation 'org.spockframework:spock-core'
@@ -85,6 +96,7 @@ dependencies {
     spock23groovy25Implementation enforcedPlatform('org.codehaus.groovy:groovy-bom:2.5.18')
     spock23groovy25Implementation enforcedPlatform('org.spockframework:spock-bom:2.3-groovy-2.5')
     spock23groovy25Implementation project(path: ':spock-mockable', configuration: 'shadow')
+    spock23groovy25Implementation 'net.bytebuddy:byte-buddy'
     spock23groovy25Implementation 'org.objenesis:objenesis'
     spock23groovy25Implementation 'org.slf4j:slf4j-simple'
     spock23groovy25Implementation 'org.spockframework:spock-core'
@@ -93,6 +105,7 @@ dependencies {
     spock23groovy30Implementation enforcedPlatform('org.codehaus.groovy:groovy-bom:3.0.13')
     spock23groovy30Implementation enforcedPlatform('org.spockframework:spock-bom:2.3-groovy-3.0')
     spock23groovy30Implementation project(path: ':spock-mockable', configuration: 'shadow')
+    spock23groovy30Implementation 'net.bytebuddy:byte-buddy'
     spock23groovy30Implementation 'org.objenesis:objenesis'
     spock23groovy30Implementation 'org.slf4j:slf4j-simple'
     spock23groovy30Implementation 'org.spockframework:spock-core'
@@ -101,12 +114,10 @@ dependencies {
     spock23groovy40Implementation enforcedPlatform('org.apache.groovy:groovy-bom:4.0.6')
     spock23groovy40Implementation enforcedPlatform('org.spockframework:spock-bom:2.3-groovy-4.0')
     spock23groovy40Implementation project(path: ':spock-mockable')
+    spock23groovy40Implementation 'net.bytebuddy:byte-buddy'
     spock23groovy40Implementation 'org.objenesis:objenesis'
     spock23groovy40Implementation 'org.slf4j:slf4j-simple'
     spock23groovy40Implementation 'org.spockframework:spock-core'
-    spock23groovy40Implementation 'com.google.dagger:dagger-compiler:2.44.1'
-    spock23groovy40Implementation 'net.bytebuddy:byte-buddy-agent:1.12.19'
-    spock23groovy40Implementation 'net.bytebuddy:byte-buddy:1.12.18'
 }
 
 spock2x.forEach { source ->
@@ -119,17 +130,39 @@ spock2x.forEach { source ->
         classpath = sourceSets.findByName(source).runtimeClasspath
         testClassesDirs = sourceSets.findByName(source).output.classesDirs
         jvmArgs([
-            "-javaagent:${classpath.find { it.name.contains('spock-mockable') }.absolutePath}",
+                "-javaagent:${classpath.find { it.name.contains('spock-mockable') }.absolutePath}",
 //            '-agentlib:jdwp=transport=dt_socket,server=n,address=localhost:5006,suspend=y',
         ])
     }
 }
 
-test {
-    enabled = false
-}
-
 tasks.withType(GroovyCompile) {
 //    groovyOptions.fork = true
 //    groovyOptions.forkOptions.jvmArgs = ['-agentlib:jdwp=transport=dt_socket,server=n,address=5005,suspend=y']
+}
+
+test {
+    finalizedBy jacocoTestReport
+
+    useJUnitPlatform()
+    jacoco {
+        enabled = false
+        includes = ['io.github.joke.spockmockable.agent.**',
+                    'io.github.joke.spockmockable.hooks.**']
+        includeNoLocationClasses = true
+        dumpOnExit = true
+        classDumpDir = layout.buildDirectory.dir('jacoco/dumps').get().asFile
+    }
+    jvmArgs([
+            "${jacoco.asJvmArg}",
+            "-javaagent:${classpath.find { it.name.contains('spock-mockable') }.absolutePath}",
+//            '-agentlib:jdwp=transport=dt_socket,server=n,address=localhost:5006,suspend=y',
+    ])
+}
+
+jacocoTestReport {
+    dependsOn test
+    classDirectories.setFrom([])
+    additionalSourceDirs project(':spock-mockable').sourceSets.main.java.sourceDirectories.singleFile
+    additionalClassDirs layout.buildDirectory.dir('jacoco/dumps').get().asFile
 }
