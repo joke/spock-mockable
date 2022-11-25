@@ -1,19 +1,15 @@
-package io.github.joke.spockmockable.tests
+package io.github.joke.examples
 
-import io.github.joke.spockmockable.Mockable
-import io.github.joke.spockmockable.tests.Person
 import org.spockframework.mock.MockUtil
 import spock.lang.Specification
 
-@Mockable(className = 'io.github.joke.spockmockable.tests.Person')
-@Mockable(className = 'io.github.joke.spockmockable.tests.Address')
-class MockableClassTest extends Specification {
+class StubTest extends Specification {
 
     def mockUtil = new MockUtil()
 
     def 'final from class is removed'() {
         setup:
-        Person person = Mock()
+        Person person = Stub()
 
         expect:
         mockUtil.isMock person
@@ -21,7 +17,7 @@ class MockableClassTest extends Specification {
 
     def 'final from subclass is removed'() {
         setup:
-        Person.Address address = Mock()
+        Person.Address address = Stub()
 
         expect:
         mockUtil.isMock address
@@ -29,13 +25,13 @@ class MockableClassTest extends Specification {
 
     def 'final from method is removed'() {
         setup:
-        Person person = Mock()
+        Person person = Stub()
 
         when:
         def res = person.firstName
 
         then:
-        1 * person.firstName >> 'Dorothy'
+        person.firstName >> 'Dorothy'
 
         expect:
         res == 'Dorothy'
@@ -43,13 +39,13 @@ class MockableClassTest extends Specification {
 
     def 'private on method is now protected'() {
         setup:
-        Person person = Mock()
+        Person person = Stub()
 
         when:
         def res = person.lastName
 
         then:
-        1 * person.lastName >> 'Gale'
+        person.lastName >> 'Gale'
 
         expect:
         res == 'Gale'
@@ -57,13 +53,13 @@ class MockableClassTest extends Specification {
 
     def 'final is removed and private on method is now protected'() {
         setup:
-        Person person = Mock()
+        Person person = Stub()
 
         when:
         def res = person.address.street
 
         then:
-        1 * person.address >> new Person.Address('Yellow Brick Road')
+        person.address >> new Person.Address('Yellow Brick Road')
 
         expect:
         res == 'Yellow Brick Road'

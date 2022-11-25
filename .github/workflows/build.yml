@@ -22,4 +22,8 @@ jobs:
     - uses: codecov/codecov-action@v3
       with:
         files: spock-mockable/build/reports/jacoco/test/jacocoTestReport.xml
-        flags: unittests
+        flags: unit
+    - uses: codecov/codecov-action@v3
+      with:
+        files: examples/spock/build/reports/jacoco/test/jacocoTestReport.xml
+        flags: integration

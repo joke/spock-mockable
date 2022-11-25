@@ -1,15 +1,18 @@
-package io.github.joke.spockmockable.tests
+package io.github.joke.examples
 
+import io.github.joke.spockmockable.Mockable
 import org.spockframework.mock.MockUtil
 import spock.lang.Specification
 
-class StubTest extends Specification {
+@Mockable(className = 'io.github.joke.examples.Person')
+@Mockable(className = 'io.github.joke.examples.Address')
+class MockableClassTest extends Specification {
 
     def mockUtil = new MockUtil()
 
     def 'final from class is removed'() {
         setup:
-        Person person = Stub()
+        Person person = Mock()
 
         expect:
         mockUtil.isMock person
@@ -17,7 +20,7 @@ class StubTest extends Specification {
 
     def 'final from subclass is removed'() {
         setup:
-        Person.Address address = Stub()
+        Person.Address address = Mock()
 
         expect:
         mockUtil.isMock address
@@ -25,13 +28,13 @@ class StubTest extends Specification {
 
     def 'final from method is removed'() {
         setup:
-        Person person = Stub()
+        Person person = Mock()
 
         when:
         def res = person.firstName
 
         then:
-        person.firstName >> 'Dorothy'
+        1 * person.firstName >> 'Dorothy'
 
         expect:
         res == 'Dorothy'
@@ -39,13 +42,13 @@ class StubTest extends Specification {
 
     def 'private on method is now protected'() {
         setup:
-        Person person = Stub()
+        Person person = Mock()
 
         when:
         def res = person.lastName
 
         then:
-        person.lastName >> 'Gale'
+        1 * person.lastName >> 'Gale'
 
         expect:
         res == 'Gale'
@@ -53,13 +56,13 @@ class StubTest extends Specification {
 
     def 'final is removed and private on method is now protected'() {
         setup:
-        Person person = Stub()
+        Person person = Mock()
 
         when:
         def res = person.address.street
 
         then:
-        person.address >> new Person.Address('Yellow Brick Road')
+        1 * person.address >> new Person.Address('Yellow Brick Road')
 
         expect:
         res == 'Yellow Brick Road'

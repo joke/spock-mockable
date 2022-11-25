@@ -1,4 +1,4 @@
-package io.github.joke.spockmockable.tests;
+package io.github.joke.examples;
 
 public class Utility {
 

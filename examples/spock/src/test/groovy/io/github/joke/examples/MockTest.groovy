@@ -1,11 +1,9 @@
-package io.github.joke.spockmockable.tests
+package io.github.joke.examples
 
-import io.github.joke.spockmockable.Mockable
 import org.spockframework.mock.MockUtil
 import spock.lang.Specification
 
-@Mockable(packageName = 'io.github.joke.spockmockable.tests')
-class MockablePackageTest extends Specification {
+class MockTest extends Specification {
 
     def mockUtil = new MockUtil()
 
