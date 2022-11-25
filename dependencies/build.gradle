@@ -8,9 +8,6 @@ javaPlatform {
 
 dependencies {
 
-    api platform('org.apache.groovy:groovy-bom:4.0.6')
-    api platform('org.spockframework:spock-bom:2.3-groovy-4.0')
-
     constraints {
         api 'com.google.auto.service:auto-service-annotations:1.0.1'
         api 'com.google.auto.service:auto-service:1.0.1'

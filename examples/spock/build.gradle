@@ -2,138 +2,162 @@ plugins {
     id 'java'
     id 'groovy'
     id 'jacoco'
+    id 'jvm-test-suite'
 }
 
-def spock2x = [
-        'spock20groovy25', 'spock20groovy30',
-        'spock21groovy25', 'spock21groovy30',
-        'spock22groovy25', 'spock22groovy30', 'spock22groovy40',
-        'spock23groovy25', 'spock23groovy30', 'spock23groovy40'
-]
+def testSources = {
+    java.srcDirs = ['src/main/java']
+    groovy.srcDirs = ['src/test/groovy']
+}
+testing {
+    suites {
 
-[*spock2x].forEach {
-    sourceSets.create(it) {
-        java.srcDirs += sourceSets.main.java.srcDirs
-        groovy.srcDirs += sourceSets.test.groovy.srcDirs
+        test {
+            useSpock('2.3-groovy-4.0')
+            sources(testSources)
+            dependencies {
+                implementation project.dependencies.enforcedPlatform(project(':dependencies'))
+                implementation project.dependencies.enforcedPlatform('org.apache.groovy:groovy-bom:4.0.6')
+                implementation project.dependencies.project(path: ':spock-mockable', configuration: 'shadow')
+                implementation 'net.bytebuddy:byte-buddy'
+                implementation 'org.objenesis:objenesis'
+                implementation 'org.slf4j:slf4j-simple'
+            }
+        }
+        spock20groovy25(JvmTestSuite) {
+            useSpock('2.0-groovy-2.5')
+            sources(testSources)
+            dependencies {
+                implementation project.dependencies.enforcedPlatform(project(':dependencies'))
+                implementation project.dependencies.enforcedPlatform('org.codehaus.groovy:groovy-bom:2.5.18')
+                implementation project.dependencies.project(path: ':spock-mockable', configuration: 'shadow')
+                implementation 'net.bytebuddy:byte-buddy'
+                implementation 'org.objenesis:objenesis'
+                implementation 'org.slf4j:slf4j-simple'
+            }
+        }
+        spock20groovy30(JvmTestSuite) {
+            useSpock('2.0-groovy-3.0')
+            sources(testSources)
+            dependencies {
+                implementation project.dependencies.enforcedPlatform(project(':dependencies'))
+                implementation project.dependencies.enforcedPlatform('org.codehaus.groovy:groovy-bom:3.0.13')
+                implementation project.dependencies.project(path: ':spock-mockable', configuration: 'shadow')
+                implementation 'net.bytebuddy:byte-buddy'
+                implementation 'org.objenesis:objenesis'
+                implementation 'org.slf4j:slf4j-simple'
+            }
+        }
+        spock21groovy25(JvmTestSuite) {
+            useSpock('2.1-groovy-2.5')
+            sources(testSources)
+            dependencies {
+                implementation project.dependencies.enforcedPlatform(project(':dependencies'))
+                implementation project.dependencies.enforcedPlatform('org.codehaus.groovy:groovy-bom:2.5.18')
+                implementation project.dependencies.project(path: ':spock-mockable', configuration: 'shadow')
+                implementation 'net.bytebuddy:byte-buddy'
+                implementation 'org.objenesis:objenesis'
+                implementation 'org.slf4j:slf4j-simple'
+            }
+        }
+        spock21groovy30(JvmTestSuite) {
+            useSpock('2.1-groovy-3.0')
+            sources(testSources)
+            dependencies {
+                implementation project.dependencies.enforcedPlatform(project(':dependencies'))
+                implementation project.dependencies.enforcedPlatform('org.codehaus.groovy:groovy-bom:3.0.13')
+                implementation project.dependencies.project(path: ':spock-mockable', configuration: 'shadow')
+                implementation 'net.bytebuddy:byte-buddy'
+                implementation 'org.objenesis:objenesis'
+                implementation 'org.slf4j:slf4j-simple'
+            }
+        }
+        spock22groovy25(JvmTestSuite) {
+            useSpock('2.2-groovy-2.5')
+            sources(testSources)
+            dependencies {
+                implementation project.dependencies.enforcedPlatform(project(':dependencies'))
+                implementation project.dependencies.enforcedPlatform('org.codehaus.groovy:groovy-bom:2.5.18')
+                implementation project.dependencies.project(path: ':spock-mockable', configuration: 'shadow')
+                implementation 'net.bytebuddy:byte-buddy'
+                implementation 'org.objenesis:objenesis'
+                implementation 'org.slf4j:slf4j-simple'
+            }
+        }
+        spock22groovy30(JvmTestSuite) {
+            useSpock('2.2-groovy-3.0')
+            sources(testSources)
+            dependencies {
+                implementation project.dependencies.enforcedPlatform(project(':dependencies'))
+                implementation project.dependencies.enforcedPlatform('org.codehaus.groovy:groovy-bom:3.0.13')
+                implementation project.dependencies.project(path: ':spock-mockable', configuration: 'shadow')
+                implementation 'net.bytebuddy:byte-buddy'
+                implementation 'org.objenesis:objenesis'
+                implementation 'org.slf4j:slf4j-simple'
+            }
+        }
+        spock22groovy40(JvmTestSuite) {
+            useSpock('2.2-groovy-4.0')
+            sources(testSources)
+            dependencies {
+                implementation project.dependencies.enforcedPlatform(project(':dependencies'))
+                implementation project.dependencies.enforcedPlatform('org.apache.groovy:groovy-bom:4.0.6')
+                implementation project.dependencies.project(path: ':spock-mockable', configuration: 'shadow')
+                implementation 'net.bytebuddy:byte-buddy'
+                implementation 'org.objenesis:objenesis'
+                implementation 'org.slf4j:slf4j-simple'
+            }
+        }
+        spock23groovy25(JvmTestSuite) {
+            useSpock('2.3-groovy-2.5')
+            sources(testSources)
+            dependencies {
+                implementation project.dependencies.enforcedPlatform(project(':dependencies'))
+                implementation project.dependencies.enforcedPlatform('org.codehaus.groovy:groovy-bom:2.5.18')
+                implementation project.dependencies.project(path: ':spock-mockable', configuration: 'shadow')
+                implementation 'net.bytebuddy:byte-buddy'
+                implementation 'org.objenesis:objenesis'
+                implementation 'org.slf4j:slf4j-simple'
+            }
+        }
+        spock23groovy30(JvmTestSuite) {
+            useSpock('2.3-groovy-3.0')
+            sources(testSources)
+            dependencies {
+                implementation project.dependencies.enforcedPlatform(project(':dependencies'))
+                implementation project.dependencies.enforcedPlatform('org.codehaus.groovy:groovy-bom:3.0.13')
+                implementation project.dependencies.project(path: ':spock-mockable', configuration: 'shadow')
+                implementation 'net.bytebuddy:byte-buddy'
+                implementation 'org.objenesis:objenesis'
+                implementation 'org.slf4j:slf4j-simple'
+            }
+        }
+        spock23groovy40(JvmTestSuite) {
+            useSpock('2.3-groovy-4.0')
+            sources(testSources)
+            dependencies {
+                implementation project.dependencies.enforcedPlatform(project(':dependencies'))
+                implementation project.dependencies.enforcedPlatform('org.apache.groovy:groovy-bom:4.0.6')
+                implementation project.dependencies.project(path: ':spock-mockable', configuration: 'shadow')
+                implementation 'net.bytebuddy:byte-buddy'
+                implementation 'org.objenesis:objenesis'
+                implementation 'org.slf4j:slf4j-simple'
+            }
+        }
     }
 }
 
-dependencies {
-    testImplementation enforcedPlatform(project(':dependencies'))
-    testImplementation enforcedPlatform('org.apache.groovy:groovy-bom:4.0.6')
-    testImplementation enforcedPlatform('org.spockframework:spock-bom:2.3-groovy-4.0')
-    testImplementation project(path: ':spock-mockable', configuration: 'shadow')
-    testImplementation 'net.bytebuddy:byte-buddy'
-    testImplementation 'org.objenesis:objenesis'
-    testImplementation 'org.slf4j:slf4j-simple'
-    testImplementation 'org.spockframework:spock-core'
-//    testImplementation 'org.jacoco:org.jacoco.agent:0.8.8:runtime'
-
-    spock20groovy25Implementation enforcedPlatform(project(':dependencies'))
-    spock20groovy25Implementation enforcedPlatform('org.codehaus.groovy:groovy-bom:2.5.18')
-    spock20groovy25Implementation enforcedPlatform('org.spockframework:spock-bom:2.0-groovy-2.5')
-    spock20groovy25Implementation project(path: ':spock-mockable', configuration: 'shadow')
-    spock20groovy25Implementation 'net.bytebuddy:byte-buddy'
-    spock20groovy25Implementation 'org.objenesis:objenesis'
-    spock20groovy25Implementation 'org.slf4j:slf4j-simple'
-    spock20groovy25Implementation 'org.spockframework:spock-core'
-
-    spock20groovy30Implementation enforcedPlatform(project(':dependencies'))
-    spock20groovy30Implementation enforcedPlatform('org.codehaus.groovy:groovy-bom:3.0.13')
-    spock20groovy30Implementation enforcedPlatform('org.spockframework:spock-bom:2.0-groovy-3.0')
-    spock20groovy30Implementation project(path: ':spock-mockable', configuration: 'shadow')
-    spock20groovy30Implementation 'net.bytebuddy:byte-buddy'
-    spock20groovy30Implementation 'org.objenesis:objenesis'
-    spock20groovy30Implementation 'org.slf4j:slf4j-simple'
-    spock20groovy30Implementation 'org.spockframework:spock-core'
-
-    spock21groovy25Implementation enforcedPlatform(project(':dependencies'))
-    spock21groovy25Implementation enforcedPlatform('org.codehaus.groovy:groovy-bom:2.5.18')
-    spock21groovy25Implementation enforcedPlatform('org.spockframework:spock-bom:2.1-groovy-2.5')
-    spock21groovy25Implementation project(path: ':spock-mockable', configuration: 'shadow')
-    spock21groovy25Implementation 'net.bytebuddy:byte-buddy'
-    spock21groovy25Implementation 'org.objenesis:objenesis'
-    spock21groovy25Implementation 'org.slf4j:slf4j-simple'
-    spock21groovy25Implementation 'org.spockframework:spock-core'
-
-    spock21groovy30Implementation enforcedPlatform(project(':dependencies'))
-    spock21groovy30Implementation enforcedPlatform('org.codehaus.groovy:groovy-bom:3.0.13')
-    spock21groovy30Implementation enforcedPlatform('org.spockframework:spock-bom:2.1-groovy-3.0')
-    spock21groovy30Implementation project(path: ':spock-mockable', configuration: 'shadow')
-    spock21groovy30Implementation 'net.bytebuddy:byte-buddy'
-    spock21groovy30Implementation 'org.objenesis:objenesis'
-    spock21groovy30Implementation 'org.slf4j:slf4j-simple'
-    spock21groovy30Implementation 'org.spockframework:spock-core'
-
-    spock22groovy25Implementation enforcedPlatform(project(':dependencies'))
-    spock22groovy25Implementation enforcedPlatform('org.codehaus.groovy:groovy-bom:2.5.18')
-    spock22groovy25Implementation enforcedPlatform('org.spockframework:spock-bom:2.2-groovy-2.5')
-    spock22groovy25Implementation project(path: ':spock-mockable', configuration: 'shadow')
-    spock22groovy25Implementation 'net.bytebuddy:byte-buddy'
-    spock22groovy25Implementation 'org.objenesis:objenesis'
-    spock22groovy25Implementation 'org.slf4j:slf4j-simple'
-    spock22groovy25Implementation 'org.spockframework:spock-core'
-
-    spock22groovy30Implementation enforcedPlatform(project(':dependencies'))
-    spock22groovy30Implementation enforcedPlatform('org.codehaus.groovy:groovy-bom:3.0.13')
-    spock22groovy30Implementation enforcedPlatform('org.spockframework:spock-bom:2.2-groovy-3.0')
-    spock22groovy30Implementation project(path: ':spock-mockable', configuration: 'shadow')
-    spock22groovy30Implementation 'net.bytebuddy:byte-buddy'
-    spock22groovy30Implementation 'org.objenesis:objenesis'
-    spock22groovy30Implementation 'org.slf4j:slf4j-simple'
-    spock22groovy30Implementation 'org.spockframework:spock-core'
-
-    spock22groovy40Implementation enforcedPlatform(project(':dependencies'))
-    spock22groovy40Implementation enforcedPlatform('org.apache.groovy:groovy-bom:4.0.6')
-    spock22groovy40Implementation enforcedPlatform('org.spockframework:spock-bom:2.2-groovy-4.0')
-    spock22groovy40Implementation project(path: ':spock-mockable', configuration: 'shadow')
-    spock22groovy40Implementation 'net.bytebuddy:byte-buddy'
-    spock22groovy40Implementation 'org.objenesis:objenesis'
-    spock22groovy40Implementation 'org.slf4j:slf4j-simple'
-    spock22groovy40Implementation 'org.spockframework:spock-core'
-
-    spock23groovy25Implementation enforcedPlatform(project(':dependencies'))
-    spock23groovy25Implementation enforcedPlatform('org.codehaus.groovy:groovy-bom:2.5.18')
-    spock23groovy25Implementation enforcedPlatform('org.spockframework:spock-bom:2.3-groovy-2.5')
-    spock23groovy25Implementation project(path: ':spock-mockable', configuration: 'shadow')
-    spock23groovy25Implementation 'net.bytebuddy:byte-buddy'
-    spock23groovy25Implementation 'org.objenesis:objenesis'
-    spock23groovy25Implementation 'org.slf4j:slf4j-simple'
-    spock23groovy25Implementation 'org.spockframework:spock-core'
-
-    spock23groovy30Implementation enforcedPlatform(project(':dependencies'))
-    spock23groovy30Implementation enforcedPlatform('org.codehaus.groovy:groovy-bom:3.0.13')
-    spock23groovy30Implementation enforcedPlatform('org.spockframework:spock-bom:2.3-groovy-3.0')
-    spock23groovy30Implementation project(path: ':spock-mockable', configuration: 'shadow')
-    spock23groovy30Implementation 'net.bytebuddy:byte-buddy'
-    spock23groovy30Implementation 'org.objenesis:objenesis'
-    spock23groovy30Implementation 'org.slf4j:slf4j-simple'
-    spock23groovy30Implementation 'org.spockframework:spock-core'
-
-    spock23groovy40Implementation enforcedPlatform(project(':dependencies'))
-    spock23groovy40Implementation enforcedPlatform('org.apache.groovy:groovy-bom:4.0.6')
-    spock23groovy40Implementation enforcedPlatform('org.spockframework:spock-bom:2.3-groovy-4.0')
-    spock23groovy40Implementation project(path: ':spock-mockable')
-    spock23groovy40Implementation 'net.bytebuddy:byte-buddy'
-    spock23groovy40Implementation 'org.objenesis:objenesis'
-    spock23groovy40Implementation 'org.slf4j:slf4j-simple'
-    spock23groovy40Implementation 'org.spockframework:spock-core'
+tasks.named('check') {
+    dependsOn testing.suites
+//    dependsOn tasks.named('testCodeCoverageReport', JacocoReport)
 }
 
-spock2x.forEach { source ->
-    tasks.create("test$source", Test) {
-        group = 'verification'
-        check.dependsOn it
-
-        forkEvery 1
-        useJUnitPlatform()
-        classpath = sourceSets.findByName(source).runtimeClasspath
-        testClassesDirs = sourceSets.findByName(source).output.classesDirs
-        jvmArgs([
-                "-javaagent:${classpath.find { it.name.contains('spock-mockable') }.absolutePath}",
-//            '-agentlib:jdwp=transport=dt_socket,server=n,address=localhost:5006,suspend=y',
-        ])
-    }
+tasks.withType(Test) {
+    forkEvery 1
+    jvmArgs([
+            "-javaagent:${classpath.find { it.name.contains('spock-mockable') }.absolutePath}",
+//          '-agentlib:jdwp=transport=dt_socket,server=n,address=localhost:5006,suspend=y',
+    ])
 }
 
 tasks.withType(GroovyCompile) {

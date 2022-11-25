@@ -20,6 +20,8 @@ dependencies {
     annotationProcessor 'com.google.dagger:dagger-compiler'
 
     compileOnly enforcedPlatform(project(':dependencies'))
+    compileOnly enforcedPlatform('org.apache.groovy:groovy-bom:4.0.6')
+    compileOnly enforcedPlatform('org.spockframework:spock-bom:2.3-groovy-4.0')
     compileOnly 'com.google.auto.service:auto-service-annotations'
     compileOnly 'com.google.dagger:dagger'
     compileOnly 'org.apache.groovy:groovy'
@@ -36,6 +38,8 @@ dependencies {
     shadow 'org.slf4j:slf4j-api:2.0.4'
 
     testImplementation enforcedPlatform(project(':dependencies'))
+    testImplementation enforcedPlatform('org.apache.groovy:groovy-bom:4.0.6')
+    testImplementation enforcedPlatform('org.spockframework:spock-bom:2.3-groovy-4.0')
     testImplementation 'io.github.joke:spock-deepmock'
     testImplementation 'io.github.joke:spock-outputcapture'
     testImplementation 'net.bytebuddy:byte-buddy'
