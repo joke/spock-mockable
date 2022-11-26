@@ -30,7 +30,7 @@ dependencies {
 //    testImplementation 'org.jacoco:org.jacoco.agent:0.8.8:runtime'
 
     spock20groovy25Implementation enforcedPlatform(project(':dependencies'))
-    spock20groovy25Implementation enforcedPlatform('org.codehaus.groovy:groovy-bom:2.5.18')
+    spock20groovy25Implementation enforcedPlatform('org.codehaus.groovy:groovy-bom:2.5.19')
     spock20groovy25Implementation enforcedPlatform('org.spockframework:spock-bom:2.0-groovy-2.5')
     spock20groovy25Implementation project(path: ':spock-mockable', configuration: 'shadow')
     spock20groovy25Implementation 'net.bytebuddy:byte-buddy'
@@ -39,7 +39,7 @@ dependencies {
     spock20groovy25Implementation 'org.spockframework:spock-core'
 
     spock20groovy30Implementation enforcedPlatform(project(':dependencies'))
-    spock20groovy30Implementation enforcedPlatform('org.codehaus.groovy:groovy-bom:3.0.13')
+    spock20groovy30Implementation enforcedPlatform('org.codehaus.groovy:groovy-bom:2.5.19')
     spock20groovy30Implementation enforcedPlatform('org.spockframework:spock-bom:2.0-groovy-3.0')
     spock20groovy30Implementation project(path: ':spock-mockable', configuration: 'shadow')
     spock20groovy30Implementation 'net.bytebuddy:byte-buddy'
