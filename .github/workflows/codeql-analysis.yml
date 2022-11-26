@@ -24,7 +24,9 @@ jobs:
       uses: github/codeql-action/init@v2
       with:
         languages: java
-    - name: Autobuild
-      uses: github/codeql-action/autobuild@v2
+    - name: gradle setup
+      uses: gradle/gradle-build-action@v2
+    - name: build binaries
+      run: ./gradlew classes testClasses
     - name: Perform CodeQL Analysis
       uses: github/codeql-action/analyze@v2
