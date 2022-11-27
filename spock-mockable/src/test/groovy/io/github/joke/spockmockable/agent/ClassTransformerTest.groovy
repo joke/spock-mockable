@@ -9,6 +9,7 @@ import net.bytebuddy.description.modifier.Visibility
 import net.bytebuddy.description.type.TypeDescription
 import net.bytebuddy.dynamic.DynamicType.Builder
 import net.bytebuddy.matcher.ElementMatchers
+import net.bytebuddy.pool.TypePool.Resolution.NoSuchTypeException
 import net.bytebuddy.utility.JavaModule
 import org.spockframework.mock.ISpockMockObject
 import org.spockframework.mock.runtime.ByteBuddyInvoker
@@ -140,12 +141,49 @@ class ClassTransformerTest extends Specification {
         'packB'     || false
     }
 
-    def 'needs transformation'() {
+    def 'safe needs transforming returns false on exception'() {
         setup:
         TypeDescription typeDescription = DeepMock()
 
         when:
-        def res = classTransformer.needsTransformation(typeDescription)
+        def res = classTransformer.safeNeedsTransforming(typeDescription)
+
+        then:
+        1 * classTransformer.needsTransforming(typeDescription) >> needsTransforming
+        1 * classTransformer._
+        0 * _
+
+        expect:
+        res == expected
+
+        where:
+        needsTransforming || expected
+        false             || false
+        true              || true
+    }
+
+    def 'safe needs transforming returns false on exception'() {
+        setup:
+        TypeDescription typeDescription = DeepMock()
+
+        when:
+        def res = classTransformer.safeNeedsTransforming(typeDescription)
+
+        then:
+        1 * classTransformer.needsTransforming(typeDescription) >> { throw new NoSuchTypeException('myType') }
+        1 * classTransformer._
+        0 * _
+
+        expect:
+        !res
+    }
+
+    def 'needs transforming'() {
+        setup:
+        TypeDescription typeDescription = DeepMock()
+
+        when:
+        def res = classTransformer.needsTransforming(typeDescription)
 
         then:
         classTransformer.isInternal(typeDescription) >> isInternal

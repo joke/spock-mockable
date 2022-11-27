@@ -5,7 +5,6 @@ import lombok.extern.slf4j.Slf4j;
 import net.bytebuddy.agent.builder.AgentBuilder;
 import net.bytebuddy.description.type.TypeDescription;
 import net.bytebuddy.dynamic.DynamicType;
-import net.bytebuddy.pool.TypePool.Resolution.NoSuchTypeException;
 import net.bytebuddy.utility.JavaModule;
 
 import javax.inject.Inject;
@@ -18,11 +17,7 @@ class DiscoveryListener extends AgentBuilder.Listener.Adapter {
 
     @Override
     public void onError(final String typeName, final ClassLoader classLoader, final JavaModule module, final boolean loaded, final Throwable throwable) {
-        if (throwable instanceof NoSuchTypeException) {
-            log.trace("Could not resolved type description: {}", typeName, throwable);
-        } else {
-            log.warn("Could not transform class '{}', loaded: {}", typeName, loaded);
-        }
+        log.trace("Could not resolved type description: {}", typeName, throwable);
     }
 
     @Override
@@ -37,7 +32,7 @@ class DiscoveryListener extends AgentBuilder.Listener.Adapter {
 
     @Override
     public void onTransformation(final TypeDescription typeDescription, final ClassLoader classLoader, final JavaModule module, final boolean loaded, final DynamicType dynamicType) {
-        log.trace("Transforming class '{}', loaded: {}", typeDescription, loaded);
+        log.debug("Transforming class '{}', loaded: {}", typeDescription, loaded);
     }
 
     @Override
