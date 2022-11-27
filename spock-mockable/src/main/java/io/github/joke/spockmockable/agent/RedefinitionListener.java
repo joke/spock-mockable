@@ -16,7 +16,9 @@ public class RedefinitionListener extends AgentBuilder.RedefinitionStrategy.List
 
     @Override
     public void onComplete(final int amount, final List<Class<?>> types, final Map<List<Class<?>>, Throwable> failures) {
-        log.debug("Successfully transformed classes: {}", types);
+        if (!types.isEmpty()) {
+            log.debug("Successfully transformed classes: {}", types);
+        }
     }
 
     @Override

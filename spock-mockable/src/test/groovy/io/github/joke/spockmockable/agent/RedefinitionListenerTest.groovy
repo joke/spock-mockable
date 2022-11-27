@@ -20,6 +20,14 @@ class RedefinitionListenerTest extends Specification {
         logs ==~ /(?sm)^.*DEBUG.*Successfully transformed classes: \[class java\.lang\.String\].*$/
     }
 
+    def 'do not log completion on empty list'() {
+        setup:
+        redifinitionListener.onComplete(123, [], [([String]): new RuntimeException('something bad')])
+
+        expect:
+        logs !==~ /(?sm)^.*DEBUG.*Successfully transformed classes: \[class java\.lang\.String\].*$/
+    }
+
     def 'on error'() {
         setup:
         redifinitionListener.onError(123, [String], new RuntimeException('something bad'), [String])
