@@ -93,10 +93,16 @@ public class MockVisitor {
         protected void checkAndLogError(@Nullable final Class<?> clazz) {
             if (clazz != null) {
                 classDetected = true;
-                classCollector.addClass(clazz);
+                if (isTransformable(clazz)) {
+                    classCollector.addClass(clazz);
+                }
             } else if (!classDetected) {
                 logError();
             }
+        }
+
+        protected boolean isTransformable(final Class<?> clazz) {
+            return clazz != Object.class && !clazz.isInterface();
         }
     }
 }

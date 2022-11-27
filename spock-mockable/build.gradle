@@ -81,7 +81,8 @@ test {
     useJUnitPlatform()
     jvmArgs += [
             '-Dorg.slf4j.simpleLogger.defaultLogLevel=debug',
-            '-Dspock-mockable.disabled=true'
+            '-Dspock-mockable.disabled=true',
+//            '-agentlib:jdwp=transport=dt_socket,server=n,address=localhost:5005,suspend=n'
     ]
 }
 
@@ -93,4 +94,11 @@ publishing {
             artifact javadocJar
         }
     }
+}
+
+tasks.withType(GroovyCompile) {
+//    groovyOptions.fork = true
+//    groovyOptions.forkOptions.jvmArgs = [
+//            '-agentlib:jdwp=transport=dt_socket,server=n,address=localhost:5006,suspend=n'
+//    ]
 }
