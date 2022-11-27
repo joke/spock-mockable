@@ -27,5 +27,5 @@ jobs:
         flags: unit
     - uses: codecov/codecov-action@v3
       with:
-        files: examples/spock/build/reports/jacoco/test/jacocoTestReport.xml
+        files: tests/build/reports/jacoco/test/jacocoTestReport.xml
         flags: integration
