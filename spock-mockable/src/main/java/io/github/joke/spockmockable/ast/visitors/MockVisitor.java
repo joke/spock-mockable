@@ -93,11 +93,17 @@ public class MockVisitor {
         protected void checkAndLogError(@Nullable final Class<?> clazz) {
             if (clazz != null) {
                 classDetected = true;
-                if (isTransformable(clazz)) {
-                    classCollector.addClass(clazz);
-                }
+                traverseClassHierarchy(clazz);
             } else if (!classDetected) {
                 logError();
+            }
+        }
+
+        protected void traverseClassHierarchy(final Class<?> clazz) {
+            Class<?> current = clazz;
+            while (isTransformable(current)) {
+                classCollector.addClass(current);
+                current = current.getSuperclass();
             }
         }
 
