@@ -20,6 +20,7 @@ import net.bytebuddy.description.type.TypeDescription;
 import net.bytebuddy.dynamic.DynamicType;
 import net.bytebuddy.dynamic.scaffold.TypeValidation;
 import net.bytebuddy.matcher.ElementMatchers;
+import net.bytebuddy.pool.TypePool.Resolution.NoSuchTypeException;
 import net.bytebuddy.utility.JavaModule;
 import org.jetbrains.annotations.NotNull;
 import org.spockframework.mock.ISpockMockObject;
@@ -31,7 +32,7 @@ import javax.inject.Singleton;
 import java.lang.instrument.Instrumentation;
 import java.security.ProtectionDomain;
 
-import static net.bytebuddy.matcher.ElementMatchers.none;
+import static net.bytebuddy.matcher.ElementMatchers.any;
 
 @Slf4j
 @Singleton
@@ -49,7 +50,8 @@ public class ClassTransformer {
         new AgentBuilder.Default(
                 new ByteBuddy()
                         .with(TypeValidation.DISABLED))
-                .ignore(none())
+                .with(AgentBuilder.PoolStrategy.Eager.EXTENDED)
+                .ignore(x -> !safeNeedsTransforming(x))
                 .with(discoveryListener)
                 .with(installationListener)
                 .with(InitializationStrategy.Minimal.INSTANCE)
@@ -57,7 +59,7 @@ public class ClassTransformer {
                 .with(DiscoveryStrategy.Reiterating.INSTANCE)
                 .with(redefinitionListener)
                 .with(TypeStrategy.Default.REDEFINE)
-                .type(this::needsTransformation)
+                .type(any())
                 .transform(this::transform)
                 .installOn(instrumentation);
     }
@@ -104,7 +106,15 @@ public class ClassTransformer {
         return new ModifierAdjustment().withTypeModifiers(ElementMatchers.isFinal(), TypeManifestation.PLAIN);
     }
 
-    protected boolean needsTransformation(final TypeDescription typeDescription) {
+    protected boolean safeNeedsTransforming(final TypeDescription typeDescription) {
+        try {
+            return needsTransforming(typeDescription);
+        } catch (final NoSuchTypeException e) {
+            return false;
+        }
+    }
+
+    protected boolean needsTransforming(final TypeDescription typeDescription) {
         return !isInternal(typeDescription) && (classMatches(typeDescription) || packageMatches(typeDescription));
     }
 
