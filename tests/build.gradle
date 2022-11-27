@@ -28,8 +28,10 @@ test {
         classDumpDir = layout.buildDirectory.dir('jacoco/dumps').get().asFile
     }
     jvmArgs([
+//            '-agentlib:jdwp=transport=dt_socket,server=n,address=localhost:5005,suspend=n',
             "${jacoco.asJvmArg}",
-            "-javaagent:${classpath.find { it.name.contains('spock-mockable') }.absolutePath}"
+            "-javaagent:${classpath.find { it.name.contains('spock-mockable') }.absolutePath}",
+            '-Dorg.slf4j.simpleLogger.defaultLogLevel=debug'
     ])
 }
 
@@ -38,4 +40,11 @@ jacocoTestReport {
     classDirectories.setFrom([])
     additionalSourceDirs project(':spock-mockable').sourceSets.main.java.sourceDirectories.singleFile
     additionalClassDirs layout.buildDirectory.dir('jacoco/dumps').get().asFile
+}
+
+compileTestGroovy {
+//    groovyOptions.fork = true
+//    groovyOptions.forkOptions.jvmArgs = [
+//            '-agentlib:jdwp=transport=dt_socket,server=n,address=localhost:5006,suspend=n'
+//    ]
 }
