@@ -1,5 +1,20 @@
 # Changelog
 
+## [2.3.0](https://github.com/joke/spock-mockable/compare/v2.2.1...v2.3.0) (2022-11-27)
+
+
+### Features
+
+* improve transformation logging ([8b3fe7b](https://github.com/joke/spock-mockable/commit/8b3fe7b1cecde2a181dd28345da310abc80a288a))
+* include super classes in transformation ([24d27cf](https://github.com/joke/spock-mockable/commit/24d27cfe3e13f5e9e95cd5205325200640c77a54))
+
+
+### Bug Fixes
+
+* do not log empty re-definitions ([1420bd9](https://github.com/joke/spock-mockable/commit/1420bd93a9cf2deb07b5481ec49c8d9e6603749b))
+* do not log type resolution errors as warn ([7d26eb4](https://github.com/joke/spock-mockable/commit/7d26eb463f7a89b6fe4a5e3afa9250064432337e))
+* exclude interfaces from transformation ([b48f9dc](https://github.com/joke/spock-mockable/commit/b48f9dc3efe91a6cb12fd45ae7ed121eb10d641c))
+
 ## [2.2.1](https://github.com/joke/spock-mockable/compare/v2.2.0...v2.2.1) (2022-11-22)
 
 
