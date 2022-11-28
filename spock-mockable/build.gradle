@@ -33,7 +33,7 @@ dependencies {
 
     shadow 'net.bytebuddy:byte-buddy-agent:1.12.19'
     shadow 'net.bytebuddy:byte-buddy:1.12.19'
-    shadow 'org.slf4j:slf4j-api:2.0.4'
+    shadow 'org.slf4j:slf4j-api:2.0.5'
 
     testImplementation enforcedPlatform(project(':dependencies'))
     testImplementation 'io.github.joke:spock-deepmock'
