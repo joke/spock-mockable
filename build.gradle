@@ -3,7 +3,7 @@ plugins {
     id 'idea'
     id 'net.ltgt.errorprone' version '3.0.1' apply false
     id 'org.shipkit.shipkit-auto-version' version '1.2.2'
-    id 'io.freefair.lombok' version '6.5.1'
+    id 'io.freefair.lombok' version '6.6'
 }
 
 allprojects { project ->
