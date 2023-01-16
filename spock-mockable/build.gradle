@@ -31,7 +31,7 @@ dependencies {
 
     api 'com.google.dagger:dagger:2.44.2'
 
-    shadow 'net.bytebuddy:byte-buddy-agent:1.12.21'
+    shadow 'net.bytebuddy:byte-buddy-agent:1.12.22'
     shadow 'net.bytebuddy:byte-buddy:1.12.20'
     shadow 'org.slf4j:slf4j-api:2.0.6'
 
