@@ -17,7 +17,7 @@ dependencies {
         api 'com.google.dagger:dagger-compiler:2.44.2'
         api 'com.google.dagger:dagger:2.44.2'
         api 'com.google.errorprone:error_prone_core:2.17.0'
-        api 'com.uber.nullaway:nullaway:0.10.6'
+        api 'com.uber.nullaway:nullaway:0.10.8'
         api 'io.github.joke:spock-deepmock:4.0.0'
         api 'io.github.joke:spock-outputcapture:3.0.1'
         api 'javax.inject:javax.inject:1'
