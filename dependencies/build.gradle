@@ -22,7 +22,7 @@ dependencies {
         api 'io.github.joke:spock-outputcapture:3.0.1'
         api 'javax.inject:javax.inject:1'
         api 'net.bytebuddy:byte-buddy-agent:1.12.21'
-        api 'net.bytebuddy:byte-buddy:1.12.20'
+        api 'net.bytebuddy:byte-buddy:1.12.23'
         api 'org.jetbrains:annotations:23.1.0'
         api 'org.objenesis:objenesis:3.3'
         api 'org.projectlombok:lombok:1.18.24'
