@@ -46,6 +46,23 @@ class StaticTest extends Specification {
         res5 == 'Utility'
     }
 
+    def 'mock static void method'() {
+        setup:
+        Spy(Utility) // create spy. the instance does not really matter
+        def staticCaller = new StaticCaller()
+
+        when:
+        staticCaller.callUnsupported()
+
+        then:
+        1 * Utility.doUnsupported() >> { Utility.state = true }
+
+        noExceptionThrown()
+
+        expect:
+        Utility.state
+    }
+
     def 'original response restored'() {
         expect:
         new StaticCaller().name == 'Utility'
