@@ -22,4 +22,18 @@ class StaticTest extends Specification {
         where:
         methodName << ['name', 'simpleName', 'canonicalName']
     }
+
+    def 'mock static void method'() {
+        when:
+        Static.modifyStateAndException()
+
+        then:
+        1 * Static.modifyStateAndException() >> { Static.stateB = true }
+
+        noExceptionThrown()
+
+        expect:
+        !Static.stateA
+        Static.stateB
+    }
 }
