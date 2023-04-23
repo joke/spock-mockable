@@ -6,8 +6,4 @@ public class StaticCaller {
         return Utility.getName();
     }
 
-    public void callUnsupported() {
-        Utility.doUnsupported();
-    }
-
 }
