@@ -55,12 +55,13 @@ class StaticTest extends Specification {
         staticCaller.callUnsupported()
 
         then:
-        1 * Utility.doUnsupported() >> { Utility.state = true }
+        1 * Utility.doUnsupported() >> { Utility.state1 = true }
 
         noExceptionThrown()
 
         expect:
-        Utility.state
+        Utility.state1
+        !Utility.state2
     }
 
     def 'original response restored'() {
