@@ -1,5 +1,12 @@
 # Changelog
 
+## [2.3.1](https://github.com/joke/spock-mockable/compare/v2.3.0...v2.3.1) (2023-04-23)
+
+
+### Bug Fixes
+
+* mocking of static void methods closes [#355](https://github.com/joke/spock-mockable/issues/355) ([c76db09](https://github.com/joke/spock-mockable/commit/c76db095ded1df4303472274ef27b23f61476d60))
+
 ## [2.3.0](https://github.com/joke/spock-mockable/compare/v2.2.1...v2.3.0) (2022-11-27)
 
 
