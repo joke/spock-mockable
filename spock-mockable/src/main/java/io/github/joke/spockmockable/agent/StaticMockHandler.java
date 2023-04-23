@@ -23,6 +23,7 @@ import org.spockframework.mock.runtime.FailingRealMethodInvoker;
 import org.spockframework.mock.runtime.MockInvocation;
 import org.spockframework.mock.runtime.MockObject;
 import org.spockframework.mock.runtime.StaticMockMethod;
+import org.spockframework.runtime.SpockException;
 import spock.lang.Specification;
 
 import java.lang.reflect.Method;
@@ -70,12 +71,11 @@ public class StaticMockHandler {
         }
     }
 
-    @Nullable
+
     public static ReturnWrapper getInteractionValue(final MockInvocation mockInvocation) {
-        return ofNullable(featureMockController)
-                .map(mockController -> mockController.handle(mockInvocation))
-                .map(ReturnWrapper::new)
-                .orElse(null);
+        return new ReturnWrapper(ofNullable(featureMockController)
+                .orElseThrow(() -> new SpockException("Can not invoke mock from current context"))
+                .handle(mockInvocation));
     }
 
     @NotNull
