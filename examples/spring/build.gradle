@@ -4,7 +4,7 @@ plugins {
 }
 
 dependencies {
-    implementation enforcedPlatform('org.springframework.boot:spring-boot-dependencies:2.7.5')
+    implementation enforcedPlatform('org.springframework.boot:spring-boot-dependencies:3.0.6')
     implementation 'org.springframework.boot:spring-boot-starter-web'
 
     testImplementation enforcedPlatform(project(':dependencies'))
