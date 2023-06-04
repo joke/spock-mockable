@@ -88,8 +88,10 @@ test {
 
 publishing {
     publications {
-        spockMockable(MavenPublication) {
-            from components.java
+        spockMockable(MavenPublication) { publication ->
+            project.shadow.component publication
+            artifact sourcesJar
+            artifact javadocJar
         }
     }
 }
