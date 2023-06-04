@@ -1,5 +1,12 @@
 # Changelog
 
+## [2.3.2](https://github.com/joke/spock-mockable/compare/v2.3.1...v2.3.2) (2023-06-04)
+
+
+### Bug Fixes
+
+* **gradle:** publishing contains wrong artifacts fixes [#367](https://github.com/joke/spock-mockable/issues/367) ([e49f881](https://github.com/joke/spock-mockable/commit/e49f881ef69956f320ee334205da63404d32d0dd))
+
 ## [2.3.1](https://github.com/joke/spock-mockable/compare/v2.3.0...v2.3.1) (2023-04-23)
 
 
