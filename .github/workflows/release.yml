@@ -15,7 +15,7 @@ permissions:
 
 jobs:
   release:
-    uses: joke/workflows/.github/workflows/gradle-release.yml@main
+    uses: joke/workflows/.github/workflows/gradle-release.yml@v1.0.0
     with:
       tag: ${{ inputs.tag || '' }}
     secrets: inherit
