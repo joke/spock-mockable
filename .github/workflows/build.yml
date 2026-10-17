@@ -33,5 +33,5 @@ jobs:
       if: ${{ !cancelled() }}
       with:
         name: rests
-        path: '**/test-results/test/TEST-*xml'
+        path: '**/test-results/**/TEST-*.xml'
         reporter: java-junit
