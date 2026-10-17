@@ -2,46 +2,20 @@ name: release
 
 on:
   push:
-    branches:
-    - main
+    branches: [main]
+  workflow_dispatch:
+    inputs:
+      tag:
+        description: Release tag to publish, e.g. v1.0.0. Set only to re-publish a failed release.
+        required: true
+
+permissions:
+  contents: write
+  pull-requests: write
 
 jobs:
-  release-please:
-    runs-on: ubuntu-latest
-    outputs:
-      release_created: ${{ steps.release.outputs.release_created }}
-      tag_name: ${{ steps.release.outputs.tag_name }}
-    steps:
-    - uses: GoogleCloudPlatform/release-please-action@v3.7
-      id: release
-      with:
-        release-type: simple
-        signoff: Joke de Buhr <joke@xckk.de>
-        token: ${{ secrets.RELEASE_PLEASE }}
-
-  publish:
-    needs: release-please
-    runs-on: ubuntu-latest
-    if: ${{ needs.release-please.outputs.release_created }}
-    steps:
-    - uses: actions/checkout@v3
-      with:
-        ref: ${{ needs.release-please.outputs.tag_name }}
-    - uses: crazy-max/ghaction-import-gpg@v5
-      with:
-        gpg_private_key: ${{ secrets.GPG_PRIVATE_KEY }}
-    - uses: actions/setup-java@v3
-      with:
-        java-version: 17
-        distribution: zulu
-    - name: gradle setup
-      uses: gradle/gradle-build-action@v2
-    - name: build
-      run: ./gradlew build -x test
-    - name: publish
-      run: ./gradlew publish
-      env:
-        ORG_GRADLE_PROJECT_OSSRHUsername: ${{ secrets.OSSRH_USERNAME }}
-        ORG_GRADLE_PROJECT_OSSRHPassword: ${{ secrets.OSSRH_TOKEN }}
-        ORG_GRADLE_PROJECT_GitHubPackagesUsername: ${{ secrets.GITHUB_ACTOR }}
-        ORG_GRADLE_PROJECT_GitHubPackagesPassword: ${{ secrets.GITHUB_TOKEN }}
+  release:
+    uses: joke/workflows/.github/workflows/gradle-release.yml@main
+    with:
+      tag: ${{ inputs.tag || '' }}
+    secrets: inherit
