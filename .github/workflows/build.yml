@@ -11,27 +11,4 @@ permissions:
 
 jobs:
   build:
-    # release-please PRs and the release commits they merge into only touch CHANGELOG.md and the
-    # manifest - a full check is superfluous there. On the release commit it would also fail: the
-    # manifest already names the new version, but release-please tags it in a parallel workflow, so
-    # the checkout races the tag and the version plugin rejects a manifest version with no tag.
-    if: >-
-      ${{ !startsWith(github.head_ref, 'release-please--')
-      && !startsWith(github.event.head_commit.message, 'chore: release ') }}
-    runs-on: ubuntu-latest
-    steps:
-    - uses: actions/checkout@v7
-      with:
-        # `check` configures the publications and therefore resolves the version, which needs the
-        # full history.
-        fetch-depth: 0
-    - uses: jdx/mise-action@v4
-    - uses: gradle/actions/setup-gradle@v6
-    - run: ./gradlew check
-    - name: Test Report
-      uses: dorny/test-reporter@v3
-      if: ${{ !cancelled() }}
-      with:
-        name: rests
-        path: '**/test-results/**/TEST-*.xml'
-        reporter: java-junit
+    uses: joke/workflows/.github/workflows/gradle-build.yml@main
