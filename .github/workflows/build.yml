@@ -11,4 +11,4 @@ permissions:
 
 jobs:
   build:
-    uses: joke/workflows/.github/workflows/gradle-build.yml@main
+    uses: joke/workflows/.github/workflows/gradle-build.yml@v1.0.0
