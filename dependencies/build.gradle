@@ -8,7 +8,7 @@ javaPlatform {
 
 dependencies {
 
-    api platform('org.apache.groovy:groovy-bom:4.0.7')
+    api platform('org.apache.groovy:groovy-bom:6.0.0')
     api platform('org.spockframework:spock-bom:2.3-groovy-4.0')
 
     constraints {
@@ -18,12 +18,12 @@ dependencies {
         api 'com.google.dagger:dagger:2.44.2'
         api 'com.google.errorprone:error_prone_core:2.18.0'
         api 'com.uber.nullaway:nullaway:0.10.10'
-        api 'io.github.joke:spock-deepmock:4.0.0'
-        api 'io.github.joke:spock-outputcapture:3.0.1'
+        api 'io.github.joke:spock-deepmock:5.0.0'
+        api 'io.github.joke:spock-outputcapture:4.0.1'
         api 'javax.inject:javax.inject:1'
         api 'net.bytebuddy:byte-buddy-agent:1.13.0'
         api 'net.bytebuddy:byte-buddy:1.14.0'
-        api 'org.jetbrains:annotations:24.0.0'
+        api 'org.jetbrains:annotations:26.1.0'
         api 'org.objenesis:objenesis:3.3'
         api 'org.projectlombok:lombok:1.18.26'
         api 'org.slf4j:slf4j-simple:2.0.6'
