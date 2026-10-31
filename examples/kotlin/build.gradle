@@ -1,12 +1,12 @@
 plugins {
     id 'java'
     id 'groovy'
-    id 'org.jetbrains.kotlin.jvm' version '1.8.20'
+    id 'org.jetbrains.kotlin.jvm' version '2.4.21'
 }
 
 dependencies {
     testImplementation enforcedPlatform(project(':dependencies'))
-    testImplementation enforcedPlatform('org.apache.groovy:groovy-bom:4.0.7')
+    testImplementation enforcedPlatform('org.apache.groovy:groovy-bom:6.0.0')
     testImplementation enforcedPlatform('org.spockframework:spock-bom:2.3-groovy-4.0')
     testImplementation project(path: ':spock-mockable', configuration: 'shadow')
     testImplementation 'org.spockframework:spock-core'
