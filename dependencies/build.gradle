@@ -8,25 +8,25 @@ javaPlatform {
 
 dependencies {
 
-    api platform('org.apache.groovy:groovy-bom:4.0.7')
+    api platform('org.apache.groovy:groovy-bom:4.0.33')
     api platform('org.spockframework:spock-bom:2.3-groovy-4.0')
 
     constraints {
-        api 'com.google.auto.service:auto-service-annotations:1.0.1'
-        api 'com.google.auto.service:auto-service:1.0.1'
-        api 'com.google.dagger:dagger-compiler:2.45'
-        api 'com.google.dagger:dagger:2.44.2'
-        api 'com.google.errorprone:error_prone_core:2.18.0'
-        api 'com.uber.nullaway:nullaway:0.10.10'
+        api 'com.google.auto.service:auto-service-annotations:1.1.1'
+        api 'com.google.auto.service:auto-service:1.1.1'
+        api 'com.google.dagger:dagger-compiler:2.60.1'
+        api 'com.google.dagger:dagger:2.60.1'
+        api 'com.google.errorprone:error_prone_core:2.51.0'
+        api 'com.uber.nullaway:nullaway:0.14.3'
         api 'io.github.joke:spock-deepmock:4.0.0'
         api 'io.github.joke:spock-outputcapture:3.0.1'
         api 'javax.inject:javax.inject:1'
-        api 'net.bytebuddy:byte-buddy-agent:1.13.0'
-        api 'net.bytebuddy:byte-buddy:1.14.0'
-        api 'org.jetbrains:annotations:24.0.0'
-        api 'org.objenesis:objenesis:3.3'
-        api 'org.projectlombok:lombok:1.18.26'
-        api 'org.slf4j:slf4j-simple:2.0.6'
+        api 'net.bytebuddy:byte-buddy-agent:1.18.17-jdk5'
+        api 'net.bytebuddy:byte-buddy:1.18.17-jdk5'
+        api 'org.jetbrains:annotations:24.1.0'
+        api 'org.objenesis:objenesis:3.6'
+        api 'org.projectlombok:lombok:1.18.48'
+        api 'org.slf4j:slf4j-simple:2.0.20'
     }
 
 }
