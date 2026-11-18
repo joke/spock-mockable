@@ -1,7 +1,7 @@
 plugins {
     id 'com.github.johnrengelman.shadow' version '7.1.2' apply false
     id 'idea'
-    id 'net.ltgt.errorprone' version '3.0.1' apply false
+    id 'net.ltgt.errorprone' version '3.1.0' apply false
     id 'org.shipkit.shipkit-auto-version' version '1.2.2'
     id 'io.freefair.lombok' version '6.6.3'
 }
@@ -36,7 +36,7 @@ allprojects { project ->
 
     pluginManager.withPlugin('lombok') {
         lombok {
-            version = '1.18.24'
+            version = '1.18.48'
         }
     }
 
