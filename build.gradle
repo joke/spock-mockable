@@ -1,9 +1,9 @@
 plugins {
-    id 'com.github.johnrengelman.shadow' version '7.1.2' apply false
+    id 'com.github.johnrengelman.shadow' version '8.1.1' apply false
     id 'idea'
-    id 'net.ltgt.errorprone' version '3.0.1' apply false
-    id 'org.shipkit.shipkit-auto-version' version '1.2.2'
-    id 'io.freefair.lombok' version '6.6.3'
+    id 'net.ltgt.errorprone' version '5.2.0' apply false
+    id 'org.shipkit.shipkit-auto-version' version '2.1.2'
+    id 'io.freefair.lombok' version '9.8.3'
 }
 
 allprojects { project ->
